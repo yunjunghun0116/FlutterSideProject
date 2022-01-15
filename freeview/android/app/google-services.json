@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "980123569883",
+    "project_id": "freeview-34daa",
+    "storage_bucket": "freeview-34daa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980123569883:android:99bb9c08312852ed8c06fe",
+        "android_client_info": {
+          "package_name": "com.freeview.crew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980123569883-jrspbbe7g4pkailgjegn1gkphut78eh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmtx0xR5pGSYL3mI5lhce7zxdeZkdm1II"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980123569883-jrspbbe7g4pkailgjegn1gkphut78eh7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "980123569883-mqafp5hh5o4aoc7qo45jmj8k5k4ihkks.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.freeview.crew"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
