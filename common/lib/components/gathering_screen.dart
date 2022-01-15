@@ -13,7 +13,7 @@ class GatheringScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('check');
+    print('chck');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kWhiteColor,
