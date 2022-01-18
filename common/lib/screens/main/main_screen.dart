@@ -13,22 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  String _userUniversity = '';
   int _currentScreenIndex = 2;
-
-  @override
-  void initState() {
-    super.initState();
-    _getUserUniversity();
-  }
-
-  void _getUserUniversity() {
-    setState(() {
-      _userUniversity = DatabaseController.to.user != null
-          ? DatabaseController.to.user!.university
-          : '충남대학교';
-    });
-  }
 
   Widget _getMainScreen() {
     switch (_currentScreenIndex) {
@@ -37,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
           followUserList: DatabaseController.to.user!.likeUser,
         );
       case 2:
-        return HomeScreen(university: _userUniversity);
+        return HomeScreen(university: DatabaseController.to.user!.university);
       case 4:
         return UserScreen(
           user: DatabaseController.to.user!,
@@ -52,7 +37,10 @@ class _MainScreenState extends State<MainScreen> {
     if (DatabaseController.to.user != null) {
       if (await DatabaseController.to
           .getCurrentUser(DatabaseController.to.user!.id)) {
-        setState(() {});
+        //TODO mounted -> 생명주기에 대해서 다시한번 공부하자
+        if (mounted) {
+          setState(() {});
+        }
       }
     }
   }

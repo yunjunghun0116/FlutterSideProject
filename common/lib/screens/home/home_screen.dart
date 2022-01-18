@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   Widget _getGatheringCard(List<Gathering> list) {
     GatheringController.to.setGatheringList();
     return Column(
