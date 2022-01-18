@@ -60,6 +60,18 @@ class DatabaseController extends GetxController {
     return userData;
   }
 
+  Future<Gathering> getGathering(String id) async{
+    DocumentSnapshot<Map<String, dynamic>> _dbGathering =
+    await (_firestore.collection('gathering').doc(id).get());
+
+    Map<String, dynamic> json = _dbGathering.data()!;
+    Gathering gatheringData = Gathering.fromJson({
+      'id': _dbGathering.id,
+      ...json,
+    });
+    return gatheringData;
+  }
+
   Future<bool> checkPhoneNumberIsDuplicated(String phoneNumber) async {
     QuerySnapshot _dbPhoneList = await (_firestore
         .collection('user')
@@ -164,6 +176,7 @@ class DatabaseController extends GetxController {
         await _firestore.collection('gathering').doc(gatheringId).get();
 
     List _applyList = _gatheringData['applyList'];
+
     _applyList.add(Applicant(
       userId: user!.id,
       name: user!.name,
@@ -241,13 +254,22 @@ class DatabaseController extends GetxController {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
     List _approvalList = _gatheringData['approvalList'];
-
     _approvalList
         .removeWhere((applicant) => applicant['userId'] == applicantId);
 
     await _firestore.collection('gathering').doc(gatheringId).update({
       'approvalList': _approvalList,
     });
+
+    DocumentSnapshot<Map<String, dynamic>> _applicantData =
+    await _firestore.collection('user').doc(applicantId).get();
+    List _applyGatheringList = _applicantData['applyGatheringList'];
+    _applyGatheringList.removeWhere((gathering) => gathering['id'] == gatheringId);
+    await _firestore
+        .collection('user')
+        .doc(applicantId)
+        .update({'applyGatheringList': _applyGatheringList});
+
   }
 
   Future<void> cancelApproveUser(String gatheringId, String applicantId) async {

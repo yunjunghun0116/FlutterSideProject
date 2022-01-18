@@ -41,7 +41,6 @@ class UserScreen extends StatelessWidget {
                       () => ProfileScreen(
                         currentUserId: DatabaseController.to.user!.id,
                         user: DatabaseController.to.user!,
-                        //TODO 팔로잉된 유저인가
                         isFollowed: false,
                       ),
                     );

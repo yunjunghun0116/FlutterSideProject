@@ -1,6 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'constants.dart';
 import 'controllers/database_controller.dart';
 import 'controllers/connect_controller.dart';
