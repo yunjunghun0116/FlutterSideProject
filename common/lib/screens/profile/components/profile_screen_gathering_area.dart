@@ -60,7 +60,7 @@ class ProfileScreenGatheringArea extends StatelessWidget {
               userImageUrl: gathering.host.imageUrl,
               userJob: gathering.host.job,
               gatheringTitle: gathering.title,
-              gatheringParticipant: gathering.participant,
+              gatheringParticipant: gathering.approvalList.length,
               gatheringCapacity: gathering.capacity,
               gatheringOpenTime: gathering.openTime,
               gatheringEndTime: gathering.endTime,

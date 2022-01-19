@@ -26,7 +26,9 @@ class UniversityScreenUniversitySelectArea extends StatelessWidget {
                 await UserController.to
                     .setUserUniversity(university)
                     .then((value) {
-                  Get.off(() => const MainScreen());
+                  if (value) {
+                    Get.offAll(() => const MainScreen());
+                  }
                 });
               } else {
                 showDialog(

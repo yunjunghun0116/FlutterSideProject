@@ -1,5 +1,8 @@
-import 'package:common/components/user_info_shimmer.dart';
+import 'package:common/controllers/database_controller.dart';
+import 'package:common/models/user.dart';
+import 'package:common/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'components/follow_screen_card_button_area.dart';
 import '../../components/user_info.dart';
 import '../../constants.dart';
@@ -28,45 +31,36 @@ class FollowScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        children: [
-          Column(
+        children: followUserList.map((user) {
+          return Column(
             children: [
               UserInfo(
-                userId: '123',
-                imageUrl: noPersonImage,
-                name: 'wow',
-                job: 'check',
-                hostTagList: ['아 쫌'],
+                userId: user.id,
+                imageUrl: user.imageUrl,
+                name: user.name,
+                job: user.job,
+                hostTagList: user.userTagList,
               ),
               FollowScreenCardButtonArea(
                 chatPressed: () {},
-                detailPressed: () {},
+                detailPressed: () async {
+                  User _user = await DatabaseController.to.getUser(user.id);
+                  bool _isFollowed = DatabaseController.to.user!.likeUser
+                          .indexWhere((element) => element.id == user.id) !=
+                      -1;
+                  Get.to(
+                    () => ProfileScreen(
+                      currentUserId: _user.id,
+                      user: _user,
+                      isFollowed: _isFollowed,
+                    ),
+                  );
+                },
               ),
               const Divider(),
-              UserInfoShimmer(),
             ],
-          ),
-          Column(
-            children: followUserList.map((user) {
-              return Column(
-                children: [
-                  UserInfo(
-                    userId: user.id,
-                    imageUrl: user.imageUrl,
-                    name: user.name,
-                    job: user.job,
-                    hostTagList: user.userTagList,
-                  ),
-                  FollowScreenCardButtonArea(
-                    chatPressed: () {},
-                    detailPressed: () {},
-                  ),
-                  const Divider(),
-                ],
-              );
-            }).toList(),
-          ),
-        ],
+          );
+        }).toList(),
       ),
     );
   }
