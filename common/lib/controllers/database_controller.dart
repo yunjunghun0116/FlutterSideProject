@@ -92,14 +92,18 @@ class DatabaseController extends GetxController {
 
   Future<String> makeUser(Map<String, dynamic> body) async {
     String? id;
-    await _firestore.collection('user').add(body).then((value) {
-      id = value.id;
-      user = User.fromJson({
-        'id': value.id,
-        ...body,
+    try{
+      await _firestore.collection('user').add(body).then((value) {
+        id = value.id;
+        user = User.fromJson({
+          'id': value.id,
+          ...body,
+        });
+        update();
       });
-      update();
-    });
+    }catch(e){
+      return '';
+    }
     return id!;
   }
 
@@ -128,17 +132,17 @@ class DatabaseController extends GetxController {
   }
 
   Future<List<User>?> getUserDocs() async {
-    QuerySnapshot userData = await _firestore.collection('user').get();
-    List<User> userList = [];
-    List userDocs = userData.docs;
-    for (int i = 0; i < userDocs.length; i++) {
+    QuerySnapshot _userData = await _firestore.collection('user').get();
+    List<User> _userList = [];
+    List _userDocs = _userData.docs;
+    for (int i = 0; i < _userDocs.length; i++) {
       Map<String, dynamic> body = {
-        'id': userDocs[i].id,
-        ...userDocs[i].data() as Map<String, dynamic>
+        'id': _userDocs[i].id,
+        ..._userDocs[i].data() as Map<String, dynamic>
       };
-      userList.add(User.fromJson(body));
+      _userList.add(User.fromJson(body));
     }
-    return userList;
+    return _userList;
   }
 
   Future<List<Gathering>?> getGatheringDocs() async {
@@ -156,9 +160,14 @@ class DatabaseController extends GetxController {
     return gatheringList;
   }
 
-  //TODO try-catch문을 통해 업데이트했는지못했는지를 알려줘야할듯
-  Future<void> updateUser(Map<String, dynamic> body) async {
-    await _firestore.collection('user').doc(user!.id).update(body);
+  Future<bool> updateUser(Map<String, dynamic> body) async {
+    try{
+      await _firestore.collection('user').doc(user!.id).update(body);
+      return true;
+    }catch(e){
+      return false;
+    }
+
   }
 
   Future<String?> updateImage(File file) async {
@@ -246,6 +255,7 @@ class DatabaseController extends GetxController {
           .doc(applicantId)
           .update({'applyGatheringList': _applyGatheringList});
     }
+
 
   }
 

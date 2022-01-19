@@ -36,9 +36,9 @@ class _ProfileScreenEditScreenState extends State<ProfileScreenEditScreen> {
     String? _downloadUrl = await DatabaseController.to.updateImage(image);
     if (_downloadUrl != null) {
       Map<String, String> body = {'imageUrl': _downloadUrl};
-      await DatabaseController.to.updateUser(body);
+     return  await DatabaseController.to.updateUser(body);
     }
-    return true;
+    return false;
   }
 
   @override

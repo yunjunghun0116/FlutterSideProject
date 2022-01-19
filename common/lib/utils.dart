@@ -21,28 +21,6 @@ List<String> getDateTime(String openTime, String endTime) {
   return _returnDate;
 }
 
-List<Gathering> getListWithFilter(List<Gathering> gatheringList, int filter) {
-  List<Gathering> _gatheringList = gatheringList.sublist(0);
-  switch (filter) {
-    case 0:
-      _gatheringList.sort(
-        (Gathering a, Gathering b) =>
-            DateTime.parse(b.endTime != '' ? b.endTime : b.openTime).compareTo(
-          DateTime.parse(a.endTime != '' ? a.endTime : a.openTime),
-        ),
-      );
-      return _gatheringList;
-    case 1:
-      _gatheringList.sort(
-        (Gathering a, Gathering b) => DateTime.parse(a.openTime).compareTo(
-          DateTime.parse(b.openTime),
-        ),
-      );
-      return _gatheringList;
-    default:
-      return _gatheringList;
-  }
-}
 
 String getTime(int time){
   if(time<10){

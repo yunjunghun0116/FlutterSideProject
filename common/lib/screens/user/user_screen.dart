@@ -65,7 +65,6 @@ class UserScreen extends StatelessWidget {
                           gatheringList: user.applyGatheringList,
                     ),);
                   }),
-              UserScreenContentCard(text: '참여한 모임 사진', onPressed: () {}),
               const UserScreenContentTitle(title: '어플정보'),
               UserScreenContentCard(text: '공지사항', onPressed: () {}),
               UserScreenContentCard(text: '1:1 문의', onPressed: () {}),

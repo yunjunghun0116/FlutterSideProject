@@ -13,49 +13,30 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentScreenIndex = 2;
+  int _currentScreenIndex = 0;
 
   Widget _getMainScreen() {
     switch (_currentScreenIndex) {
+      case 0:
+        return HomeScreen(university: DatabaseController.to.user!.university);
       case 1:
         return FollowScreen(
-          followUserList: DatabaseController.to.user!.likeUser,
-        );
-      case 2:
-        return HomeScreen(university: DatabaseController.to.user!.university);
+            followUserList: DatabaseController.to.user!.likeUser);
       case 4:
-        return UserScreen(
-          user: DatabaseController.to.user!,
-        );
+        return UserScreen(user: DatabaseController.to.user!);
       default:
         return Container();
     }
   }
 
-  void _updateScreen() async {
-    await GatheringController.to.setGatheringList();
-    if (DatabaseController.to.user != null) {
-      if (await DatabaseController.to
-          .getCurrentUser(DatabaseController.to.user!.id)) {
-        //TODO mounted -> 생명주기에 대해서 다시한번 공부하자
-        if (mounted) {
-          setState(() {});
-        }
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    _updateScreen();
     return Scaffold(
       body: _getMainScreen(),
       bottomNavigationBar: MainScreenBottomNavigationBar(
         currentIndex: _currentScreenIndex,
         onTap: (int index) {
-          if (index == 0 || index == 3) {
-            return;
-          }
           setState(() {
             _currentScreenIndex = index;
           });

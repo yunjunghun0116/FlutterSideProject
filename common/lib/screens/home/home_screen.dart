@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           userImageUrl: gathering.host.imageUrl,
           userJob: gathering.host.job,
           gatheringTitle: gathering.title,
-          gatheringParticipant: gathering.participant,
+          gatheringParticipant: gathering.approvalList.length,
           gatheringCapacity: gathering.capacity,
           gatheringOpenTime: gathering.openTime,
           gatheringEndTime: gathering.endTime,
@@ -84,20 +84,24 @@ class _HomeScreenState extends State<HomeScreen> {
           const HomeScreenAdvertiseArea(),
           const HomeScreenCategoryArea(),
           const Divider(thickness: 2),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  '최근 올라온 모임을 소개해드릴게요!!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              _getGatheringCard(GatheringController.to.gatheringList),
-            ],
+          GetBuilder<GatheringController>(
+           builder:(context){
+             return Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 const Padding(
+                   padding: EdgeInsets.symmetric(horizontal: 10),
+                   child: Text(
+                     '최근 올라온 모임을 소개해드릴게요!!',
+                     style: TextStyle(
+                       fontWeight: FontWeight.w600,
+                     ),
+                   ),
+                 ),
+                 _getGatheringCard(GatheringController.to.gatheringList),
+               ],
+             );
+           }
           ),
         ],
       ),

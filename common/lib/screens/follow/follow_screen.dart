@@ -1,3 +1,4 @@
+import 'package:common/components/user_info_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'components/follow_screen_card_button_area.dart';
 import '../../components/user_info.dart';
@@ -27,24 +28,45 @@ class FollowScreen extends StatelessWidget {
         ),
       ),
       body: ListView(
-        children: followUserList.map((user) {
-          return Column(
+        children: [
+          Column(
             children: [
               UserInfo(
-                userId: user.id,
-                imageUrl: user.imageUrl,
-                name: user.name,
-                job: user.job,
-                hostTagList: user.userTagList,
+                userId: '123',
+                imageUrl: noPersonImage,
+                name: 'wow',
+                job: 'check',
+                hostTagList: ['아 쫌'],
               ),
               FollowScreenCardButtonArea(
                 chatPressed: () {},
                 detailPressed: () {},
               ),
               const Divider(),
+              UserInfoShimmer(),
             ],
-          );
-        }).toList(),
+          ),
+          Column(
+            children: followUserList.map((user) {
+              return Column(
+                children: [
+                  UserInfo(
+                    userId: user.id,
+                    imageUrl: user.imageUrl,
+                    name: user.name,
+                    job: user.job,
+                    hostTagList: user.userTagList,
+                  ),
+                  FollowScreenCardButtonArea(
+                    chatPressed: () {},
+                    detailPressed: () {},
+                  ),
+                  const Divider(),
+                ],
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }

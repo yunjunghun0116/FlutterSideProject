@@ -45,8 +45,11 @@ class _UniversityScreenState extends State<UniversityScreen> {
                   ['university'],
               saveUniversity: (String university) async {
                 Map<String, dynamic> body = {'university': university};
-                await DatabaseController.to.updateUser(body);
-                LocalController.to.setUniversity(university);
+                if(await DatabaseController.to.updateUser(body)){
+                  LocalController.to.setUniversity(university);
+                }
+
+
               },
             ),
           ),

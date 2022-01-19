@@ -11,6 +11,7 @@ const Color kLightGreyColor = Color(0xFFE9E9E9);
 const Color kRedColor = Color(0xFFFF0000);
 const Color kYellowColor = Color(0xFFFFB800);
 const Color kPinkColor = Color(0xFFFF7878);
+const Color kShimmerColor = Color(0x80979797);
 
 String noPersonImage = 'https://www.pinclipart.com/picdir/big/169-1695846_jane-no-one-icon-clipart.png';
 

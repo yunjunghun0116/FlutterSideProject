@@ -143,7 +143,8 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
                     User user =
                         await DatabaseController.to.getUser(applicant.userId);
                     bool isFollowed =
-                        DatabaseController.to.user!.likeUser.contains(user);
+                        DatabaseController.to.user!.likeUser.indexWhere((element)=> element.id == applicant.userId
+                        )!=-1;
                     Get.to(
                       () => ProfileScreen(
                         currentUserId: DatabaseController.to.user!.id,

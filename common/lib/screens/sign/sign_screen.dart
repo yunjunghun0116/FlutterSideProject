@@ -116,10 +116,12 @@ class _SignScreenState extends State<SignScreen> {
                   await DatabaseController.to
                       .makeUser(body)
                       .then((value) async {
-                    await LocalController.to.setId(value);
-                    Get.offAll(
-                      () => const MainScreen(),
-                    );
+                    if (value != '') {
+                      await LocalController.to.setId(value);
+                      Get.offAll(
+                        () => const MainScreen(),
+                      );
+                    }
                   });
                 }
               }),

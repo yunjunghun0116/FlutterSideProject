@@ -19,7 +19,6 @@ class ApplicantsScreen extends StatefulWidget {
 
 class _ApplicantsScreenState extends State<ApplicantsScreen> {
   int _currentSelectIndex = 0;
-  //TODO 실시간으로 보여줄때는 _applicantsList에서 removeAt/add 사용
   List _applicantsList = [];
 
   Widget _getApplicantsCard() {
@@ -43,38 +42,36 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
           followed: false,
           currentIndex: _currentSelectIndex,
           updateFunction: () async {
-            if(await DatabaseController.to
-                .getCurrentUser(DatabaseController.to.user!.id)){
+            if (await DatabaseController.to
+                .getCurrentUser(DatabaseController.to.user!.id)) {
               setState(() {});
-            };
-
+            }
           },
-          approveFunction: () async{
-            await  DatabaseController.to.userApproveGathering(widget.gathering.id, applicant.userId);
+          approveFunction: () async {
+            await DatabaseController.to
+                .userApproveGathering(widget.gathering.id, applicant.userId);
             widget.gathering.approvalList.add(applicant);
             widget.gathering.applyList.remove(applicant);
-            setState(() {
-
-            });
+            setState(() {});
           },
-          removeInApprovalFunction: () async{
-            await  DatabaseController.to.removeUserInApprovalList(widget.gathering.id, applicant.userId);
-            widget.gathering.approvalList.remove(applicant);setState(() {
-
-            });
-          },
-          cancelApproveFunction: ()async{
-           await  DatabaseController.to.cancelApproveUser(widget.gathering.id, applicant.userId);
+          removeInApprovalFunction: () async {
+            await DatabaseController.to.removeUserInApprovalList(
+                widget.gathering.id, applicant.userId);
             widget.gathering.approvalList.remove(applicant);
-            widget.gathering.cancelList.remove(applicant);setState(() {
-
-           });
+            setState(() {});
           },
-          cancelDeleteFunction: ()async{
-            await  DatabaseController.to.cancelDeleteUser(widget.gathering.id, applicant.userId);
-            widget.gathering.cancelList.remove(applicant);setState(() {
-
-            });
+          cancelApproveFunction: () async {
+            await DatabaseController.to
+                .cancelApproveUser(widget.gathering.id, applicant.userId);
+            widget.gathering.approvalList.remove(applicant);
+            widget.gathering.cancelList.remove(applicant);
+            setState(() {});
+          },
+          cancelDeleteFunction: () async {
+            await DatabaseController.to
+                .cancelDeleteUser(widget.gathering.id, applicant.userId);
+            widget.gathering.cancelList.remove(applicant);
+            setState(() {});
           },
         );
       }).toList(),
@@ -108,10 +105,10 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
               });
             },
           ),
-          widget.gathering.participant > 0
+          widget.gathering.approvalList.isNotEmpty
               ? UserGatheringStatus(
                   content:
-                      '${widget.gathering.capacity}명 중 ${widget.gathering.participant}명 모집 완료!!',
+                      '${widget.gathering.capacity}명 중 ${widget.gathering.approvalList.length}명 모집 완료!!',
                 )
               : Container(),
           Expanded(

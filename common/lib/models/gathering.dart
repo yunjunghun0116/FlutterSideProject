@@ -8,7 +8,6 @@ class Gathering {
   final bool over; //이 모임이 터졌나 확인하기위한 bool값 false가 기본값, true가 되면 모임터진거임
   final String title;
   final String category;
-  final int participant;
   final int capacity;
   final String openTime;
   final String endTime;
@@ -27,7 +26,6 @@ class Gathering {
     required this.over,
     required this.title,
     required this.category,
-    required this.participant,
     required this.capacity,
     required this.openTime,
     required this.endTime,
@@ -47,7 +45,6 @@ class Gathering {
         over: json['over'],
         title: json['title'],
         category: json['category'],
-        participant: json['participant'],
         capacity: json['capacity'],
         openTime: json['openTime'],
         endTime: json['endTime'],
@@ -75,7 +72,6 @@ class Gathering {
       'over': over,
       'title': title,
       'category': category,
-      'participant': participant,
       'capacity': capacity,
       'openTime': openTime,
       'endTime': endTime,

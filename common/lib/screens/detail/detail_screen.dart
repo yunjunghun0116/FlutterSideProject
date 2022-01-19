@@ -36,17 +36,15 @@ class _DetailScreenState extends State<DetailScreen> {
   int _userStateIndex = 0;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     updateScreen();
     checkUserStateIndex(DatabaseController.to.user!.id);
   }
 
-
   Future<void> updateScreen() async {
     await GatheringController.to.setGatheringList();
-    await DatabaseController.to
-        .getCurrentUser(DatabaseController.to.user!.id);
+    await DatabaseController.to.getCurrentUser(DatabaseController.to.user!.id);
   }
 
   void checkUserStateIndex(String id) {
@@ -59,7 +57,7 @@ class _DetailScreenState extends State<DetailScreen> {
       }
     }
     for (int i = 0; i < widget.gathering.cancelList.length; i++) {
-      if ( widget.gathering.cancelList[i].userId == id) {
+      if (widget.gathering.cancelList[i].userId == id) {
         setState(() {
           _userStateIndex = 3;
         });
@@ -67,7 +65,7 @@ class _DetailScreenState extends State<DetailScreen> {
       }
     }
     for (int i = 0; i < widget.gathering.approvalList.length; i++) {
-      if ( widget.gathering.approvalList[i].userId == id) {
+      if (widget.gathering.approvalList[i].userId == id) {
         setState(() {
           _userStateIndex = 2;
         });
@@ -86,7 +84,7 @@ class _DetailScreenState extends State<DetailScreen> {
         titleSpacing: 0,
         elevation: 1,
         title: Text(
-          '${ widget.gathering.host.name} 호스트',
+          '${widget.gathering.host.name} 호스트',
           style: const TextStyle(
             color: kBlackColor,
             fontWeight: FontWeight.bold,
@@ -110,21 +108,25 @@ class _DetailScreenState extends State<DetailScreen> {
             child: ListView(
               children: [
                 UserInfo(
-                  userId:  widget.gathering.host.userId,
-                  imageUrl:  widget.gathering.host.imageUrl,
-                  name:  widget.gathering.host.name,
+                  userId: widget.gathering.host.userId,
+                  imageUrl: widget.gathering.host.imageUrl,
+                  name: widget.gathering.host.name,
                   job: widget.gathering.host.job,
-                  hostTagList:  widget.gathering.host.userTagList,
+                  hostTagList: widget.gathering.host.userTagList,
                 ),
                 GestureDetector(
                   onTap: () async {
                     User user = await DatabaseController.to
-                        .getUser( widget.gathering.host.userId);
+                        .getUser(widget.gathering.host.userId);
+                    bool isFollowed = DatabaseController.to.user!.likeUser
+                            .indexWhere((element) =>
+                                element.id == widget.gathering.host.userId) !=
+                        -1;
                     Get.to(
                       () => ProfileScreen(
                         currentUserId: DatabaseController.to.user!.id,
                         user: user,
-                        isFollowed: false,
+                        isFollowed: isFollowed,
                       ),
                     );
                   },
@@ -148,45 +150,45 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 DetailScreenGatheringInfoCard(
                   title: '제목',
-                  content:  widget.gathering.title,
+                  content: widget.gathering.title,
                   icon: Icons.star,
                   iconColor: kYellowColor,
                 ),
                 DetailScreenGatheringInfoCard(
                   title: '카테고리',
-                  content:  widget.gathering.category,
+                  content: widget.gathering.category,
                   icon: Icons.category,
                 ),
                 DetailScreenGatheringProgressBar(
-                  participantCount:  widget.gathering.participant,
-                  capacity:  widget.gathering.capacity,
+                  participantCount: widget.gathering.approvalList.length,
+                  capacity: widget.gathering.capacity,
                 ),
                 widget.isHost
                     ? DetailScreenGatheringApplicantsCheckButton(
                         onPressed: () {
                           Get.to(
                             () => ApplicantsScreen(
-                              gathering:  widget.gathering,
+                              gathering: widget.gathering,
                             ),
                           );
                         },
                       )
                     : Container(),
                 DetailScreenGatheringDateTime(
-                  openTime:  widget.gathering.openTime,
-                  endTime:  widget.gathering.endTime,
+                  openTime: widget.gathering.openTime,
+                  endTime: widget.gathering.endTime,
                 ),
                 DetailScreenGatheringPlaceInfo(
-                  location:  widget.gathering.location,
-                  locationDetail:  widget.gathering.locationDetail,
-                  hostMessage:  widget.gathering.hostMessage,
+                  location: widget.gathering.location,
+                  locationDetail: widget.gathering.locationDetail,
+                  hostMessage: widget.gathering.hostMessage,
                 ),
                 DetailScreenGatheringHashTag(
-                  tagList:  widget.gathering.tagList,
+                  tagList: widget.gathering.tagList,
                 ),
                 widget.gathering.previousImageList.isNotEmpty
                     ? DetailScreenPreviousGatheringImage(
-                        imageList:widget.gathering.previousImageList,
+                        imageList: widget.gathering.previousImageList,
                       )
                     : Container(),
               ],

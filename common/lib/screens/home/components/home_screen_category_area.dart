@@ -1,3 +1,4 @@
+import 'package:common/controllers/gathering_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../category/category_screen.dart';
@@ -15,7 +16,11 @@ class HomeScreenCategoryArea extends StatelessWidget {
       children: kCategoryList.map((Map<String, dynamic> category) {
         return InkWell(
           onTap: () {
-            Get.to(() => CategoryScreen(category: category['title']));
+            GatheringController.to
+                .setCategoryGatheringList(category['title'])
+                .then((value) {
+              Get.to(() => CategoryScreen(category: category['title']));
+            });
           },
           child: Container(
             alignment: Alignment.center,
