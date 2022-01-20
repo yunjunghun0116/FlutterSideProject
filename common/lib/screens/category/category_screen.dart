@@ -13,7 +13,6 @@ class CategoryScreen extends StatelessWidget {
     required this.category,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +53,7 @@ class CategoryScreen extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(() => UploadScreen(category:category));
+          Get.to(() => UploadScreen(category: category));
         },
         backgroundColor: kYellowColor,
         foregroundColor: kWhiteColor,

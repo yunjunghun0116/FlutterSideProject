@@ -1,5 +1,3 @@
-import 'models/gathering.dart';
-
 List<String> getDateTime(String openTime, String endTime) {
   //[날짜 시간 (걸리는시간)]
   if (endTime == '') {
@@ -20,7 +18,6 @@ List<String> getDateTime(String openTime, String endTime) {
   _returnDate.add('$_hours시간');
   return _returnDate;
 }
-
 
 String getTime(int time){
   if(time<10){

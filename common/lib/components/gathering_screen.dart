@@ -35,7 +35,7 @@ class GatheringScreen extends StatelessWidget {
             userImageUrl: gathering.host.imageUrl,
             userJob: gathering.host.job,
             gatheringTitle: gathering.title,
-            gatheringParticipant: gathering.approvalList.length,
+            gatheringParticipant: gathering.participant,
             gatheringCapacity: gathering.capacity,
             gatheringOpenTime: gathering.openTime,
             gatheringEndTime: gathering.endTime,

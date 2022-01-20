@@ -1,4 +1,3 @@
-import 'package:common/controllers/database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/profile_screen_button_area.dart';
