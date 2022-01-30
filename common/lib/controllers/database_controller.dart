@@ -65,6 +65,7 @@ class DatabaseController extends GetxController {
         await (_firestore.collection('gathering').doc(id).get());
 
     Map<String, dynamic> json = _dbGathering.data()!;
+    print(json);
     Gathering gatheringData = Gathering.fromJson({
       'id': _dbGathering.id,
       ...json,
@@ -179,6 +180,44 @@ class DatabaseController extends GetxController {
     String? downloadUrl =
         await (ref.putFile(file).snapshot.ref.getDownloadURL());
     return downloadUrl;
+  }
+
+  Future<bool> followUser(User follower)async{
+    try{
+      DocumentSnapshot<Map<String, dynamic>> _userData =
+      await _firestore.collection('user').doc(user!.id).get();
+
+      List _likeUserList = _userData['likeUser'];
+      _likeUserList.add(follower.toMap());
+      await _firestore.collection('user').doc(user!.id).update({
+        'likeUser':_likeUserList
+      });
+      user!.likeUser.add(follower);
+      update();
+      return true;
+    }catch(e){
+      return false;
+    }
+
+  }
+
+  Future<bool> unfollowUser(User follower)async{
+    try{
+      DocumentSnapshot<Map<String, dynamic>> _userData =
+      await _firestore.collection('user').doc(user!.id).get();
+
+      List _likeUserList = _userData['likeUser'];
+      _likeUserList.removeWhere((user) => user['id'] == follower.id);
+      await _firestore.collection('user').doc(user!.id).update({
+        'likeUser':_likeUserList
+      });
+
+      user!.likeUser.removeWhere((user)=>user.id==follower.id);
+      update();
+      return true;
+    }catch(e){
+      return false;
+    }
   }
 
   //이용자 입장에서 필요 함수

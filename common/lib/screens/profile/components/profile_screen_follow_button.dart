@@ -12,7 +12,6 @@ class ProfileScreenFollowButton extends StatelessWidget {
         onPressed();
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 10),
         alignment: Alignment.center,
         height: 40,
         decoration: BoxDecoration(

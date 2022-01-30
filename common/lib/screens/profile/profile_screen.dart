@@ -1,8 +1,8 @@
+import 'package:common/controllers/database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/profile_screen_button_area.dart';
 import 'components/profile_screen_gathering_area.dart';
-import 'components/profile_screen_bottom_bar.dart';
 import 'components/profile_screen_edit_screen.dart';
 import '../../components/user_info.dart';
 import '../../constants.dart';
@@ -10,18 +10,15 @@ import '../../models/user.dart';
 import '../../components/gathering_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final String currentUserId;
   final User user;
-  final bool isFollowed;
   const ProfileScreen({
     Key? key,
-    required this.currentUserId,
     required this.user,
-    required this.isFollowed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kWhiteColor,
@@ -48,17 +45,28 @@ class ProfileScreen extends StatelessWidget {
           UserInfo(
             userId: user.id,
             imageUrl: user.imageUrl,
-            name:user.name,
+            name: user.name,
             job: user.job,
             hostTagList: user.userTagList,
           ),
-          ProfileScreenButtonArea(
-            userIsMe: currentUserId == user.id,
-            isFollowed: isFollowed,
-            followPressed: () {},
-            followedPressed: () {},
-            editPressed: () async {
-              await Get.to(() => ProfileScreenEditScreen(user: user));
+          GetBuilder<DatabaseController>(
+            builder: (_){
+              bool _isFollowed = DatabaseController.to.user!.likeUser
+                  .indexWhere((element) => element.id == user.id) !=
+                  -1;
+              return ProfileScreenButtonArea(
+                userIsMe: DatabaseController.to.user!.id == user.id,
+                isFollowed: _isFollowed,
+                followPressed: () async {
+                  await DatabaseController.to.followUser(user);
+                },
+                followedPressed: ()async {
+                  await DatabaseController.to.unfollowUser(user);
+                },
+                editPressed: () async {
+                  await Get.to(() => ProfileScreenEditScreen(user: user));
+                },
+              );
             },
           ),
           ProfileScreenGatheringArea(
@@ -75,21 +83,18 @@ class ProfileScreen extends StatelessWidget {
           ),
           ProfileScreenGatheringArea(
             title: '게스트로 참여한 모임',
-            gatheringList:user.applyGatheringList,
+            gatheringList: user.applyGatheringList,
             onPressed: () {
               Get.to(
                 () => GatheringScreen(
                   title: '게스트로 참여한 모임',
-                  gatheringList: user.openGatheringList,
+                  gatheringList: user.applyGatheringList,
                 ),
               );
             },
           ),
         ],
       ),
-      bottomNavigationBar: currentUserId != user.id
-          ? ProfileScreenBottomBar(chatPressed: () {})
-          : null,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'edit_screen_appbar.dart';
 import '../../../../controllers/user_controller.dart';
 import '../../../../constants.dart';
@@ -17,9 +18,30 @@ class EditKakaoScreen extends StatelessWidget {
       appBar: EditScreenAppBar(
         title: '카카오톡 링크',
         onPressed: () async {
-          await UserController.to
-              .setUserKakaoLinkUrl('https://${_controller.text}');
-          user.setUserKakaoLinkUrl('https://${_controller.text}');
+          if (_controller.text.length > 25 &&
+              _controller.text.substring(0, 25) ==
+                  'https://open.kakao.com/o/') {
+            await UserController.to.setUserKakaoLinkUrl(_controller.text);
+            user.setUserKakaoLinkUrl(_controller.text);
+          } else {
+            await Get.defaultDialog(
+              middleText: '올바른 형식의 카카오톡 링크를 입력해주세요',
+              cancel: GestureDetector(
+                onTap: (){
+                  Get.back();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children:const [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('확인'),
+                    )
+                  ],
+                ),
+              ),
+            );
+          }
         },
       ),
       body: Padding(
@@ -36,7 +58,6 @@ class EditKakaoScreen extends StatelessWidget {
             TextField(
               controller: _controller,
               decoration: const InputDecoration(
-                prefixText: 'https://',
                 prefixStyle: TextStyle(
                   color: kBlackColor,
                   fontSize: 16,
@@ -47,7 +68,7 @@ class EditKakaoScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                '플러스 친구 또는 오픈카톡 링크를 입력해주세요',
+                '오픈카톡 링크를 입력해주세요',
                 style: TextStyle(
                   color: kGreyColor,
                 ),

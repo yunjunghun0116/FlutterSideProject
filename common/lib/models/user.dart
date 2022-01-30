@@ -7,7 +7,6 @@ class User {
   String name;
   String job;
   String imageUrl;
-  String instaId;
   String kakaoLinkUrl;
   List userTagList;//String
   final List applyGatheringList;//Gathering
@@ -22,7 +21,6 @@ class User {
     required this.university,
     required this.job,
     required this.imageUrl,
-    required this.instaId,
     required this.kakaoLinkUrl,
     required this.userTagList,
     required this.applyGatheringList,
@@ -38,7 +36,6 @@ class User {
         university: json['university'],
         job: json['job'],
         imageUrl: json['imageUrl'],
-        instaId: json['instaId'],
         kakaoLinkUrl: json['kakaoLinkUrl'],
         userTagList: json['userTagList'],
         applyGatheringList:
@@ -66,7 +63,6 @@ class User {
       'job': job,
       'imageUrl': imageUrl,
       'userTagList': userTagList,
-      'instaId': instaId,
       'kakaoLinkUrl': kakaoLinkUrl,
       'applyGatheringList': applyGatheringList.map((gathering) {
         return gathering.toMap();
@@ -101,10 +97,6 @@ class User {
 
   void setUserTagList(List<String> newTagList) {
     userTagList = newTagList;
-  }
-
-  void setUserInstaId(String newId) {
-    instaId = newId;
   }
 
   void setUserKakaoLinkUrl(String newKakaoLinkUrl) {

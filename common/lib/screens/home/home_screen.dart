@@ -57,25 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: GetBuilder<DatabaseController>(
             builder: (context){
               return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Text(DatabaseController.to.user!.university),
-                      const SizedBox(width: 5),
-                      const RotatedBox(
-                        quarterTurns: 1,
-                        child: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15,
-                        ),
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
+                  Text(DatabaseController.to.user!.university),
+                  const SizedBox(width: 5),
+                  const RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15,
                     ),
                   ),
                 ],

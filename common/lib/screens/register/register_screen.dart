@@ -196,7 +196,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             'university':'충남대학교',
             'job':'',
             'imageUrl':noPersonImage,
-            'instaId':'',
             'kakaoLinkUrl':'',
             'userTagList':[],
             'applyGatheringList':[],

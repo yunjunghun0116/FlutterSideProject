@@ -39,9 +39,7 @@ class UserScreen extends StatelessWidget {
                   onPressed: () {
                     Get.to(
                       () => ProfileScreen(
-                        currentUserId: DatabaseController.to.user!.id,
                         user: DatabaseController.to.user!,
-                        isFollowed: false,
                       ),
                     );
                   }),

@@ -26,38 +26,17 @@ class ProfileScreenButtonArea extends StatelessWidget {
         horizontal: 10,
         vertical: 10,
       ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(5),
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: kGreyColor,
-              ),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Image.asset(
-              'assets/images/instagram_logo.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Expanded(
-            child: userIsMe
-                ? ProfileScreenEditButton(
-                    onPressed: editPressed,
-                  )
-                : isFollowed
-                    ? ProfileScreenFollowedButton(
-                        onPressed: followedPressed,
-                      )
-                    : ProfileScreenFollowButton(
-                        onPressed: followPressed,
-                      ),
-          ),
-        ],
-      ),
+      child: userIsMe
+          ? ProfileScreenEditButton(
+              onPressed: editPressed,
+            )
+          : isFollowed
+              ? ProfileScreenFollowedButton(
+                  onPressed: followedPressed,
+                )
+              : ProfileScreenFollowButton(
+                  onPressed: followPressed,
+                ),
     );
   }
 }

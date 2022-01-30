@@ -118,15 +118,9 @@ class _DetailScreenState extends State<DetailScreen> {
                   onTap: () async {
                     User user = await DatabaseController.to
                         .getUser(widget.gathering.host.userId);
-                    bool isFollowed = DatabaseController.to.user!.likeUser
-                            .indexWhere((element) =>
-                                element.id == widget.gathering.host.userId) !=
-                        -1;
                     Get.to(
                       () => ProfileScreen(
-                        currentUserId: DatabaseController.to.user!.id,
                         user: user,
-                        isFollowed: isFollowed,
                       ),
                     );
                   },

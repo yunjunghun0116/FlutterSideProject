@@ -25,8 +25,6 @@ class MainScreenBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline), label: '팔로우'),
         BottomNavigationBarItem(icon: Icon(Icons.local_cafe_outlined), label: '커뮤니티'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline), label: '채팅'),
         BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'my'),
       ],
     );

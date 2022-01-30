@@ -21,11 +21,10 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return HomeScreen(university: DatabaseController.to.user!.university);
       case 1:
-        return FollowScreen(
-            followUserList: DatabaseController.to.user!.likeUser) ;
+        return const FollowScreen();
       case 2:
         return const CommunityScreen();
-      case 4:
+      case 3:
         return UserScreen(user: DatabaseController.to.user!);
       default:
         return Container();

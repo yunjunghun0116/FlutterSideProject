@@ -3,15 +3,12 @@ import 'package:common/models/user.dart';
 import 'package:common/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'components/follow_screen_card_button_area.dart';
 import '../../components/user_info.dart';
 import '../../constants.dart';
 
 class FollowScreen extends StatelessWidget {
-  final List followUserList;
   const FollowScreen({
     Key? key,
-    required this.followUserList,
   }) : super(key: key);
 
   @override
@@ -30,37 +27,48 @@ class FollowScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: followUserList.map((user) {
-          return Column(
-            children: [
-              UserInfo(
-                userId: user.id,
-                imageUrl: user.imageUrl,
-                name: user.name,
-                job: user.job,
-                hostTagList: user.userTagList,
-              ),
-              FollowScreenCardButtonArea(
-                chatPressed: () {},
-                detailPressed: () async {
-                  User _user = await DatabaseController.to.getUser(user.id);
-                  bool _isFollowed = DatabaseController.to.user!.likeUser
-                          .indexWhere((element) => element.id == user.id) !=
-                      -1;
-                  Get.to(
-                    () => ProfileScreen(
-                      currentUserId: _user.id,
-                      user: _user,
-                      isFollowed: _isFollowed,
+      body: GetBuilder<DatabaseController>(
+        builder: (_) {
+          return ListView(
+            children: DatabaseController.to.user!.likeUser.map((user) {
+              return Column(
+                children: [
+                  UserInfo(
+                    userId: user.id,
+                    imageUrl: user.imageUrl,
+                    name: user.name,
+                    job: user.job,
+                    hostTagList: user.userTagList,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      User _user = await DatabaseController.to.getUser(user.id);
+                      Get.to(() => ProfileScreen(user: _user));
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.all(10),
+                      height: 40,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: kGreyColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        '상세보기',
+                        style: TextStyle(
+                          color: kGreyColor,
+                        ),
+                      ),
                     ),
-                  );
-                },
-              ),
-              const Divider(),
-            ],
+                  ),
+                  const Divider(),
+                ],
+              );
+            }).toList(),
           );
-        }).toList(),
+        },
       ),
     );
   }
