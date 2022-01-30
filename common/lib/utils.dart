@@ -1,5 +1,6 @@
+import 'dart:math';
+
 List<String> getDateTime(String openTime, String endTime) {
-  //[날짜 시간 (걸리는시간)]
   if (endTime == '') {
     List<String> _date = openTime.split(' ');
     return [_date[0], _date[1].substring(0,5)];
@@ -17,6 +18,26 @@ List<String> getDateTime(String openTime, String endTime) {
   _returnDate.add('${_openDate[1].substring(0,5)}~${_endDate[1].substring(0,5)}');
   _returnDate.add('$_hours시간');
   return _returnDate;
+}
+
+String getCertificationTime(int second){
+  if(second<=0){
+    return '0:00';
+  }
+  String minutes = (second/60).floor().toStringAsFixed(0);
+  String seconds = (second%60).toStringAsFixed(0);
+  if(seconds.length==1){
+    seconds = '0$seconds';
+  }
+  return '$minutes:$seconds';
+}
+
+String getNewCertificationNumber(){
+  String _newCertificationNumber = '';
+  for(int i = 0; i < 4; i++){
+    _newCertificationNumber += Random().nextInt(10).toString();
+  }
+  return _newCertificationNumber;
 }
 
 String getTime(int time){

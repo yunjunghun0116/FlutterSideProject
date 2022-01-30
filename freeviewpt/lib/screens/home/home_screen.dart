@@ -23,9 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final PageController _pageController = PageController(initialPage: 0);
 
-  final ScrollController _firstScrollController = ScrollController();
-  final ScrollController _secondScrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'gathering_card_info.dart';
@@ -40,10 +41,11 @@ class GatheringCard extends StatelessWidget {
     List<String> _dates = getDateTime(gatheringOpenTime, gatheringEndTime);
 
     return GestureDetector(
-      onTap: () async{
-        Gathering _gathering = await DatabaseController.to.getGathering(gathering.id);
+      onTap: () async {
+        Gathering _gathering =
+            await DatabaseController.to.getGathering(gathering.id);
         Get.to(() => DetailScreen(
-              gathering:_gathering,
+              gathering: _gathering,
               isHost: gathering.host.userId == DatabaseController.to.user!.id,
             ));
       },
@@ -62,15 +64,18 @@ class GatheringCard extends StatelessWidget {
               width: 80,
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 80,
                     height: 80,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(userImageUrl),
-                        fit: BoxFit.cover,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: userImageUrl,
+                      placeholder: (context, url) => Container(
+                        width: 80,
+                        height: 80,
+                        color: kLightGreyColor,
                       ),
+                      errorWidget: (context, url, error) => Icon(error),
                     ),
                   ),
                   const SizedBox(height: 5),

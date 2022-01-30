@@ -3,7 +3,6 @@ import 'package:common/screens/main/main_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'edit_screen/edit_insta_screen.dart';
 import 'edit_screen/edit_kakao_screen.dart';
 import 'edit_screen/edit_name_screen.dart';
 import 'edit_screen/edit_phone_screen.dart';
@@ -129,13 +128,6 @@ class ProfileScreenEditScreen extends StatelessWidget {
                   text: DatabaseController.to.user!.phoneNumber,
                   onPressed: () {
                     Get.to(() => EditPhoneScreen(user: DatabaseController.to.user!));
-                  },
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '인스타그램 ID',
-                  text: DatabaseController.to.user!.instaId,
-                  onPressed: () {
-                    Get.to(() => EditInstaScreen(user: DatabaseController.to.user!));
                   },
                 ),
                 ProfileScreenEditScreenInfoCard(

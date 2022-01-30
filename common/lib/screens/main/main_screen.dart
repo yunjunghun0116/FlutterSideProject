@@ -6,7 +6,6 @@ import '../home/home_screen.dart';
 import '../follow/follow_screen.dart';
 import '../user/user_screen.dart';
 import '../../controllers/database_controller.dart';
-import '../../controllers/gathering_controller.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

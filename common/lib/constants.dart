@@ -13,7 +13,35 @@ const Color kYellowColor = Color(0xFFFFB800);
 const Color kPinkColor = Color(0xFFFF7878);
 const Color kShimmerColor = Color(0x80979797);
 
-String noPersonImage = 'https://www.pinclipart.com/picdir/big/169-1695846_jane-no-one-icon-clipart.png';
+const String kNaverServiceId = 'ncp:sms:kr:272033493278:common';//sms
+const String kNaverAccessKey = 'zjOM8XgBcfQ2NdUBwEVM';
+const String kNaverSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
+
+String noPersonImage = 'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png';
+
+const TextStyle kDisabledTextStyle = TextStyle(
+  fontSize: 14,
+  color: kRedColor,
+);
+
+const TextStyle kEnabledTextStyle = TextStyle(
+  fontSize: 14,
+  color: kBlueColor,
+);
+
+const UnderlineInputBorder kRedUnderlineBorder = UnderlineInputBorder(
+  borderSide: BorderSide(
+    color: kRedColor,
+    width: 1.5,
+  ),
+);
+
+const UnderlineInputBorder kBlueUnderlineBorder = UnderlineInputBorder(
+  borderSide: BorderSide(
+    color: kBlueColor,
+    width: 1.5,
+  ),
+);
 
 OutlineInputBorder kGreyOutlinedBorder = OutlineInputBorder(
   borderSide:const  BorderSide(

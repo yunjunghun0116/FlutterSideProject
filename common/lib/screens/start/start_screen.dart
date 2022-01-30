@@ -1,8 +1,8 @@
+import 'package:common/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/start_screen_sign_in_bottom_sheet.dart';
 import '../main/main_screen.dart';
-import '../sign/sign_screen.dart';
 import '../../constants.dart';
 import '../../controllers/database_controller.dart';
 import '../../controllers/local_controller.dart';
@@ -55,7 +55,7 @@ class StartScreen extends StatelessWidget {
           const SizedBox(height: 80),
           InkWell(
             onTap: () {
-              Get.to(() => const SignScreen());
+              Get.to(() => const RegisterScreen());
             },
             child: Container(
               alignment: Alignment.center,
