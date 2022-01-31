@@ -19,7 +19,7 @@ class RegisterScreenPhonePage extends StatelessWidget {
   final Function certificationNumberRefreshFunction;
   final Function certificationCheckFunction;
   final Function buttonPressedFunction;
-  final Function phoneChangeFunction;
+  final Function phoneRefreshFunction;
   const RegisterScreenPhonePage({
     Key? key,
     required this.phoneController,
@@ -37,7 +37,7 @@ class RegisterScreenPhonePage extends StatelessWidget {
     required this.certificationNumberRefreshFunction,
     required this.certificationCheckFunction,
     required this.buttonPressedFunction,
-    required this.phoneChangeFunction,
+    required this.phoneRefreshFunction,
   }) : super(key: key);
 
   @override
@@ -53,7 +53,7 @@ class RegisterScreenPhonePage extends StatelessWidget {
           certificationEnabled: certificationEnabled,
           phoneEnabledFunction: phoneEnabledFunction,
           phoneDisabledFunction: phoneDisabledFunction,
-          phoneChangeFunction: phoneChangeFunction,
+          phoneRefreshFunction: phoneRefreshFunction,
           certificationNumberRefreshFunction:
               certificationNumberRefreshFunction,
         ),

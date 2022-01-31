@@ -110,7 +110,7 @@ class ProfileScreenEditScreen extends StatelessWidget {
                   },
                 ),
                 ProfileScreenEditScreenInfoCard(
-                  title: '신상정보',
+                  title: '학과',
                   text: DatabaseController.to.user!.job,
                   onPressed: () {
                     Get.to(() => EditJobScreen(user:DatabaseController.to.user!));

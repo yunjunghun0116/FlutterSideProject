@@ -1,6 +1,7 @@
 import 'package:common/controllers/database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'components/profile_screen_button_area.dart';
 import 'components/profile_screen_gathering_area.dart';
 import 'components/profile_screen_edit_screen.dart';
@@ -18,7 +19,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kWhiteColor,
@@ -33,11 +33,23 @@ class ProfileScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: const [
-          Center(
-            child: Icon(Icons.share),
-          ),
-          SizedBox(width: 10),
+        actions: [
+          user.kakaoLinkUrl != ''
+              ? GestureDetector(
+                  onTap: () {
+                    launch(user.kakaoLinkUrl);
+                  },
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: Image.asset(
+                      'assets/images/kakaotalk_logo.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                )
+              : Container(),
+          const SizedBox(width: 10),
         ],
       ),
       body: ListView(
@@ -50,9 +62,9 @@ class ProfileScreen extends StatelessWidget {
             hostTagList: user.userTagList,
           ),
           GetBuilder<DatabaseController>(
-            builder: (_){
+            builder: (_) {
               bool _isFollowed = DatabaseController.to.user!.likeUser
-                  .indexWhere((element) => element.id == user.id) !=
+                      .indexWhere((element) => element.id == user.id) !=
                   -1;
               return ProfileScreenButtonArea(
                 userIsMe: DatabaseController.to.user!.id == user.id,
@@ -60,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                 followPressed: () async {
                   await DatabaseController.to.followUser(user);
                 },
-                followedPressed: ()async {
+                followedPressed: () async {
                   await DatabaseController.to.unfollowUser(user);
                 },
                 editPressed: () async {

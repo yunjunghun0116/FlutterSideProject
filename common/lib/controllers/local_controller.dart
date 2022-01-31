@@ -4,10 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LocalController extends GetxController {
   static LocalController get to => Get.find();
   SharedPreferences? _sharedPreferences;
+  final String _idKey = 'id';
   final String _phoneKey = 'phone';
   final String _nameKey = 'name';
+  final String _passwordKey = 'password';
   final String _universityKey = 'university';
-  final String _idKey = 'id';
 
   @override
   void onInit() async{
@@ -45,6 +46,17 @@ class LocalController extends GetxController {
       await _setSharedPreferences();
     }
     return _sharedPreferences!.getString(_nameKey);
+  }
+
+  Future<void> setPassword(String password)async {
+    await _sharedPreferences!.setString(_passwordKey, password);
+  }
+
+  Future<String?> getPassword() async{
+    if(_sharedPreferences == null){
+      await _setSharedPreferences();
+    }
+    return _sharedPreferences!.getString(_passwordKey);
   }
 
   Future<void> setUniversity(String university) async{

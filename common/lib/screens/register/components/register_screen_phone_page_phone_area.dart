@@ -9,7 +9,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
   final bool certificationEnabled;
   final Function phoneEnabledFunction;
   final Function phoneDisabledFunction;
-  final Function phoneChangeFunction;
+  final Function phoneRefreshFunction;
   final Function certificationNumberRefreshFunction;
   const RegisterScreenPhonePagePhoneArea({
     Key? key,
@@ -20,7 +20,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
     required this.certificationEnabled,
     required this.phoneEnabledFunction,
     required this.phoneDisabledFunction,
-    required this.phoneChangeFunction,
+    required this.phoneRefreshFunction,
     required this.certificationNumberRefreshFunction,
   }) : super(key: key);
 
@@ -42,7 +42,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
                 ? GestureDetector(
                     onTap: () {
                       if (certificationEnabled) {
-                        phoneChangeFunction();
+                        phoneRefreshFunction();
                       }
                       certificationNumberRefreshFunction();
                     },
@@ -107,15 +107,13 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
             }
           },
         ),
-        phoneGuideLine != ''
-            ? Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  phoneGuideLine,
-                  style: phoneEnabled ? kEnabledTextStyle : kDisabledTextStyle,
-                ),
-              )
-            : const Text(''),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(
+            phoneGuideLine,
+            style: phoneEnabled ? kEnabledTextStyle : kDisabledTextStyle,
+          ),
+        )
       ],
     );
   }

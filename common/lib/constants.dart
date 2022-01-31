@@ -17,6 +17,9 @@ const String kNaverServiceId = 'ncp:sms:kr:272033493278:common';//sms
 const String kNaverAccessKey = 'zjOM8XgBcfQ2NdUBwEVM';
 const String kNaverSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
 
+const String kKakaoNativeAppKey = 'bec270e317eab64305f8cd133629425c';
+const String kKakaoJavascriptKey = '2131640029245d00c061ebaa49598053';
+
 String noPersonImage = 'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png';
 
 const TextStyle kDisabledTextStyle = TextStyle(

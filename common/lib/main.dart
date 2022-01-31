@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:kakao_flutter_sdk/all.dart';
 import 'constants.dart';
 import 'controllers/database_controller.dart';
 import 'controllers/connect_controller.dart';
@@ -12,6 +13,8 @@ import 'screens/start/start_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  KakaoContext.clientId = kKakaoNativeAppKey;
+  KakaoContext.javascriptClientId = kKakaoJavascriptKey;
   runApp(const MyApp());
 }
 

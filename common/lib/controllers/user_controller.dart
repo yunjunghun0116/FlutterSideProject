@@ -19,31 +19,36 @@ class UserController extends GetxController {
 
   Future<bool> setUserName(String newName) async {
     Map<String, dynamic> _body = {'name': newName};
-    return   await DatabaseController.to.updateUser(_body);
+    return await DatabaseController.to.updateUser(_body);
+  }
+
+  Future<bool> setUserPassword(String newPassword) async {
+    Map<String, dynamic> _body = {'password': newPassword};
+    return await DatabaseController.to.updateUser(_body);
   }
 
   Future<bool> setUserJob(String newJob) async {
     Map<String, dynamic> _body = {'job': newJob};
-    return  await DatabaseController.to.updateUser(_body);
+    return await DatabaseController.to.updateUser(_body);
   }
 
   Future<bool> setUserTagList(List newTagList) async {
     Map<String, dynamic> _body = {'userTagList': newTagList};
-    return  await DatabaseController.to.updateUser(_body);
+    return await DatabaseController.to.updateUser(_body);
   }
 
   Future<bool> setUserPhoneNumber(String newPhoneNumber) async {
     Map<String, dynamic> _body = {'phoneNumber': newPhoneNumber};
-    return  await DatabaseController.to.updateUser(_body);
+    return await DatabaseController.to.updateUser(_body);
   }
 
   Future<bool> setUserInstaId(String newInstaId) async {
     Map<String, dynamic> _body = {'instaId': newInstaId};
-    return  await DatabaseController.to.updateUser(_body);
+    return await DatabaseController.to.updateUser(_body);
   }
 
   Future<bool> setUserKakaoLinkUrl(String newKakaoLinkUrl) async {
     Map<String, dynamic> _body = {'kakaoLinkUrl': newKakaoLinkUrl};
-    return  await DatabaseController.to.updateUser(_body);
+    return await DatabaseController.to.updateUser(_body);
   }
 }

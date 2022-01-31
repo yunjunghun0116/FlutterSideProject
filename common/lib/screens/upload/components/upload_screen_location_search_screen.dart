@@ -90,7 +90,9 @@ class _UploadScreenLocationSearchScreenState
               hintText: "지번, 도로명, 건물명으로 검색",
               fillColor: kWhiteColor,
               suffixIcon: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  getPlaceList(_addressController.text);
+                },
                 child: const Icon(
                   Icons.search,
                   color: kBlackColor,

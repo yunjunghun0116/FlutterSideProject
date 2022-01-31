@@ -51,5 +51,14 @@
     <key>NSMicrophoneUsageDescription</key>
     <string>마이크 허용</string>
 
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>kakaobec270e317eab64305f8cd133629425c</string>
+        <string>kakaokompassauth</string>
+        <string>storykompassauth</string>
+        <string>kakaolink</string>
+        <string>kakaotalk-5.9.7</string>
+    </array>
+
 </dict>
 </plist>

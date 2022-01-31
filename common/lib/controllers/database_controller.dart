@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/controllers/gathering_controller.dart';
+import 'package:common/controllers/local_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import '../models/applicant.dart';
@@ -13,7 +15,7 @@ class DatabaseController extends GetxController {
 
   User? user;
 
-  Future<String?> getUserWithPhoneNumber(String phone) async {
+  Future<String?> signInWithEmailPassword(String phone,String password) async {
     QuerySnapshot<Map<String, dynamic>> _userData = await _firestore
         .collection('user')
         .where('phoneNumber', isEqualTo: phone)
@@ -21,14 +23,16 @@ class DatabaseController extends GetxController {
     if (_userData.docs.isEmpty) {
       return null;
     }
-    Map<String, dynamic> _user = {
-      'id': _userData.docs[0].id,
-      ..._userData.docs[0].data(),
-    };
 
-    user = User.fromJson(_user);
-    update();
-    return _userData.docs[0].id;
+    if(_userData.docs.first.data()['password']==password){
+      Map<String, dynamic> _user = {
+        'id': _userData.docs[0].id,
+        ..._userData.docs[0].data(),
+      };
+      user = User.fromJson(_user);
+      update();
+      return _userData.docs[0].id;
+    }
   }
 
   Future<bool> getCurrentUser(String id) async {
@@ -65,7 +69,6 @@ class DatabaseController extends GetxController {
         await (_firestore.collection('gathering').doc(id).get());
 
     Map<String, dynamic> json = _dbGathering.data()!;
-    print(json);
     Gathering gatheringData = Gathering.fromJson({
       'id': _dbGathering.id,
       ...json,
@@ -152,7 +155,7 @@ class DatabaseController extends GetxController {
     for (int i = 0; i < gatheringDocs.length; i++) {
       Map<String, dynamic> body = {
         'id': gatheringDocs[i].id,
-        ...gatheringDocs[i].data() as Map<String, dynamic>
+        ...gatheringDocs[i].data()
       };
       gatheringList.add(Gathering.fromJson(body));
     }
@@ -182,40 +185,53 @@ class DatabaseController extends GetxController {
     return downloadUrl;
   }
 
-  Future<bool> followUser(User follower)async{
-    try{
+  Future<bool> updateGathering(
+      String gatheringId, Map<String, dynamic> body) async {
+    try {
+      await _firestore.collection('gathering').doc(gatheringId).update(body);
+      await GatheringController.to.setGatheringList();
+      update();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> followUser(User follower) async {
+    try {
       DocumentSnapshot<Map<String, dynamic>> _userData =
-      await _firestore.collection('user').doc(user!.id).get();
+          await _firestore.collection('user').doc(user!.id).get();
 
       List _likeUserList = _userData['likeUser'];
       _likeUserList.add(follower.toMap());
-      await _firestore.collection('user').doc(user!.id).update({
-        'likeUser':_likeUserList
-      });
+      await _firestore
+          .collection('user')
+          .doc(user!.id)
+          .update({'likeUser': _likeUserList});
       user!.likeUser.add(follower);
       update();
       return true;
-    }catch(e){
+    } catch (e) {
       return false;
     }
-
   }
 
-  Future<bool> unfollowUser(User follower)async{
-    try{
+  Future<bool> unfollowUser(User follower) async {
+    try {
       DocumentSnapshot<Map<String, dynamic>> _userData =
-      await _firestore.collection('user').doc(user!.id).get();
+          await _firestore.collection('user').doc(user!.id).get();
 
       List _likeUserList = _userData['likeUser'];
       _likeUserList.removeWhere((user) => user['id'] == follower.id);
-      await _firestore.collection('user').doc(user!.id).update({
-        'likeUser':_likeUserList
-      });
+      await _firestore
+          .collection('user')
+          .doc(user!.id)
+          .update({'likeUser': _likeUserList});
 
-      user!.likeUser.removeWhere((user)=>user.id==follower.id);
+      user!.likeUser.removeWhere((user) => user.id == follower.id);
       update();
       return true;
-    }catch(e){
+    } catch (e) {
       return false;
     }
   }

@@ -1,3 +1,4 @@
+import 'package:common/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/database_controller.dart';
@@ -90,10 +91,6 @@ class _DetailScreenState extends State<DetailScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
-        ],
       ),
       body: Column(
         children: [
@@ -192,10 +189,14 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
       bottomNavigationBar: widget.isHost
           ? DetailScreenHostBottomBar(
-              onPressed: () {},
+              onPressed: () async {
+                await DatabaseController.to
+                    .updateGathering(widget.gathering.id, {'over': true});
+                Get.offAll(()=>const MainScreen());
+              },
+              over: widget.gathering.over,
             )
           : DetailScreenUserBottomBar(
-              chatPressed: () {},
               applyPressed: () async {
                 await DatabaseController.to
                     .userApplyGathering(widget.gathering.id);

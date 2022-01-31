@@ -44,10 +44,12 @@ class GatheringCard extends StatelessWidget {
       onTap: () async {
         Gathering _gathering =
             await DatabaseController.to.getGathering(gathering.id);
-        Get.to(() => DetailScreen(
-              gathering: _gathering,
-              isHost: gathering.host.userId == DatabaseController.to.user!.id,
-            ));
+        Get.to(
+          () => DetailScreen(
+            gathering: _gathering,
+            isHost: gathering.host.userId == DatabaseController.to.user!.id,
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),

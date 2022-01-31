@@ -4,6 +4,7 @@ class User {
   final String id;
   final String university;
   String phoneNumber;
+  String password;
   String name;
   String job;
   String imageUrl;
@@ -15,10 +16,11 @@ class User {
   final List likeUser;//User
 
   User({
-    required this.id,
+    required this.id,required this.university,
     required this.phoneNumber,
+    required this.password,
     required this.name,
-    required this.university,
+
     required this.job,
     required this.imageUrl,
     required this.kakaoLinkUrl,
@@ -33,6 +35,7 @@ class User {
         id: json['id'],
         phoneNumber: json['phoneNumber'],
         name: json['name'],
+        password: json['password'],
         university: json['university'],
         job: json['job'],
         imageUrl: json['imageUrl'],
@@ -59,6 +62,7 @@ class User {
       'id': id,
       'phoneNumber': phoneNumber,
       'name': name,
+      'password':password,
       'university': university,
       'job': job,
       'imageUrl': imageUrl,
