@@ -10,7 +10,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
   final Function phoneEnabledFunction;
   final Function phoneDisabledFunction;
   final Function phoneRefreshFunction;
-  final Function certificationNumberRefreshFunction;
+  final Function sendCertificationNumberFunction;
   const RegisterScreenPhonePagePhoneArea({
     Key? key,
     required this.phoneController,
@@ -21,7 +21,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
     required this.phoneEnabledFunction,
     required this.phoneDisabledFunction,
     required this.phoneRefreshFunction,
-    required this.certificationNumberRefreshFunction,
+    required this.sendCertificationNumberFunction,
   }) : super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
                       if (certificationEnabled) {
                         phoneRefreshFunction();
                       }
-                      certificationNumberRefreshFunction();
+                      sendCertificationNumberFunction();
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),
@@ -76,6 +76,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
           ),
           decoration: InputDecoration(
             hintText: 'ex)01012345678',
+            counterText: '',
             focusedBorder:
                 phoneEnabled ? kBlueUnderlineBorder : kRedUnderlineBorder,
             suffix: Row(

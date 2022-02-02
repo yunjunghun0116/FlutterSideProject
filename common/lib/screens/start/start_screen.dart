@@ -57,19 +57,21 @@ class StartScreen extends StatelessWidget {
             onTap: () {
               Get.to(() => const LoginScreen());
             },
-            child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: kBlueColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: const Text(
-                '로그인하기',
-                style: TextStyle(
-                  color: kWhiteColor,
+            child: Ink(
+              child: Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: kBlueColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: const Text(
+                  '로그인하기',
+                  style: TextStyle(
+                    color: kWhiteColor,
+                  ),
                 ),
               ),
             ),

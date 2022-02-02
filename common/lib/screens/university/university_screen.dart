@@ -43,12 +43,6 @@ class _UniversityScreenState extends State<UniversityScreen> {
             child: UniversityScreenUniversitySelectArea(
               universityList: kLocationList[_currentLocationListIndex]
                   ['university'],
-              saveUniversity: (String university) async {
-                Map<String, dynamic> body = {'university': university};
-                if (await DatabaseController.to.updateUser(body)) {
-                  LocalController.to.setUniversity(university);
-                }
-              },
             ),
           ),
         ],

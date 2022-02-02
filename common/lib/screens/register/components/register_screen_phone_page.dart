@@ -16,7 +16,7 @@ class RegisterScreenPhonePage extends StatelessWidget {
   final Color buttonColor;
   final Function phoneEnabledFunction;
   final Function phoneDisabledFunction;
-  final Function certificationNumberRefreshFunction;
+  final Function sendCertificationNumberFunction;
   final Function certificationCheckFunction;
   final Function buttonPressedFunction;
   final Function phoneRefreshFunction;
@@ -34,7 +34,7 @@ class RegisterScreenPhonePage extends StatelessWidget {
     required this.buttonColor,
     required this.phoneEnabledFunction,
     required this.phoneDisabledFunction,
-    required this.certificationNumberRefreshFunction,
+    required this.sendCertificationNumberFunction,
     required this.certificationCheckFunction,
     required this.buttonPressedFunction,
     required this.phoneRefreshFunction,
@@ -54,8 +54,8 @@ class RegisterScreenPhonePage extends StatelessWidget {
           phoneEnabledFunction: phoneEnabledFunction,
           phoneDisabledFunction: phoneDisabledFunction,
           phoneRefreshFunction: phoneRefreshFunction,
-          certificationNumberRefreshFunction:
-              certificationNumberRefreshFunction,
+          sendCertificationNumberFunction:
+          sendCertificationNumberFunction,
         ),
         phoneChecked
             ? RegisterScreenPhonePageCertificationArea(

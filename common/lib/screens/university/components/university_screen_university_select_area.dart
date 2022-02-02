@@ -6,11 +6,9 @@ import '../../main/main_screen.dart';
 
 class UniversityScreenUniversitySelectArea extends StatelessWidget {
   final List universityList;
-  final Function saveUniversity;
   const UniversityScreenUniversitySelectArea({
     Key? key,
     required this.universityList,
-    required this.saveUniversity,
   }) : super(key: key);
 
   @override
@@ -22,7 +20,6 @@ class UniversityScreenUniversitySelectArea extends StatelessWidget {
             onTap: () async {
               //university in 서비스 지원 학교 => 성공로직으로
               if (university == '충남대학교' || university == '한국과학기술대학교') {
-                await saveUniversity(university);
                 await UserController.to
                     .setUserUniversity(university)
                     .then((value) {

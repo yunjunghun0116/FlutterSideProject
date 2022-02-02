@@ -42,7 +42,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String _passwordGuideLine = '';
   String _passwordCheckGuideLine = '';
 
-  DateTime? lastRefreshedDateTime;
   String certificationNumber = '1234';
   int currentSecond = 180;
 
@@ -106,9 +105,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _certificationGuideLine = '';
       _passwordGuideLine = '';
       _passwordCheckGuideLine = '';
-      lastRefreshedDateTime = null;
       certificationNumber = '1234';
       currentSecond = 180;
+      timer?.cancel();
     });
   }
 
@@ -126,26 +125,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  void sendCertificationNumber(DateTime nowDateTime) {
+  void sendCertificationNumber()async {
+    DateTime nowDateTime = DateTime.now();
+    String? lastSendCertificationTime =await LocalController.to.getCertificationTime();
+    if(lastSendCertificationTime != null && nowDateTime.difference(DateTime.parse(lastSendCertificationTime)).inSeconds<60){
+      setState(() {
+        _certificationGuideLine = '인증번호는 1분뒤 다시 전송할수있습니다';
+      });
+      return;
+    }
+
     String _newCertificationNumber = getNewCertificationNumber();
+    LocalController.to.setCertificationTime(nowDateTime);
     ConnectController.to
         .sendSMS(_phoneController.text, _newCertificationNumber);
     setState(() {
       currentSecond = 180;
-      lastRefreshedDateTime = nowDateTime;
       certificationNumber = _newCertificationNumber;
       _certificationGuideLine = '';
     });
 
     timer = Timer.periodic(const Duration(seconds: 1), (t) {
-      if (!_certificationEnabled) {
+      if (!mounted) return;
+      if (currentSecond <= 0) timer?.cancel();
+      if (currentSecond < 0 && !_certificationEnabled) {
         setState(() {
-          if (currentSecond <= 0) {
-            _certificationGuideLine = '인증번호 입력 시간이 초과되었습니다';
-          }
-          currentSecond--;
+          _certificationGuideLine = '인증번호 입력 시간이 초과되었습니다';
         });
       }
+      setState(() {
+        currentSecond--;
+      });
     });
   }
 
@@ -175,21 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               _phoneGuideLine = '휴대폰 번호를 다시 한번 확인해주세요';
             });
           },
-          certificationNumberRefreshFunction: () {
-            DateTime nowDateTime = DateTime.now();
-            if (lastRefreshedDateTime != null) {
-              if (nowDateTime.difference(lastRefreshedDateTime!).inSeconds <
-                  60) {
-                setState(() {
-                  _certificationGuideLine = '인증번호는 1분뒤 다시 전송할수있습니다';
-                });
-              } else {
-                sendCertificationNumber(nowDateTime);
-              }
-            } else {
-              sendCertificationNumber(nowDateTime);
-            }
-          },
+          sendCertificationNumberFunction: sendCertificationNumber,
           certificationCheckFunction: (String s) {
             if (s.length == 4) {
               setState(() {
@@ -214,7 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               if (_phoneEnabled) {
                 setState(() {
                   _phoneChecked = true;
-                  sendCertificationNumber(DateTime.now());
+                  sendCertificationNumber();
                 });
               }
             }

@@ -33,6 +33,7 @@ class CategoryScreenAppBarFilterArea extends StatelessWidget {
               title: _filterDesignerController.filteredRecommend,
             ),
           ),
+          const RoundedButton(title: '거리'),
           const RoundedButton(title: '스타일'),
           const RoundedButton(title: '가격'),
           const RoundedButton(title: '색상'),

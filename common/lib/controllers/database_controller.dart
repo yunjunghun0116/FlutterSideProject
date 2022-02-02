@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/gathering_controller.dart';
-import 'package:common/controllers/local_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import '../models/applicant.dart';
@@ -149,7 +148,7 @@ class DatabaseController extends GetxController {
 
   Future<List<Gathering>?> getGatheringDocs() async {
     QuerySnapshot gatheringData =
-        await _firestore.collection('gathering').get();
+        await _firestore.collection('gathering').where('university',isEqualTo: user!.university).get();
     List<Gathering> gatheringList = [];
     List gatheringDocs = gatheringData.docs;
     for (int i = 0; i < gatheringDocs.length; i++) {

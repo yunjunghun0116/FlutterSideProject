@@ -222,6 +222,7 @@ class _UploadScreenState extends State<UploadScreen> {
             'category': widget.category,
             'participant': 0,
             'capacity': _guestCount,
+            'university':DatabaseController.to.user!.university,
             'openTime': _openTime.toString(),
             'endTime': _noEndTime ? '' : _endTime.toString(),
             'location': _location,

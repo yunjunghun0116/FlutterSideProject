@@ -9,6 +9,7 @@ class Gathering {
   final String title;
   final String category;
   final int capacity;
+  final String university;
   final String openTime;
   final String endTime;
   final String location;
@@ -27,6 +28,7 @@ class Gathering {
     required this.title,
     required this.category,
     required this.capacity,
+    required this.university,
     required this.openTime,
     required this.endTime,
     required this.location,
@@ -46,6 +48,7 @@ class Gathering {
         title: json['title'],
         category: json['category'],
         capacity: json['capacity'],
+        university: json['university'],
         openTime: json['openTime'],
         endTime: json['endTime'],
         location: json['location'],
@@ -73,6 +76,7 @@ class Gathering {
       'title': title,
       'category': category,
       'capacity': capacity,
+      'university':university,
       'openTime': openTime,
       'endTime': endTime,
       'location': location,

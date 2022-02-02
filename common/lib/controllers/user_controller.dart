@@ -1,3 +1,4 @@
+import 'package:common/controllers/local_controller.dart';
 import 'package:get/get.dart';
 import 'database_controller.dart';
 
@@ -7,7 +8,11 @@ class UserController extends GetxController {
 
   Future<bool> setUserUniversity(String newUniversity) async {
     Map<String, dynamic> _body = {'university': newUniversity};
-    return await DatabaseController.to.updateUser(_body);
+    if(await DatabaseController.to.updateUser(_body)){
+      LocalController.to.setUniversity(newUniversity);
+      return await DatabaseController.to.getCurrentUser(DatabaseController.to.user!.id);
+    }
+    return false;
   }
 
   Future<bool> setUserImage(String newImageUrl) async {

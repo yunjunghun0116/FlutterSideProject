@@ -101,13 +101,15 @@ class GatheringCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        '마감 임박',
-                        style: TextStyle(
-                          color: kRedColor,
+                      Text(
+                        gatheringTitle,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
                       Text(
@@ -119,13 +121,6 @@ class GatheringCard extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                  Text(
-                    gatheringTitle,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
                   ),
                   const SizedBox(height: 10),
                   GatheringCardInfo(

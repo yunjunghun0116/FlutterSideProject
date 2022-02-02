@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: const Text(
                                 //TODO locationController 사용해서 가져오기
-                                '둔산동/월평동/만년동..',
+                                '대전시 유성구 대학로99',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,

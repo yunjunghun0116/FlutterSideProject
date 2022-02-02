@@ -51,10 +51,8 @@ class UserInfo extends StatelessWidget {
                       TextSpan(
                           text: name,
                           style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18
-                          )),
-                      TextSpan(text: job!=''?' | $job':''),
+                              fontWeight: FontWeight.bold, fontSize: 18)),
+                      TextSpan(text: job != '' ? ' | $job' : ''),
                     ],
                   ),
                 ),
