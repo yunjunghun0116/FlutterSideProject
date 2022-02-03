@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:common/controllers/connect_controller.dart';
 import 'package:common/controllers/database_controller.dart';
+import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/local_controller.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/register/components/register_screen_password_page.dart';
@@ -125,10 +126,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  void sendCertificationNumber()async {
+  void sendCertificationNumber() async {
     DateTime nowDateTime = DateTime.now();
-    String? lastSendCertificationTime =await LocalController.to.getCertificationTime();
-    if(lastSendCertificationTime != null && nowDateTime.difference(DateTime.parse(lastSendCertificationTime)).inSeconds<60){
+    String? lastSendCertificationTime =
+        await LocalController.to.getCertificationTime();
+    if (lastSendCertificationTime != null &&
+        nowDateTime
+                .difference(DateTime.parse(lastSendCertificationTime))
+                .inSeconds <
+            60) {
       setState(() {
         _certificationGuideLine = '인증번호는 1분뒤 다시 전송할수있습니다';
       });
@@ -200,11 +206,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
             }
           },
           buttonPressedFunction: () async {
-            if (_phoneChecked) {
-              if (_certificationEnabled) {
+            if (_phoneChecked && _certificationEnabled) {
+              if(await DatabaseController.to.checkPhoneNumberIsDuplicated(_phoneController.text)){
                 setState(() {
                   ++_currentPageIndex;
                 });
+              }else{
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      title: const Text('이미 가입된 번호입니다'),
+                      actions: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: const Text(
+                                '확인',
+                                style: TextStyle(
+                                  color: kBlueColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
               }
             } else {
               if (_phoneEnabled) {
@@ -300,6 +337,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             };
             String id = await DatabaseController.to.makeUser(body);
             await LocalController.to.setId(id);
+            GatheringController.to.setGatheringList();
             Get.offAll(() => const MainScreen());
           },
         );

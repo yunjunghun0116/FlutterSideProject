@@ -61,7 +61,7 @@ class RegisterScreenNamePage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         GestureDetector(
-          onTap: () {
+          onTap: (){
             registerFunction();
           },
           child: Container(

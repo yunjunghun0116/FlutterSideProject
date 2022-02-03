@@ -14,7 +14,7 @@ class DatabaseController extends GetxController {
 
   User? user;
 
-  Future<String?> signInWithEmailPassword(String phone,String password) async {
+  Future<String?> signInWithEmailPassword(String phone, String password) async {
     QuerySnapshot<Map<String, dynamic>> _userData = await _firestore
         .collection('user')
         .where('phoneNumber', isEqualTo: phone)
@@ -23,7 +23,7 @@ class DatabaseController extends GetxController {
       return null;
     }
 
-    if(_userData.docs.first.data()['password']==password){
+    if (_userData.docs.first.data()['password'] == password) {
       Map<String, dynamic> _user = {
         'id': _userData.docs[0].id,
         ..._userData.docs[0].data(),
@@ -147,8 +147,12 @@ class DatabaseController extends GetxController {
   }
 
   Future<List<Gathering>?> getGatheringDocs() async {
-    QuerySnapshot gatheringData =
-        await _firestore.collection('gathering').where('university',isEqualTo: user!.university).get();
+    QuerySnapshot gatheringData = await _firestore
+        .collection('gathering')
+        .where('university',
+            isEqualTo: user != null ? user!.university : '충남대학교')
+        .get();
+
     List<Gathering> gatheringList = [];
     List gatheringDocs = gatheringData.docs;
     for (int i = 0; i < gatheringDocs.length; i++) {

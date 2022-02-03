@@ -11,12 +11,6 @@ class GatheringController extends GetxController {
   List<Gathering> _categoryGatheringList = [];
   List<Gathering> get categoryGatheringList => _categoryGatheringList;
 
-  @override
-  void onInit() {
-    super.onInit();
-    setGatheringList();
-  }
-
   Future<void> setGatheringList() async {
     _gatheringList = (await DatabaseController.to.getGatheringDocs()) ?? [];
     update();
