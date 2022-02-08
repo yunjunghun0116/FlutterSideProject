@@ -6,16 +6,15 @@ class DetailScreenHostBottomBar extends StatelessWidget {
   final bool over;
   const DetailScreenHostBottomBar({
     Key? key,
-    required this.onPressed, required this.over,
+    required this.onPressed,
+    required this.over,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        if(!over){
-          onPressed();
-        }
+      onTap: () {
+        onPressed();
       },
       child: Container(
         alignment: Alignment.center,
@@ -27,13 +26,13 @@ class DetailScreenHostBottomBar extends StatelessWidget {
           right: 10,
         ),
         decoration: BoxDecoration(
-          border: Border.all(color: over?kGreyColor:kRedColor),
+          border: Border.all(color: over ? kGreyColor : kRedColor),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
-          over?'종료된 모임':'모임취소하기',
+          '모임취소하기',
           style: TextStyle(
-            color: over?kGreyColor:kRedColor,
+            color: over ? kGreyColor : kRedColor,
           ),
         ),
       ),

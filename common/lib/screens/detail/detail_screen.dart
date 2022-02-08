@@ -1,3 +1,4 @@
+import 'package:common/screens/detail/components/detail_screen_over_bottom_bar.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -181,34 +182,36 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: widget.isHost
-          ? DetailScreenHostBottomBar(
-              onPressed: () async {
-                await DatabaseController.to
-                    .updateGathering(widget.gathering.id, {'over': true});
-                Get.offAll(()=>const MainScreen());
-              },
-              over: widget.gathering.over,
-            )
-          : DetailScreenUserBottomBar(
-              applyPressed: () async {
-                await DatabaseController.to
-                    .userApplyGathering(widget.gathering.id);
-                setState(() {
-                  _userStateIndex = 1;
-                });
-              },
-              cancelPressed: () async {
-                await DatabaseController.to
-                    .userCancelGathering(widget.gathering.id)
-                    .then((value) {
-                  setState(() {
-                    _userStateIndex = 3;
-                  });
-                });
-              },
-              userStateIndex: _userStateIndex,
-            ),
+      bottomNavigationBar: widget.gathering.over
+          ? const DetailScreenOverBottomBar()
+          : widget.isHost
+              ? DetailScreenHostBottomBar(
+                  onPressed: () async {
+                    await DatabaseController.to
+                        .updateGathering(widget.gathering.id, {'over': true});
+                    Get.offAll(() => const MainScreen());
+                  },
+                  over: widget.gathering.over,
+                )
+              : DetailScreenUserBottomBar(
+                  applyPressed: () async {
+                    await DatabaseController.to
+                        .userApplyGathering(widget.gathering.id);
+                    setState(() {
+                      _userStateIndex = 1;
+                    });
+                  },
+                  cancelPressed: () async {
+                    await DatabaseController.to
+                        .userCancelGathering(widget.gathering.id)
+                        .then((value) {
+                      setState(() {
+                        _userStateIndex = 3;
+                      });
+                    });
+                  },
+                  userStateIndex: _userStateIndex,
+                ),
     );
   }
 }
