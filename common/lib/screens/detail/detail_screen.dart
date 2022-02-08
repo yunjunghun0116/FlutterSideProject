@@ -16,7 +16,6 @@ import 'components/detail_screen_gathering_progress_bar.dart';
 import 'components/detail_screen_user_bottom_bar.dart';
 import 'components/detail_screen_gathering_hash_tag.dart';
 import 'components/detail_screen_gathering_place_info.dart';
-import 'components/detail_screen_previous_gathering_image.dart';
 import 'components/detail_screen_gathering_applicants_check_button.dart';
 import 'components/detail_screen_host_bottom_bar.dart';
 
@@ -177,11 +176,6 @@ class _DetailScreenState extends State<DetailScreen> {
                 DetailScreenGatheringHashTag(
                   tagList: widget.gathering.tagList,
                 ),
-                widget.gathering.previousImageList.isNotEmpty
-                    ? DetailScreenPreviousGatheringImage(
-                        imageList: widget.gathering.previousImageList,
-                      )
-                    : Container(),
               ],
             ),
           ),

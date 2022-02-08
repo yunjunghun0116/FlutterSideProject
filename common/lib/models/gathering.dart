@@ -16,7 +16,6 @@ class Gathering {
   final String locationDetail;
   final String hostMessage;
   final List tagList;
-  final List previousImageList;
   List applyList;
   List approvalList;
   List cancelList;
@@ -35,7 +34,6 @@ class Gathering {
     required this.locationDetail,
     required this.hostMessage,
     required this.tagList,
-    required this.previousImageList,
     required this.applyList,
     required this.approvalList,
     required this.cancelList,
@@ -55,7 +53,6 @@ class Gathering {
         locationDetail: json['locationDetail'],
         hostMessage: json['hostMessage'],
         tagList: json['tagList'],
-        previousImageList: json['previousImageList'],
         applyList: json['applyList'].map((applicant) {
           return Applicant.fromJson(applicant);
         }).toList(),
@@ -83,7 +80,6 @@ class Gathering {
       'locationDetail': locationDetail,
       'hostMessage': hostMessage,
       'tagList': tagList,
-      'previousImageList': previousImageList,
       'applyList':applyList.map((applicant){
         return applicant.toMap();
       }).toList(),

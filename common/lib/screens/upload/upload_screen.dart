@@ -229,7 +229,6 @@ class _UploadScreenState extends State<UploadScreen> {
             'locationDetail': _locationDetailController.text,
             'hostMessage': _hostMessageController.text,
             'tagList': _gatheringTagList,
-            'previousImageList': [],
             'applyList': [],
             'approvalList': [],
             'cancelList': [],

@@ -84,15 +84,6 @@ class DatabaseController extends GetxController {
     return _getPhoneList.isEmpty;
   }
 
-  Future<bool> checkNameIsDuplicated(String name) async {
-    QuerySnapshot _dbNameList = await (_firestore
-        .collection('user')
-        .where('name', isEqualTo: name)
-        .get());
-    List _getNameList = _dbNameList.docs.toList();
-    return _getNameList.isEmpty;
-  }
-
   Future<String> makeUser(Map<String, dynamic> body) async {
     String? id;
     try {
@@ -126,6 +117,7 @@ class DatabaseController extends GetxController {
       await _firestore.collection('user').doc(user!.id).update({
         'openGatheringList': _openGatheringList,
       });
+      getCurrentUser(user!.id);
       return true;
     } catch (e) {
       return false;
@@ -151,10 +143,12 @@ class DatabaseController extends GetxController {
         .collection('gathering')
         .where('university',
             isEqualTo: user != null ? user!.university : '충남대학교')
+        .where('over', isEqualTo: false)
         .get();
 
     List<Gathering> gatheringList = [];
     List gatheringDocs = gatheringData.docs;
+
     for (int i = 0; i < gatheringDocs.length; i++) {
       Map<String, dynamic> body = {
         'id': gatheringDocs[i].id,
@@ -167,13 +161,8 @@ class DatabaseController extends GetxController {
 
   Future<bool> updateUser(Map<String, dynamic> body) async {
     try {
-      await _firestore
-          .collection('user')
-          .doc(user!.id)
-          .update(body)
-          .then((value) {
-        getCurrentUser(user!.id);
-      });
+      await _firestore.collection('user').doc(user!.id).update(body);
+      await getCurrentUser(user!.id);
       return true;
     } catch (e) {
       return false;
@@ -181,10 +170,10 @@ class DatabaseController extends GetxController {
   }
 
   Future<String?> updateImage(File file) async {
-    String destination = 'images/${user!.id}/profileimage/';
+    String destination = 'images/${user!.id}';
     final ref = _firestorage.ref(destination);
-    String? downloadUrl =
-        await (ref.putFile(file).snapshot.ref.getDownloadURL());
+    TaskSnapshot uploadedFile = await ref.putFile(file);
+    String? downloadUrl = await uploadedFile.ref.getDownloadURL();
     return downloadUrl;
   }
 
@@ -193,7 +182,6 @@ class DatabaseController extends GetxController {
     try {
       await _firestore.collection('gathering').doc(gatheringId).update(body);
       await GatheringController.to.setGatheringList();
-      update();
       return true;
     } catch (e) {
       return false;

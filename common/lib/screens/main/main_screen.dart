@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
       case 2:
         return const CommunityScreen();
       case 3:
-        return UserScreen(user: DatabaseController.to.user!);
+        return const UserScreen();
       default:
         return Container();
     }
