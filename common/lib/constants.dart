@@ -6,21 +6,23 @@ final Color kBlackColorWithOpacity = const Color(0xFF000000).withOpacity(0.3);
 const Color kDeepBlueColor = Color(0xFF1D4EFF);
 const Color kBlueColor = Color(0xFF51B6FF);
 const Color kGreyColor = Color(0xFF979797);
-const Color kCategoryGreyColor = Color(0xFF747474);
+const Color kDarkGreyColor = Color(0xFF747474);
 const Color kLightGreyColor = Color(0xFFE9E9E9);
 const Color kRedColor = Color(0xFFFF0000);
 const Color kYellowColor = Color(0xFFFFB800);
 const Color kPinkColor = Color(0xFFFF7878);
+const Color kGreenColor = Color(0xFF81C147);
 const Color kShimmerColor = Color(0x80979797);
 
-const String kNaverServiceId = 'ncp:sms:kr:272033493278:common';//sms
+const String kNaverServiceId = 'ncp:sms:kr:272033493278:common'; //sms
 const String kNaverAccessKey = 'zjOM8XgBcfQ2NdUBwEVM';
 const String kNaverSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
 
 const String kKakaoNativeAppKey = 'bec270e317eab64305f8cd133629425c';
 const String kKakaoJavascriptKey = '2131640029245d00c061ebaa49598053';
 
-String noPersonImage = 'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png';
+String noPersonImage =
+    'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png';
 
 const TextStyle kDisabledTextStyle = TextStyle(
   fontSize: 14,
@@ -30,6 +32,11 @@ const TextStyle kDisabledTextStyle = TextStyle(
 const TextStyle kEnabledTextStyle = TextStyle(
   fontSize: 14,
   color: kBlueColor,
+);
+
+const TextStyle kCommunityTextStyle = TextStyle(
+  fontSize: 16,
+  color: kDarkGreyColor,
 );
 
 const UnderlineInputBorder kRedUnderlineBorder = UnderlineInputBorder(
@@ -47,44 +54,26 @@ const UnderlineInputBorder kBlueUnderlineBorder = UnderlineInputBorder(
 );
 
 OutlineInputBorder kGreyOutlinedBorder = OutlineInputBorder(
-  borderSide:const  BorderSide(
+  borderSide: const BorderSide(
     color: kGreyColor,
   ),
   borderRadius: BorderRadius.circular(10.0),
 );
 
 OutlineInputBorder kFocusOutlinedBorder = OutlineInputBorder(
-  borderSide:const  BorderSide(
-    color: kBlackColor,
-    width: 1.5
-  ),
+  borderSide: const BorderSide(color: kBlackColor, width: 1.5),
   borderRadius: BorderRadius.circular(10.0),
 );
 
-const List<Map<String,dynamic>> kDetailStateList = [
-  {
-    'guideLine':'',
-    'buttonText':'신청하기'
-  },
-  {
-    'guideLine':'모임에 신청중입니다',
-    'buttonText':'모임 신청중...'
-  },
-  {
-    'guideLine':'모임신청 승인되었습니다',
-    'buttonText':'모임신청 취소'
-  },
-  {
-    'guideLine':'취소 요청중입니다',
-    'buttonText':'취소 요청중...'
-  },
-  {
-    'guideLine':'모임이 취소되었습니다',
-    'buttonText':'모임 취소'
-  }
+const List<Map<String, dynamic>> kDetailStateList = [
+  {'guideLine': '', 'buttonText': '신청하기'},
+  {'guideLine': '모임에 신청중입니다', 'buttonText': '모임 신청중...'},
+  {'guideLine': '모임신청 승인되었습니다', 'buttonText': '모임신청 취소'},
+  {'guideLine': '취소 요청중입니다', 'buttonText': '취소 요청중...'},
+  {'guideLine': '모임이 취소되었습니다', 'buttonText': '모임 취소'}
 ];
 
-const List<String> kWeekDay = ['','월','화','수','목','금','토','일'] ;
+const List<String> kWeekDay = ['', '월', '화', '수', '목', '금', '토', '일'];
 const List<String> kPhoneNumberList = [
   '010',
   '011',
@@ -102,47 +91,20 @@ final List<String> kAdvertisementImageList = [
   'assets/images/travel_2.jpeg',
   'assets/images/exercise_1.jpeg',
 ];
-final List<Map<String,dynamic>> kCategoryList = [
+final List<Map<String, dynamic>> kCategoryList = [
   {
-    'title':'스터디',
-    'icon':Icons.local_library,
+    'title': '스터디',
+    'icon': Icons.local_library,
   },
-  {
-    'title':'공모전',
-    'icon':Icons.people
-  },
-  {
-    'title':'운동',
-    'icon':Icons.fitness_center
-  },
-  {
-    'title':'베이킹',
-    'icon':Icons.restaurant_menu
-  },
-  {
-    'title':'카페',
-    'icon':Icons.local_cafe
-  },
-  {
-    'title':'음주',
-    'icon':Icons.local_bar
-  },
-  {
-    'title':'공예',
-    'icon':Icons.edit
-  },
-  {
-    'title':'음악',
-    'icon':Icons.headset
-  },
-  {
-    'title':'여행',
-    'icon':Icons.flight
-  },
-  {
-    'title':'전체보기',
-    'icon':Icons.grid_on
-  },
+  {'title': '공모전', 'icon': Icons.people},
+  {'title': '운동', 'icon': Icons.fitness_center},
+  {'title': '베이킹', 'icon': Icons.restaurant_menu},
+  {'title': '카페', 'icon': Icons.local_cafe},
+  {'title': '음주', 'icon': Icons.local_bar},
+  {'title': '공예', 'icon': Icons.edit},
+  {'title': '음악', 'icon': Icons.headset},
+  {'title': '여행', 'icon': Icons.flight},
+  {'title': '전체보기', 'icon': Icons.grid_on},
 ];
 
 final List<Map<String, dynamic>> kLocationList = [
@@ -214,5 +176,3 @@ final List<Map<String, dynamic>> kLocationList = [
     'university': [],
   }
 ];
-
-

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'profile_screen_edit_button.dart';
 import 'profile_screen_follow_button.dart';
 import 'profile_screen_followed_button.dart';
-import '../../../constants.dart';
 
 class ProfileScreenButtonArea extends StatelessWidget {
   final Function followedPressed;

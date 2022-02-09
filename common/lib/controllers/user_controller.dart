@@ -10,7 +10,7 @@ class UserController extends GetxController {
     Map<String, dynamic> _body = {'university': newUniversity};
     if(await DatabaseController.to.updateUser(_body)){
       LocalController.to.setUniversity(newUniversity);
-      return await DatabaseController.to.getCurrentUser(DatabaseController.to.user!.id);
+      return await DatabaseController.to.currentUserUpdate(DatabaseController.to.user!.id);
     }
     return false;
   }

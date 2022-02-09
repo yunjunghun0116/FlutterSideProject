@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'components/university_screen_location_select_area.dart';
 import 'components/university_screen_university_select_area.dart';
 import '../../constants.dart';
-import '../../controllers/local_controller.dart';
-import '../../controllers/database_controller.dart';
 
 class UniversityScreen extends StatefulWidget {
   const UniversityScreen({Key? key}) : super(key: key);

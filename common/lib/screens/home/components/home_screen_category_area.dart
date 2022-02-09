@@ -29,12 +29,12 @@ class HomeScreenCategoryArea extends StatelessWidget {
               children: [
                 Icon(
                   category['icon'],
-                  color: kCategoryGreyColor,
+                  color: kDarkGreyColor,
                 ),
                 Text(
                   category['title'],
                   style: const TextStyle(
-                    color: kCategoryGreyColor,
+                    color: kDarkGreyColor,
                   ),
                 ),
               ],

@@ -43,7 +43,7 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
           currentIndex: _currentSelectIndex,
           updateFunction: () async {
             if (await DatabaseController.to
-                .getCurrentUser(DatabaseController.to.user!.id)) {
+                .currentUserUpdate(DatabaseController.to.user!.id)) {
               setState(() {});
             }
           },

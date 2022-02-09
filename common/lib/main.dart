@@ -1,3 +1,4 @@
+import 'package:common/controllers/post_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
     final GatheringController _gatheringController =
         Get.put(GatheringController());
     final ConnectController _connectController = Get.put(ConnectController());
+    final PostController _postController = Get.put(PostController());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

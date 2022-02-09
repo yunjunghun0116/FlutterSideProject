@@ -39,7 +39,6 @@ class ConnectController extends GetxController {
     buffer.write(timeStamp);
     buffer.write(newLine);
     buffer.write(accessKey);
-    print(buffer.toString());
 
     /// signing key
     var key = utf8.encode(secretKey);

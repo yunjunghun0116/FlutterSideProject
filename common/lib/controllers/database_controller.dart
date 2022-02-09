@@ -34,7 +34,7 @@ class DatabaseController extends GetxController {
     }
   }
 
-  Future<bool> getCurrentUser(String id) async {
+  Future<bool> currentUserUpdate(String id) async {
     DocumentSnapshot<Map<String, dynamic>> _dbUser =
         await (_firestore.collection('user').doc(id).get());
     if (_dbUser.data() == null) {
@@ -117,7 +117,7 @@ class DatabaseController extends GetxController {
       await _firestore.collection('user').doc(user!.id).update({
         'openGatheringList': _openGatheringList,
       });
-      getCurrentUser(user!.id);
+      currentUserUpdate(user!.id);
       return true;
     } catch (e) {
       return false;
@@ -131,7 +131,7 @@ class DatabaseController extends GetxController {
     for (int i = 0; i < _userDocs.length; i++) {
       Map<String, dynamic> body = {
         'id': _userDocs[i].id,
-        ..._userDocs[i].data() as Map<String, dynamic>
+        ..._userDocs[i].data()
       };
       _userList.add(User.fromJson(body));
     }
@@ -162,7 +162,7 @@ class DatabaseController extends GetxController {
   Future<bool> updateUser(Map<String, dynamic> body) async {
     try {
       await _firestore.collection('user').doc(user!.id).update(body);
-      await getCurrentUser(user!.id);
+      await currentUserUpdate(user!.id);
       return true;
     } catch (e) {
       return false;

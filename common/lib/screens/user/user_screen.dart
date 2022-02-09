@@ -7,7 +7,6 @@ import 'components/user_screen_content_title.dart';
 import '../../components/gathering_screen.dart';
 import '../profile/profile_screen.dart';
 import '../../constants.dart';
-import '../../models/user.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({

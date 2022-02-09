@@ -1,4 +1,3 @@
-import 'package:common/models/user.dart';
 import 'package:common/screens/community/community_screen.dart';
 import 'package:flutter/material.dart';
 import 'components/main_screen_bottom_navigation_bar.dart';

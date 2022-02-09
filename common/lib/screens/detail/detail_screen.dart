@@ -45,7 +45,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   Future<void> updateScreen() async {
     await GatheringController.to.setGatheringList();
-    await DatabaseController.to.getCurrentUser(DatabaseController.to.user!.id);
+    await DatabaseController.to.currentUserUpdate(DatabaseController.to.user!.id);
   }
 
   void checkUserStateIndex(String id) {
