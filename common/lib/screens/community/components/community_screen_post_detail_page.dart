@@ -1,5 +1,6 @@
 import 'package:common/models/comment.dart';
 import 'package:common/models/post.dart';
+import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -17,9 +18,48 @@ class CommunityScreenPostDetailPage extends StatefulWidget {
 class _CommunityScreenPostDetailPageState
     extends State<CommunityScreenPostDetailPage> {
   bool isRecomment = false;
+  int selectedIndex = -1;
 
-  Widget _getCommentArea(List<Comment> commentList){
-    return Column();
+  Widget _getCommentArea(List<Comment> commentList) {
+    List<CommunityScreenPostDetailPageCommentCard> _commentList = [];
+    for (int i = 0; i < commentList.length; i++) {
+      _commentList.add(
+        CommunityScreenPostDetailPageCommentCard(
+          comment: commentList[i],
+          isRecomment: isRecomment,
+          commentIndex: i,
+          selectedIndex: selectedIndex,
+          recommentPressed: () {
+            if (isRecomment && selectedIndex == i) {
+              setState(() {
+                isRecomment = false;
+                selectedIndex = -1;
+              });
+              print(isRecomment);
+              print(selectedIndex);
+              return;
+            }
+            if (isRecomment) {
+              setState(() {
+                selectedIndex = i;
+              });
+              print(isRecomment);
+              print(selectedIndex);
+              return;
+            }
+            setState(() {
+              isRecomment = true;
+              selectedIndex = i;
+            });
+            print(isRecomment);
+            print(selectedIndex);
+          },
+        ),
+      );
+    }
+    return Column(
+      children: _commentList,
+    );
   }
 
   @override
@@ -72,83 +112,42 @@ class _CommunityScreenPostDetailPageState
                     height: 30,
                     color: kRedColor,
                   ),
-                  Column(
-                    children: widget.post.commentList.map((Comment comment) {
-                      return Container(
-                        padding: const EdgeInsets.all(10),
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                          color: kGreyColor,
-                        ))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  comment.authorName,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    color: kLightGreyColor,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: const Icon(
-                                    Icons.comment_outlined,
-                                    size: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(comment.comment),
-                            Text(comment.timeStamp),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                  _getCommentArea(widget.post.commentList),
                 ],
               ),
             ),
-            SafeArea(
-              child: SizedBox(
-                width: double.infinity,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: kLightGreyColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText:
-                                    isRecomment ? '대댓글을 입력하세요' : '댓글을 입력하세요'),
-                          ),
-                        ),
-                      ),
-                      Container(
+            Container(
+              padding: EdgeInsets.only(
+                top: 5,
+                bottom: MediaQuery.of(context).padding.bottom,
+              ),
+              width: double.infinity,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: kLightGreyColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: const Icon(
-                          Icons.send_outlined,
-                          color: kBlueColor,
+                        child: TextField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText:
+                                  isRecomment ? '대댓글을 입력하세요' : '댓글을 입력하세요'),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const Icon(
+                        Icons.send_outlined,
+                        color: kBlueColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
