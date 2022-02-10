@@ -1,5 +1,6 @@
 import 'package:common/models/post.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page.dart';
+import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constants.dart';
@@ -49,18 +50,18 @@ class CommunityScreenCategoryPagePostCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${post.timeStamp} | ${post.authorName}',
+                  '${getUploadTime(DateTime.parse(post.timeStamp))} | ${post.authorName}',
                   style: kCommunityTextStyle,
                 ),
                 Row(
-                  children: const [
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.chat_outlined,
                       color: kDarkGreyColor,
                       size: 20,
                     ),
                     Text(
-                      ' 3',
+                      ' ${post.commentList.length}',
                       style: kCommunityTextStyle,
                     )
                   ],

@@ -23,11 +23,11 @@ class UploadScreenHostMessageArea extends StatelessWidget {
         TextField(
           focusNode: focusNode,
           controller: controller,
-          minLines: 2,
-          maxLines: 2,
-          maxLength: 20,
+          minLines: 1,
+          maxLines: 100,
+          maxLength: 1000,
           onChanged: (String s) {
-            if (s.isNotEmpty&&s.substring(s.length - 1) == '\n') {
+            if (s.isNotEmpty && s.substring(s.length - 1) == '\n') {
               focusNode.unfocus();
             }
           },
@@ -38,6 +38,7 @@ class UploadScreenHostMessageArea extends StatelessWidget {
             filled: true,
             hintStyle: const TextStyle(color: kGreyColor),
             hintText: "호스트의 한마디를 입력해주세요!!",
+            counterText: '',
             fillColor: kWhiteColor,
           ),
         ),

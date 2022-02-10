@@ -27,44 +27,18 @@ class CommunityScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          children: [
-            CommunityScreenCategoryCard(
-              icon: Icons.coffee_outlined,
-              color: kBlueColor,
-              title: '자유게시판',
-              onPressed: ()async {
-                await PostController.to.setPostList('자유게시판');
-                Get.to(() => const CommunityScreenCategoryPage(category: '자유게시판'));
+          children: kCommunityCategoryList.map((Map<String, dynamic> category) {
+            return CommunityScreenCategoryCard(
+              icon: category['icon'],
+              color: category['color'],
+              title: category['title'],
+              onPressed: () async {
+                await PostController.to.setPostList(category['title']);
+                Get.to(() =>
+                    CommunityScreenCategoryPage(category: category['title']));
               },
-            ),
-            CommunityScreenCategoryCard(
-              icon: Icons.people_alt_outlined,
-              color: kPinkColor,
-              title: '친목게시판',
-              onPressed: () async{
-                await PostController.to.setPostList('친목게시판');
-                Get.to(() => const CommunityScreenCategoryPage(category: '친목게시판'));
-              },
-            ),
-            CommunityScreenCategoryCard(
-              icon: Icons.dashboard_outlined,
-              color: kYellowColor,
-              title: '홍보게시판',
-              onPressed: () async{
-                await PostController.to.setPostList('홍보게시판');
-                Get.to(() => const CommunityScreenCategoryPage(category: '홍보게시판'));
-              },
-            ),
-            CommunityScreenCategoryCard(
-              icon: Icons.masks_outlined,
-              color: kGreenColor,
-              title: '비밀게시판',
-              onPressed: () async{
-                await PostController.to.setPostList('비밀게시판');
-                Get.to(() => const CommunityScreenCategoryPage(category: '비밀게시판'));
-              },
-            ),
-          ],
+            );
+          }).toList(),
         ),
       ),
     );

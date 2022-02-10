@@ -1,5 +1,3 @@
-import 'package:common/controllers/database_controller.dart';
-import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,13 +61,13 @@ class ProfileScreen extends StatelessWidget {
             job: user.job,
             hostTagList: user.userTagList,
           ),
-          GetBuilder<DatabaseController>(
+          GetBuilder<UserController>(
             builder: (_) {
-              bool _isFollowed = DatabaseController.to.user!.likeUser
+              bool _isFollowed = UserController.to.user!.likeUser
                       .indexWhere((element) => element.id == user.id) !=
                   -1;
               return ProfileScreenButtonArea(
-                userIsMe: DatabaseController.to.user!.id == user.id,
+                userIsMe: UserController.to.user!.id == user.id,
                 isFollowed: _isFollowed,
                 followPressed: () async {
                   await UserController.to.followUser(user);

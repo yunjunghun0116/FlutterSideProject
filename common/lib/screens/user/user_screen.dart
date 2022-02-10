@@ -1,5 +1,5 @@
-import 'package:common/controllers/database_controller.dart';
 import 'package:common/controllers/local_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/user_screen_content_card.dart';
@@ -24,7 +24,7 @@ class UserScreen extends StatelessWidget {
         centerTitle: false,
         title: const Text('my'),
       ),
-      body: GetBuilder<DatabaseController>(
+      body: GetBuilder<UserController>(
         builder: (_) {
           return Padding(
             padding: const EdgeInsets.all(10),
@@ -38,7 +38,7 @@ class UserScreen extends StatelessWidget {
                       onPressed: () {
                         Get.to(
                           () => ProfileScreen(
-                            user: DatabaseController.to.user!,
+                            user: UserController.to.user!,
                           ),
                         );
                       }),
@@ -49,7 +49,7 @@ class UserScreen extends StatelessWidget {
                         Get.to(() => GatheringScreen(
                               title: '호스트로 주최한 모임',
                               gatheringList:
-                                  DatabaseController.to.user!.openGatheringList,
+                              UserController.to.user!.openGatheringList,
                             ));
                       }),
                   UserScreenContentCard(
@@ -57,18 +57,18 @@ class UserScreen extends StatelessWidget {
                       onPressed: () {
                         Get.to(() => GatheringScreen(
                               title: '게스트로 참여한 모임',
-                              gatheringList: DatabaseController
+                              gatheringList: UserController
                                   .to.user!.applyGatheringList,
                             ));
                       }),
                   const UserScreenContentTitle(title: '어플정보'),
                   UserScreenContentCard(text: '공지사항', onPressed: () {}),
                   UserScreenContentCard(text: '1:1 문의', onPressed: () {}),
-                  UserScreenContentCard(
-                      text: '기기데이터 초기화',
-                      onPressed: () {
-                        LocalController.to.clearSharedPreferences();
-                      }),
+                  // UserScreenContentCard(
+                  //     text: '기기데이터 초기화',
+                  //     onPressed: () {
+                  //       LocalController.to.clearSharedPreferences();
+                  //     }),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(

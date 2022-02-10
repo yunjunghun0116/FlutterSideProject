@@ -1,8 +1,8 @@
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/detail/components/detail_screen_over_bottom_bar.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/database_controller.dart';
 import '../profile/profile_screen.dart';
 import '../applicants/applicants_screen.dart';
 import '../../constants.dart';
@@ -40,12 +40,12 @@ class _DetailScreenState extends State<DetailScreen> {
   void initState() {
     super.initState();
     updateScreen();
-    checkUserStateIndex(DatabaseController.to.user!.id);
+    checkUserStateIndex(UserController.to.user!.id);
   }
 
   Future<void> updateScreen() async {
     await GatheringController.to.setGatheringList();
-    await DatabaseController.to.currentUserUpdate(DatabaseController.to.user!.id);
+    await UserController.to.currentUserUpdate(UserController.to.user!.id);
   }
 
   void checkUserStateIndex(String id) {
@@ -113,7 +113,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    User user = await DatabaseController.to
+                    User user = await UserController.to
                         .getUser(widget.gathering.host.userId);
                     Get.to(
                       () => ProfileScreen(

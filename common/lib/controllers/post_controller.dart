@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/controllers/database_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/post.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +12,7 @@ class PostController extends GetxController {
   List<Post> get postList => _postList;
 
   Future<void> setPostList(String category) async {
-    _postList = (await getPostDocs(category))??[];
+    _postList = (await getPostDocs(category)) ?? [];
     update();
   }
 
@@ -20,16 +20,17 @@ class PostController extends GetxController {
     DateTime nowTime = DateTime.now();
     Map<String, dynamic> body = {
       'category': category,
-      'university': DatabaseController.to.user!.university,
+      'university': UserController.to.user!.university,
       'title': title,
       'content': content,
       'timeStamp': nowTime.toString(),
-      'authorId': DatabaseController.to.user!.id,
-      'authorName': DatabaseController.to.user!.name,
+      'authorId': UserController.to.user!.id,
+      'authorName': UserController.to.user!.name,
       'commentList': [],
     };
     try {
       await _firestore.collection('post').add(body);
+      setPostList(category);
       return true;
     } catch (e) {
       return false;
@@ -52,38 +53,43 @@ class PostController extends GetxController {
     return postList;
   }
 
-  Future<bool> uploadComment(String postId,String comment)async{
+  Future<bool> uploadComment(String postId,String category, String comment) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
-    await _firestore.collection('post').doc(postId).get();
+        await _firestore.collection('post').doc(postId).get();
 
     List _commentList = _postData['commentList'];
     _commentList.add({
-      'comment':comment,
-      'timeStamp':DateTime.now().toString(),
-      'authorId':DatabaseController.to.user!.id,
-      'authorName':DatabaseController.to.user!.name,
-      'recommentList':[],
+      'comment': comment,
+      'timeStamp': DateTime.now().toString(),
+      'authorId': UserController.to.user!.id,
+      'authorName': UserController.to.user!.name,
+      'recommentList': [],
     });
-    await _firestore.collection('post').doc(postId).update({
-      'commentList':_commentList
-    });
+    await _firestore
+        .collection('post')
+        .doc(postId)
+        .update({'commentList': _commentList});
+    setPostList(category);
     return true;
   }
 
-  Future<bool> uploadRecomment(String postId,int commentIndex,String comment)async{
+  Future<bool> uploadRecomment(
+      String postId, String category, int commentIndex, String comment) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
-    await _firestore.collection('post').doc(postId).get();
+        await _firestore.collection('post').doc(postId).get();
 
     List _commentList = _postData['commentList'];
     _commentList[commentIndex]['recommentList'].add({
-      'comment':comment,
-      'timeStamp':DateTime.now().toString(),
-      'authorId':DatabaseController.to.user!.id,
-      'authorName':DatabaseController.to.user!.name,
+      'comment': comment,
+      'timeStamp': DateTime.now().toString(),
+      'authorId': UserController.to.user!.id,
+      'authorName': UserController.to.user!.name,
     });
-    await _firestore.collection('post').doc(postId).update({
-      'commentList':_commentList
-    });
+    await _firestore
+        .collection('post')
+        .doc(postId)
+        .update({'commentList': _commentList});
+    setPostList(category);
     return true;
   }
 }

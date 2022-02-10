@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:common/controllers/connect_controller.dart';
-import 'package:common/controllers/database_controller.dart';
 import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/local_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/register/components/register_screen_password_page.dart';
 import 'package:flutter/material.dart';
@@ -207,7 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           buttonPressedFunction: () async {
             if (_phoneChecked && _certificationEnabled) {
-              if(await DatabaseController.to.checkPhoneNumberIsDuplicated(_phoneController.text)){
+              if(await UserController.to.checkPhoneNumberIsDuplicated(_phoneController.text)){
                 setState(() {
                   ++_currentPageIndex;
                 });
@@ -335,7 +335,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               'likeUser': [],
               'timeStamp': DateTime.now().toString(),
             };
-            String id = await DatabaseController.to.makeUser(body);
+            String id = await UserController.to.makeUser(body);
             await LocalController.to.setId(id);
             GatheringController.to.setGatheringList();
             Get.offAll(() => const MainScreen());

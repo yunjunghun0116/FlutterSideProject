@@ -1,4 +1,4 @@
-import 'package:common/controllers/database_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/home_screen_category_area.dart';
@@ -21,10 +21,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Widget _getGatheringCard(List<Gathering> list) {
+  @override
+  initState(){
+    super.initState();
     GatheringController.to.setGatheringList();
+  }
+  Widget _getGatheringCard() {
     return Column(
-      children: list.map((Gathering gathering) {
+      children: GatheringController.to.gatheringList.map((Gathering gathering) {
         return GatheringCard(
           gathering: gathering,
           userName: gathering.host.name,
@@ -54,11 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: () {
             Get.to(() => const UniversityScreen());
           },
-          child: GetBuilder<DatabaseController>(
+          child: GetBuilder<UserController>(
             builder: (context){
               return Row(
                 children: [
-                  Text(DatabaseController.to.user!.university),
+                  Text(UserController.to.user!.university),
                   const SizedBox(width: 5),
                   const RotatedBox(
                     quarterTurns: 1,
@@ -93,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                      ),
                    ),
                  ),
-                 _getGatheringCard(GatheringController.to.gatheringList),
+                 _getGatheringCard(),
                ],
              );
            }

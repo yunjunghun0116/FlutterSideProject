@@ -1,6 +1,6 @@
-import 'package:common/controllers/database_controller.dart';
 import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/local_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 30),
             InkWell(
               onTap: () async {
-                String? _id = await DatabaseController.to
+                String? _id = await UserController.to
                     .signInWithEmailPassword(
                         _phoneController.text, _passwordController.text);
                 if (_id != null) {

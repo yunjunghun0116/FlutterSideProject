@@ -1,11 +1,11 @@
 import 'package:common/controllers/gathering_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'components/applicants_screen_select_area.dart';
 import 'components/applicants_screen_applicant_card.dart';
 import '../../constants.dart';
 import '../../models/gathering.dart';
 import '../../components/user_gathering_status.dart';
-import '../../controllers/database_controller.dart';
 
 class ApplicantsScreen extends StatefulWidget {
   final Gathering gathering;
@@ -43,8 +43,8 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
           followed: false,
           currentIndex: _currentSelectIndex,
           updateFunction: () async {
-            if (await DatabaseController.to
-                .currentUserUpdate(DatabaseController.to.user!.id)) {
+            if (await UserController.to
+                .currentUserUpdate(UserController.to.user!.id)) {
               setState(() {});
             }
           },

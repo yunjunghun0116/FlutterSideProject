@@ -1,4 +1,4 @@
-import 'package:common/controllers/database_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/user.dart';
 import 'package:common/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +27,10 @@ class FollowScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: GetBuilder<DatabaseController>(
+      body: GetBuilder<UserController>(
         builder: (_) {
           return ListView(
-            children: DatabaseController.to.user!.likeUser.map((user) {
+            children: UserController.to.user!.likeUser.map((user) {
               return Column(
                 children: [
                   UserInfo(
@@ -42,7 +42,7 @@ class FollowScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      User _user = await DatabaseController.to.getUser(user.id);
+                      User _user = await UserController.to.getUser(user.id);
                       Get.to(() => ProfileScreen(user: _user));
                     },
                     child: Container(

@@ -50,8 +50,6 @@ class ConnectController extends GetxController {
     return signatureKey;
   }
 
-
-
   Future<void> sendSMS(String phoneNumber,String certificationNumber) async {
     Map data = {
       "type": "SMS",

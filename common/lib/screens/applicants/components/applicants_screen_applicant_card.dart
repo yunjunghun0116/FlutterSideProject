@@ -1,9 +1,9 @@
 import 'package:common/controllers/gathering_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'applicants_screen_applicant_card_info.dart';
 import '../../profile/profile_screen.dart';
-import '../../../controllers/database_controller.dart';
 import '../../../models/gathering.dart';
 import '../../../models/user.dart';
 import '../../../models/applicant.dart';
@@ -142,7 +142,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
                     await updateFunction();
                   } else {
                     User user =
-                        await DatabaseController.to.getUser(applicant.userId);
+                        await UserController.to.getUser(applicant.userId);
                     Get.to(
                       () => ProfileScreen(
                         user: user,

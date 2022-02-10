@@ -1,11 +1,14 @@
-import 'package:common/controllers/database_controller.dart';
 import 'package:common/controllers/post_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/comment.dart';
 import 'package:common/models/post.dart';
+import 'package:common/models/recomment.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants.dart';
+import '../../../utils.dart';
 
 class CommunityScreenPostDetailPage extends StatefulWidget {
   final Post post;
@@ -19,11 +22,21 @@ class CommunityScreenPostDetailPage extends StatefulWidget {
 
 class _CommunityScreenPostDetailPageState
     extends State<CommunityScreenPostDetailPage> {
-
   final TextEditingController _commentController = TextEditingController();
 
+  int commentIndex = 0;
+
+  List commentList = [];
   bool isRecomment = false;
   int selectedIndex = -1;
+
+  @override
+  initState() {
+    super.initState;
+    commentList = widget.post.commentList.sublist(0);
+    commentIndex = PostController.to.postList
+        .indexWhere((element) => element.id == widget.post.id);
+  }
 
   Widget _getCommentArea(List commentList) {
     List<CommunityScreenPostDetailPageCommentCard> _commentList = [];
@@ -40,24 +53,18 @@ class _CommunityScreenPostDetailPageState
                 isRecomment = false;
                 selectedIndex = -1;
               });
-              print(isRecomment);
-              print(selectedIndex);
               return;
             }
             if (isRecomment) {
               setState(() {
                 selectedIndex = i;
               });
-              print(isRecomment);
-              print(selectedIndex);
               return;
             }
             setState(() {
               isRecomment = true;
               selectedIndex = i;
             });
-            print(isRecomment);
-            print(selectedIndex);
           },
         ),
       );
@@ -92,7 +99,7 @@ class _CommunityScreenPostDetailPageState
                     ),
                   ),
                   Text(
-                    widget.post.timeStamp,
+                    getUploadTime(DateTime.parse(widget.post.timeStamp)),
                     style: kCommunityTextStyle,
                   ),
                   const SizedBox(height: 10),
@@ -112,12 +119,14 @@ class _CommunityScreenPostDetailPageState
                     ),
                   ),
                   const SizedBox(height: 30),
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    color: kRedColor,
-                  ),
-                  _getCommentArea(widget.post.commentList),
+                  const Divider(color: kDarkGreyColor),
+                  GetBuilder<PostController>(builder: (_) {
+                    return PostController
+                            .to.postList[commentIndex].commentList.isNotEmpty
+                        ? _getCommentArea(PostController
+                            .to.postList[commentIndex].commentList)
+                        : Container();
+                  }),
                 ],
               ),
             ),
@@ -147,21 +156,28 @@ class _CommunityScreenPostDetailPageState
                       ),
                     ),
                     GestureDetector(
-                      onTap: ()async{
-                        print(_commentController.text);
-                        if(isRecomment){
-                          bool upload = await PostController.to.uploadRecomment(widget.post.id,selectedIndex, _commentController.text);
-                          if(upload){
-                            print('upload성공');
+                      onTap: () async {
+                        if (isRecomment) {
+                          bool upload = await PostController.to.uploadRecomment(
+                              widget.post.id,
+                              widget.post.category,
+                              selectedIndex,
+                              _commentController.text);
+                          if (upload) {
+                            _commentController.clear();
+                            FocusScope.of(context).unfocus();
                           }
                           return;
                         }
-
-                        bool upload = await PostController.to.uploadComment(widget.post.id, _commentController.text);
-                        if(upload){
-                          print('upload성공');
+                        bool upload = await PostController.to.uploadComment(
+                            widget.post.id,
+                            widget.post.category,
+                            _commentController.text);
+                        if (upload) {
+                          _commentController.clear();
+                          FocusScope.of(context).unfocus();
                         }
-                        },
+                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: const Icon(

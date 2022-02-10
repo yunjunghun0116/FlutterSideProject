@@ -2,6 +2,7 @@ import 'package:common/models/recomment.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../utils.dart';
 
 class CommunityScreenPostDetailPageRecommentCard extends StatelessWidget {
   final Recomment recomment;
@@ -41,7 +42,8 @@ class CommunityScreenPostDetailPageRecommentCard extends StatelessWidget {
                     ),
                   ),
                   Text(recomment.comment),
-                  Text(recomment.timeStamp),
+                  const SizedBox(height: 10),
+                  Text(getUploadTime(DateTime.parse(recomment.timeStamp))),
                 ],
               ),
             ),

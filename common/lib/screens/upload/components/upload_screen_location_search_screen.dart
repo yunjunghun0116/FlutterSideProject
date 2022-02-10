@@ -25,7 +25,10 @@ class _UploadScreenLocationSearchScreenState
       _listTileList.add(
         GestureDetector(
           onTap: () {
-            Get.back(result: _result[i]['address_name']);
+            Get.back(result: {
+              'address': _result[i]['address_name'],
+              'place': _result[i]['place_name'],
+            });
           },
           child: ListTile(
             title: Text(_result[i]['place_name']),
@@ -51,7 +54,7 @@ class _UploadScreenLocationSearchScreenState
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Get.back(result: '');
+            Get.back(result: null);
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -67,8 +70,6 @@ class _UploadScreenLocationSearchScreenState
           TextField(
             focusNode: _focusNode,
             controller: _addressController,
-            minLines: 1,
-            maxLines: 1,
             onChanged: (String s) async {
               if (s.isNotEmpty && s.substring(s.length - 1) == '\n') {
                 getPlaceList(s);

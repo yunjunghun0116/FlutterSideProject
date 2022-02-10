@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:common/controllers/gathering_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'gathering_card_info.dart';
@@ -7,7 +9,6 @@ import '../constants.dart';
 import '../utils.dart';
 import '../models/gathering.dart';
 import '../screens/detail/detail_screen.dart';
-import '../controllers/database_controller.dart';
 
 class GatheringCard extends StatelessWidget {
   final Gathering gathering;
@@ -43,10 +44,10 @@ class GatheringCard extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         Gathering _gathering =
-            await DatabaseController.to.getGathering(gathering.id);
+            await GatheringController.to.getGathering(gathering.id);
         Get.to(() => DetailScreen(
               gathering: _gathering,
-              isHost: gathering.host.userId == DatabaseController.to.user!.id,
+              isHost: gathering.host.userId == UserController.to.user!.id,
             ));
       },
       child: Container(

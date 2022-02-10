@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'profile_screen_edit_screen_info_card.dart';
 import 'edit_screen/edit_job_screen.dart';
 import 'profile_screen_edit_screen_info_tag_card.dart';
 import '../../../constants.dart';
-import '../../../controllers/database_controller.dart';
 import '../../../models/user.dart';
 
 class ProfileScreenEditScreen extends StatelessWidget {
@@ -27,10 +27,10 @@ class ProfileScreenEditScreen extends StatelessWidget {
     XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return false;
     File image = File(pickedFile.path);
-    String? _downloadUrl = await DatabaseController.to.updateImage(image);
+    String? _downloadUrl = await UserController.to.updateImage(image);
     if (_downloadUrl != null) {
       Map<String, String> body = {'imageUrl': _downloadUrl};
-     return  await DatabaseController.to.updateUser(body);
+     return  await UserController.to.updateUser(body);
     }
     return false;
   }
@@ -58,13 +58,13 @@ class ProfileScreenEditScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: GetBuilder<DatabaseController>(
+      body: GetBuilder<UserController>(
         builder: (_){
           return SingleChildScrollView(
             child: Column(
               children: [
                 ProfileScreenEditScreenImageArea(
-                  imageUrl: DatabaseController.to.user!.imageUrl,
+                  imageUrl: UserController.to.user!.imageUrl,
                   updateImage: () async {
                     await updateImage().then((value) {
                       if (value) {
@@ -104,37 +104,37 @@ class ProfileScreenEditScreen extends StatelessWidget {
                 ),
                 ProfileScreenEditScreenInfoCard(
                   title: '닉네임',
-                  text: DatabaseController.to.user!.name,
+                  text: UserController.to.user!.name,
                   onPressed: () {
-                    Get.to(() => EditNameScreen(user: DatabaseController.to.user!));
+                    Get.to(() => EditNameScreen(user: UserController.to.user!));
                   },
                 ),
                 ProfileScreenEditScreenInfoCard(
                   title: '학과',
-                  text: DatabaseController.to.user!.job,
+                  text: UserController.to.user!.job,
                   onPressed: () {
-                    Get.to(() => EditJobScreen(user:DatabaseController.to.user!));
+                    Get.to(() => EditJobScreen(user:UserController.to.user!));
                   },
                 ),
                 ProfileScreenEditScreenInfoTagCard(
                   title: '소개 해시태그',
-                  tagList: DatabaseController.to.user!.userTagList,
+                  tagList: UserController.to.user!.userTagList,
                   onPressed: () {
-                    Get.to(() => EditTagScreen(user: DatabaseController.to.user!));
+                    Get.to(() => EditTagScreen(user: UserController.to.user!));
                   },
                 ),
                 ProfileScreenEditScreenInfoCard(
                   title: '휴대폰번호',
-                  text: DatabaseController.to.user!.phoneNumber,
+                  text: UserController.to.user!.phoneNumber,
                   onPressed: () {
-                    Get.to(() => EditPhoneScreen(user: DatabaseController.to.user!));
+                    Get.to(() => EditPhoneScreen(user: UserController.to.user!));
                   },
                 ),
                 ProfileScreenEditScreenInfoCard(
                   title: '카카오톡 링크',
-                  text: DatabaseController.to.user!.kakaoLinkUrl,
+                  text: UserController.to.user!.kakaoLinkUrl,
                   onPressed: ()  {
-                    Get.to(() => EditKakaoScreen(user: DatabaseController.to.user!));
+                    Get.to(() => EditKakaoScreen(user: UserController.to.user!));
                   },
                 ),
               ],

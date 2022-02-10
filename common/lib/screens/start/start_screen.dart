@@ -1,10 +1,10 @@
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/login/login_screen.dart';
 import 'package:common/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../main/main_screen.dart';
 import '../../constants.dart';
-import '../../controllers/database_controller.dart';
 import '../../controllers/local_controller.dart';
 
 class StartScreen extends StatelessWidget {
@@ -13,13 +13,14 @@ class StartScreen extends StatelessWidget {
   void _checkUserSignedIn() async {
     String? _userId = await (LocalController.to.getId());
     if (_userId != null) {
-      DatabaseController.to.currentUserUpdate(_userId).then((value) {
+      UserController.to.currentUserUpdate(_userId).then((value) {
         if (value) {
           Get.offAll(() => const MainScreen());
         }
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:common/models/comment.dart';
 import 'package:common/models/recomment.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_recomment_card.dart';
+import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -67,7 +68,8 @@ class CommunityScreenPostDetailPageCommentCard extends StatelessWidget {
             ],
           ),
           Text(comment.comment),
-          Text(comment.timeStamp),
+          const SizedBox(height: 10),
+          Text(getUploadTime(DateTime.parse(comment.timeStamp))),
           comment.recommentList.isNotEmpty
               ? Column(
                   children: comment.recommentList.map((recomment) {

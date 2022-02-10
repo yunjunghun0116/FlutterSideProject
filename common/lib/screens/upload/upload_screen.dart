@@ -1,4 +1,5 @@
 import 'package:common/controllers/gathering_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/upload_screen_bottom_bar.dart';
@@ -13,7 +14,6 @@ import 'components/upload_screen_title_area.dart';
 import '../main/main_screen.dart';
 import '../../components/user_info.dart';
 import '../../constants.dart';
-import '../../controllers/database_controller.dart';
 
 class UploadScreen extends StatefulWidget {
   final String category;
@@ -60,7 +60,7 @@ class _UploadScreenState extends State<UploadScreen> {
         titleSpacing: 0,
         elevation: 1,
         title: Text(
-          '${DatabaseController.to.user!.name} 호스트',
+          '${UserController.to.user!.name} 호스트',
           style: const TextStyle(
             color: kBlackColor,
             fontWeight: FontWeight.bold,
@@ -74,11 +74,11 @@ class _UploadScreenState extends State<UploadScreen> {
             Padding(
               padding: const EdgeInsets.all(5),
               child: UserInfo(
-                userId: DatabaseController.to.user!.id,
-                imageUrl: DatabaseController.to.user!.imageUrl,
-                name: DatabaseController.to.user!.name,
-                job: DatabaseController.to.user!.job,
-                hostTagList: DatabaseController.to.user!.userTagList,
+                userId: UserController.to.user!.id,
+                imageUrl: UserController.to.user!.imageUrl,
+                name: UserController.to.user!.name,
+                job: UserController.to.user!.job,
+                hostTagList: UserController.to.user!.userTagList,
               ),
             ),
             Padding(
@@ -149,13 +149,18 @@ class _UploadScreenState extends State<UploadScreen> {
                     },
                     locationSearchPressed: () async {
                       // _connectController
-                      String _placeAddress = await Get.to(
+                      Map<String,dynamic>? _placeInfo = await Get.to(
                           () => const UploadScreenLocationSearchScreen());
-                      setState(() {
-                        _location = _placeAddress;
-                      });
+                      if(_placeInfo!=null){
+                        setState(() {
+                          _location = _placeInfo['address'];
+                          _locationDetailController.text = _placeInfo['place'];
+                        });
+                      }
+
                     },
                   ),
+                  const SizedBox(height: 10),
                   UploadScreenHostMessageArea(
                     focusNode: _hostMessageFocusNode,
                     controller: _hostMessageController,
@@ -220,18 +225,18 @@ class _UploadScreenState extends State<UploadScreen> {
           }
           Map<String, dynamic> body = {
             'host': {
-              'userId': DatabaseController.to.user!.id,
-              'name': DatabaseController.to.user!.name,
-              'imageUrl': DatabaseController.to.user!.imageUrl,
-              'job': DatabaseController.to.user!.job,
-              'userTagList': DatabaseController.to.user!.userTagList,
+              'userId': UserController.to.user!.id,
+              'name': UserController.to.user!.name,
+              'imageUrl': UserController.to.user!.imageUrl,
+              'job': UserController.to.user!.job,
+              'userTagList': UserController.to.user!.userTagList,
             },
             'over': false,
             'title': _titleController.text,
             'category': widget.category,
             'participant': 0,
             'capacity': _guestCount,
-            'university':DatabaseController.to.user!.university,
+            'university':UserController.to.user!.university,
             'openTime': _openTime.toString(),
             'endTime': _noEndTime ? '' : _endTime.toString(),
             'location': _location,

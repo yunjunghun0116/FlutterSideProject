@@ -44,7 +44,7 @@ class UploadScreenLocationArea extends StatelessWidget {
                 Text(
                   location != '' ? location : '장소를 설정해주세요',
                   style: TextStyle(
-                    color: location != ''?kBlackColor:kGreyColor,
+                    color: location != '' ? kBlackColor : kGreyColor,
                     fontSize: 16,
                   ),
                 ),
@@ -58,10 +58,10 @@ class UploadScreenLocationArea extends StatelessWidget {
           focusNode: focusNode,
           controller: controller,
           minLines: 1,
-          maxLines: 1,
-          maxLength: 20,
+          maxLines: 2,
+          maxLength: 50,
           onChanged: (String s) {
-            if (s.isNotEmpty&&s.substring(s.length - 1) == '\n') {
+            if (s.isNotEmpty && s.substring(s.length - 1) == '\n') {
               focusNode.unfocus();
             }
           },
@@ -72,6 +72,7 @@ class UploadScreenLocationArea extends StatelessWidget {
             filled: true,
             hintStyle: const TextStyle(color: kGreyColor),
             hintText: "상세 주소를 입력해주세요",
+            counterText: '',
             fillColor: kWhiteColor,
           ),
         ),

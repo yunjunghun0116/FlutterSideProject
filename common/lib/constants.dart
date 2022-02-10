@@ -65,6 +65,24 @@ OutlineInputBorder kFocusOutlinedBorder = OutlineInputBorder(
   borderRadius: BorderRadius.circular(10.0),
 );
 
+const List<Map<String, dynamic>> kCommunityCategoryList = [
+  {
+    'title': '자유게시판',
+    'color': kBlueColor,
+    'icon': Icons.coffee_outlined,
+  },
+  {
+    'title': '홍보게시판',
+    'color': kYellowColor,
+    'icon': Icons.dashboard_outlined,
+  },
+  {
+    'title': '익명게시판',
+    'color': kGreenColor,
+    'icon': Icons.masks_outlined,
+  },
+];
+
 const List<Map<String, dynamic>> kDetailStateList = [
   {'guideLine': '', 'buttonText': '신청하기'},
   {'guideLine': '모임에 신청중입니다', 'buttonText': '모임 신청중...'},
@@ -92,19 +110,14 @@ final List<String> kAdvertisementImageList = [
   'assets/images/exercise_1.jpeg',
 ];
 final List<Map<String, dynamic>> kCategoryList = [
-  {
-    'title': '스터디',
-    'icon': Icons.local_library,
-  },
+  {'title': '전체보기', 'icon': Icons.grid_on},
+  {'title': '스터디', 'icon': Icons.local_library},
   {'title': '공모전', 'icon': Icons.people},
   {'title': '운동', 'icon': Icons.fitness_center},
-  {'title': '베이킹', 'icon': Icons.restaurant_menu},
   {'title': '카페', 'icon': Icons.local_cafe},
   {'title': '음주', 'icon': Icons.local_bar},
-  {'title': '공예', 'icon': Icons.edit},
   {'title': '음악', 'icon': Icons.headset},
   {'title': '여행', 'icon': Icons.flight},
-  {'title': '전체보기', 'icon': Icons.grid_on},
 ];
 
 final List<Map<String, dynamic>> kLocationList = [
