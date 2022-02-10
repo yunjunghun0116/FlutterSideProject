@@ -119,7 +119,7 @@ class _CommunityScreenPostDetailPageState
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const Divider(color: kDarkGreyColor),
+                  const Divider(color: kDarkGreyColor,thickness: 1),
                   GetBuilder<PostController>(builder: (_) {
                     return PostController
                             .to.postList[commentIndex].commentList.isNotEmpty
