@@ -9,7 +9,7 @@ class UploadScreenBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).padding.bottom,
+        bottom: MediaQuery.of(context).padding.bottom+10,
         top: 10,
         left: 10,
         right: 10,

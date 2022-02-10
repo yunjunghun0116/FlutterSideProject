@@ -15,19 +15,19 @@ class DetailScreenUserBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).padding.bottom,
+        bottom: MediaQuery.of(context).padding.bottom+10,
+        left: 10,
+        right: 10,
         top: 10,
       ),
       child: GestureDetector(
         onTap: () {
-          if(userStateIndex == 0){
+          if (userStateIndex == 0) {
             applyPressed();
-          }else if(userStateIndex == 2){
+          } else if (userStateIndex == 2) {
             cancelPressed();
           }
-
         },
         child: Container(
           alignment: Alignment.center,
@@ -36,8 +36,8 @@ class DetailScreenUserBottomBar extends StatelessWidget {
             color: userStateIndex == 0
                 ? kBlueColor
                 : userStateIndex == 2
-                ? kRedColor
-                : kGreyColor,
+                    ? kRedColor
+                    : kGreyColor,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(

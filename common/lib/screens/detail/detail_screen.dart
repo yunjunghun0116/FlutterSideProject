@@ -180,38 +180,38 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
+          widget.gathering.over
+              ? const DetailScreenOverBottomBar()
+              : widget.isHost
+              ? DetailScreenHostBottomBar(
+            onPressed: () async {
+              await GatheringController.to
+                  .updateGathering(widget.gathering.id, {'over': true});
+              Get.offAll(() => const MainScreen());
+            },
+            over: widget.gathering.over,
+          )
+              : DetailScreenUserBottomBar(
+            applyPressed: () async {
+              await GatheringController.to
+                  .userApplyGathering(widget.gathering.id);
+              setState(() {
+                _userStateIndex = 1;
+              });
+            },
+            cancelPressed: () async {
+              await GatheringController.to
+                  .userCancelGathering(widget.gathering.id)
+                  .then((value) {
+                setState(() {
+                  _userStateIndex = 3;
+                });
+              });
+            },
+            userStateIndex: _userStateIndex,
+          )
         ],
       ),
-      bottomNavigationBar: widget.gathering.over
-          ? const DetailScreenOverBottomBar()
-          : widget.isHost
-              ? DetailScreenHostBottomBar(
-                  onPressed: () async {
-                    await GatheringController.to
-                        .updateGathering(widget.gathering.id, {'over': true});
-                    Get.offAll(() => const MainScreen());
-                  },
-                  over: widget.gathering.over,
-                )
-              : DetailScreenUserBottomBar(
-                  applyPressed: () async {
-                    await GatheringController.to
-                        .userApplyGathering(widget.gathering.id);
-                    setState(() {
-                      _userStateIndex = 1;
-                    });
-                  },
-                  cancelPressed: () async {
-                    await GatheringController.to
-                        .userCancelGathering(widget.gathering.id)
-                        .then((value) {
-                      setState(() {
-                        _userStateIndex = 3;
-                      });
-                    });
-                  },
-                  userStateIndex: _userStateIndex,
-                ),
     );
   }
 }

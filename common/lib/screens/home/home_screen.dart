@@ -88,14 +88,28 @@ class _HomeScreenState extends State<HomeScreen> {
              return Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
-                 const Padding(
-                   padding: EdgeInsets.symmetric(horizontal: 10),
-                   child: Text(
-                     '최근 올라온 모임을 소개해드릴게요!!',
-                     style: TextStyle(
-                       fontWeight: FontWeight.w600,
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
+                     const Padding(
+                       padding: EdgeInsets.symmetric(horizontal: 10),
+                       child: Text(
+                         '최근 올라온 모임을 소개해드릴게요!!',
+                         style: TextStyle(
+                           fontWeight: FontWeight.w600,
+                         ),
+                       ),
                      ),
-                   ),
+                     GestureDetector(
+                       onTap: (){
+                         GatheringController.to.setGatheringList();
+                       },
+                       child: Container(
+                         padding: const EdgeInsets.all(5),
+                         child: const Icon(Icons.refresh,color: kDarkGreyColor,),
+                       ),
+                     ),
+                   ],
                  ),
                  _getGatheringCard(),
                ],

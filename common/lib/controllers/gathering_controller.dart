@@ -28,13 +28,20 @@ class GatheringController extends GetxController {
 
     List<Gathering> _tempGatheringList = [];
     List _gatheringDocs = _gatheringData.docs;
+    DateTime nowTime = DateTime.now();
 
     for (int i = 0; i < _gatheringDocs.length; i++) {
       Map<String, dynamic> body = {
         'id': _gatheringDocs[i].id,
         ..._gatheringDocs[i].data()
       };
-      _tempGatheringList.add(Gathering.fromJson(body));
+      //시간종료되었을때(시작시간이 5일이상 지났을때)
+      if (DateTime.parse(body['openTime']).difference(nowTime).inDays <
+          -5) {
+        updateGathering(_gatheringDocs[i].id, {'over': true});
+      }else{
+        _tempGatheringList.add(Gathering.fromJson(body));
+      }
     }
     _gatheringList = _tempGatheringList;
     update();
@@ -42,13 +49,7 @@ class GatheringController extends GetxController {
 
   Future<void> setCategoryGatheringList(String category) async {
     _categoryGatheringList = [];
-    DateTime nowTime = DateTime.now();
     for (Gathering gathering in _gatheringList) {
-      //시간종료되었을때(시작시간이 지났을때)
-      if (DateTime.parse(gathering.openTime).difference(nowTime).inSeconds <
-          0) {
-        updateGathering(gathering.id, {'over': true});
-      }
       if (category == '전체보기' || gathering.category == category) {
         _categoryGatheringList.add(gathering);
       }

@@ -1,3 +1,4 @@
+import 'package:common/constants.dart';
 import 'package:flutter/material.dart';
 
 class UserScreenContentCard extends StatelessWidget {
@@ -11,8 +12,9 @@ class UserScreenContentCard extends StatelessWidget {
       onTap: (){
         onPressed();
       },
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
+        color: kWhiteColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

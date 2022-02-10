@@ -42,6 +42,7 @@ class UploadScreenTitleArea extends StatelessWidget {
             fillColor: kWhiteColor,
           ),
         ),
+        const SizedBox(height: 10),
       ],
     );
   }

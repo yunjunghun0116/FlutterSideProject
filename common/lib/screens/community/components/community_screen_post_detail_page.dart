@@ -84,7 +84,7 @@ class _CommunityScreenPostDetailPageState
         title: Text(widget.post.category),
       ),
       body: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(left: 16,right: 16,top: 8),
         color: kWhiteColor,
         child: Column(
           children: [
@@ -133,7 +133,7 @@ class _CommunityScreenPostDetailPageState
             Container(
               padding: EdgeInsets.only(
                 top: 5,
-                bottom: MediaQuery.of(context).padding.bottom,
+                bottom: MediaQuery.of(context).padding.bottom+10,
               ),
               width: double.infinity,
               child: Container(
