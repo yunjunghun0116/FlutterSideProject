@@ -1,3 +1,5 @@
+import 'package:common/controllers/database_controller.dart';
+import 'package:common/controllers/post_controller.dart';
 import 'package:common/models/comment.dart';
 import 'package:common/models/post.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
@@ -17,10 +19,13 @@ class CommunityScreenPostDetailPage extends StatefulWidget {
 
 class _CommunityScreenPostDetailPageState
     extends State<CommunityScreenPostDetailPage> {
+
+  final TextEditingController _commentController = TextEditingController();
+
   bool isRecomment = false;
   int selectedIndex = -1;
 
-  Widget _getCommentArea(List<Comment> commentList) {
+  Widget _getCommentArea(List commentList) {
     List<CommunityScreenPostDetailPageCommentCard> _commentList = [];
     for (int i = 0; i < commentList.length; i++) {
       _commentList.add(
@@ -133,6 +138,7 @@ class _CommunityScreenPostDetailPageState
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: TextField(
+                          controller: _commentController,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText:
@@ -140,11 +146,28 @@ class _CommunityScreenPostDetailPageState
                         ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: const Icon(
-                        Icons.send_outlined,
-                        color: kBlueColor,
+                    GestureDetector(
+                      onTap: ()async{
+                        print(_commentController.text);
+                        if(isRecomment){
+                          bool upload = await PostController.to.uploadRecomment(widget.post.id,selectedIndex, _commentController.text);
+                          if(upload){
+                            print('upload성공');
+                          }
+                          return;
+                        }
+
+                        bool upload = await PostController.to.uploadComment(widget.post.id, _commentController.text);
+                        if(upload){
+                          print('upload성공');
+                        }
+                        },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: const Icon(
+                          Icons.send_outlined,
+                          color: kBlueColor,
+                        ),
                       ),
                     ),
                   ],

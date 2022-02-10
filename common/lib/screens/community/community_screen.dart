@@ -41,24 +41,27 @@ class CommunityScreen extends StatelessWidget {
               icon: Icons.people_alt_outlined,
               color: kPinkColor,
               title: '친목게시판',
-              onPressed: () {
-                Get.to(() => CommunityScreenCategoryPage(category: '친목게시판'));
+              onPressed: () async{
+                await PostController.to.setPostList('친목게시판');
+                Get.to(() => const CommunityScreenCategoryPage(category: '친목게시판'));
               },
             ),
             CommunityScreenCategoryCard(
               icon: Icons.dashboard_outlined,
               color: kYellowColor,
               title: '홍보게시판',
-              onPressed: () {
-                Get.to(() => CommunityScreenCategoryPage(category: '홍보게시판'));
+              onPressed: () async{
+                await PostController.to.setPostList('홍보게시판');
+                Get.to(() => const CommunityScreenCategoryPage(category: '홍보게시판'));
               },
             ),
             CommunityScreenCategoryCard(
               icon: Icons.masks_outlined,
               color: kGreenColor,
               title: '비밀게시판',
-              onPressed: () {
-                Get.to(() => CommunityScreenCategoryPage(category: '비밀게시판'));
+              onPressed: () async{
+                await PostController.to.setPostList('비밀게시판');
+                Get.to(() => const CommunityScreenCategoryPage(category: '비밀게시판'));
               },
             ),
           ],

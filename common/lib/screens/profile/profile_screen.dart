@@ -1,4 +1,6 @@
 import 'package:common/controllers/database_controller.dart';
+import 'package:common/controllers/gathering_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -70,10 +72,10 @@ class ProfileScreen extends StatelessWidget {
                 userIsMe: DatabaseController.to.user!.id == user.id,
                 isFollowed: _isFollowed,
                 followPressed: () async {
-                  await DatabaseController.to.followUser(user);
+                  await UserController.to.followUser(user);
                 },
                 followedPressed: () async {
-                  await DatabaseController.to.unfollowUser(user);
+                  await UserController.to.unfollowUser(user);
                 },
                 editPressed: () async {
                   await Get.to(() => ProfileScreenEditScreen(user: user));

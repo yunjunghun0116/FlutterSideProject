@@ -5,7 +5,7 @@ class Comment {
   final String timeStamp;
   final String authorId;
   final String authorName;
-  final List<Recomment> recommentList;
+  final List recommentList;
 
   Comment({
     required this.comment,

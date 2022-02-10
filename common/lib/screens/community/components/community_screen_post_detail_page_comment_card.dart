@@ -20,10 +20,6 @@ class CommunityScreenPostDetailPageCommentCard extends StatelessWidget {
     required this.recommentPressed,
   }) : super(key: key);
 
-  Widget _getRecommentList(List<Recomment> recommentList) {
-    return Container();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,7 +70,7 @@ class CommunityScreenPostDetailPageCommentCard extends StatelessWidget {
           Text(comment.timeStamp),
           comment.recommentList.isNotEmpty
               ? Column(
-                  children: comment.recommentList.map((Recomment recomment) {
+                  children: comment.recommentList.map((recomment) {
                     return CommunityScreenPostDetailPageRecommentCard(
                         recomment: recomment);
                   }).toList(),

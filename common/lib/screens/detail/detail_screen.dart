@@ -187,7 +187,7 @@ class _DetailScreenState extends State<DetailScreen> {
           : widget.isHost
               ? DetailScreenHostBottomBar(
                   onPressed: () async {
-                    await DatabaseController.to
+                    await GatheringController.to
                         .updateGathering(widget.gathering.id, {'over': true});
                     Get.offAll(() => const MainScreen());
                   },
@@ -195,14 +195,14 @@ class _DetailScreenState extends State<DetailScreen> {
                 )
               : DetailScreenUserBottomBar(
                   applyPressed: () async {
-                    await DatabaseController.to
+                    await GatheringController.to
                         .userApplyGathering(widget.gathering.id);
                     setState(() {
                       _userStateIndex = 1;
                     });
                   },
                   cancelPressed: () async {
-                    await DatabaseController.to
+                    await GatheringController.to
                         .userCancelGathering(widget.gathering.id)
                         .then((value) {
                       setState(() {

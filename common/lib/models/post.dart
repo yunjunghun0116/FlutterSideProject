@@ -9,7 +9,7 @@ class Post {
   final String timeStamp;
   final String authorId;
   final String authorName;
-  final List<Comment> commentList;
+  final List commentList;
 
   Post({
     required this.id,
@@ -47,7 +47,9 @@ class Post {
       'timeStamp':timeStamp,
       'authorId':authorId,
       'authorName':authorName,
-      'commentList':commentList,
+      'commentList':commentList.map((comment){
+        return comment.toMap();
+      }).toList(),
     };
   }
 }

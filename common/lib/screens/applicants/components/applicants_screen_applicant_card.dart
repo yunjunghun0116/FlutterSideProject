@@ -1,3 +1,4 @@
+import 'package:common/controllers/gathering_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'applicants_screen_applicant_card_info.dart';
@@ -37,7 +38,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
         return Expanded(
           child: InkWell(
             onTap: () async {
-              await DatabaseController.to
+              await GatheringController.to
                   .userApproveGathering(gathering.id, applicant.userId);
               await approveFunction();
               await updateFunction();
@@ -62,7 +63,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
         return Expanded(
           child: InkWell(
             onTap: () async {
-              await DatabaseController.to
+              await GatheringController.to
                   .removeUserInApprovalList(gathering.id, applicant.userId);
               await removeInApprovalFunction();
               await updateFunction();
@@ -89,7 +90,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
         return Expanded(
           child: InkWell(
             onTap: () async {
-              await DatabaseController.to
+              await GatheringController.to
                   .cancelApproveUser(gathering.id, applicant.userId);
               await cancelApproveFunction();
               await updateFunction();
@@ -135,7 +136,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   if (currentIndex == 2) {
-                    await DatabaseController.to
+                    await GatheringController.to
                         .cancelDeleteUser(gathering.id, applicant.userId);
                     await cancelDeleteFunction();
                     await updateFunction();

@@ -1,3 +1,4 @@
+import 'package:common/controllers/gathering_controller.dart';
 import 'package:flutter/material.dart';
 import 'components/applicants_screen_select_area.dart';
 import 'components/applicants_screen_applicant_card.dart';
@@ -48,27 +49,27 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
             }
           },
           approveFunction: () async {
-            await DatabaseController.to
+            await GatheringController.to
                 .userApproveGathering(widget.gathering.id, applicant.userId);
             widget.gathering.approvalList.add(applicant);
             widget.gathering.applyList.remove(applicant);
             setState(() {});
           },
           removeInApprovalFunction: () async {
-            await DatabaseController.to.removeUserInApprovalList(
+            await GatheringController.to.removeUserInApprovalList(
                 widget.gathering.id, applicant.userId);
             widget.gathering.approvalList.remove(applicant);
             setState(() {});
           },
           cancelApproveFunction: () async {
-            await DatabaseController.to
+            await GatheringController.to
                 .cancelApproveUser(widget.gathering.id, applicant.userId);
             widget.gathering.approvalList.remove(applicant);
             widget.gathering.cancelList.remove(applicant);
             setState(() {});
           },
           cancelDeleteFunction: () async {
-            await DatabaseController.to
+            await GatheringController.to
                 .cancelDeleteUser(widget.gathering.id, applicant.userId);
             widget.gathering.cancelList.remove(applicant);
             setState(() {});

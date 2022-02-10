@@ -1,3 +1,4 @@
+import 'package:common/controllers/gathering_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/upload_screen_bottom_bar.dart';
@@ -66,111 +67,114 @@ class _UploadScreenState extends State<UploadScreen> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(5),
-            child: UserInfo(
-              userId: DatabaseController.to.user!.id,
-              imageUrl: DatabaseController.to.user!.imageUrl,
-              name: DatabaseController.to.user!.name,
-              job: DatabaseController.to.user!.job,
-              hostTagList: DatabaseController.to.user!.userTagList,
+      body: GestureDetector(
+        onTap: ()=>FocusScope.of(context).unfocus(),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: UserInfo(
+                userId: DatabaseController.to.user!.id,
+                imageUrl: DatabaseController.to.user!.imageUrl,
+                name: DatabaseController.to.user!.name,
+                job: DatabaseController.to.user!.job,
+                hostTagList: DatabaseController.to.user!.userTagList,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                UploadScreenTitleArea(
-                  controller: _titleController,
-                  focusNode: _titleFocusNode,
-                ),
-                UploadScreenCategoryArea(
-                  category: widget.category,
-                ),
-                UploadScreenGuestArea(
-                    guestCount: _guestCount,
-                    onChanged: (double value) {
-                      setState(() {
-                        _guestCount = value.toInt();
-                      });
-                    }),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    '모임정보',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UploadScreenTitleArea(
+                    controller: _titleController,
+                    focusNode: _titleFocusNode,
                   ),
-                ),
-                UploadScreenDateTimeArea(
-                  noEnd: _noEndTime,
-                  nowTime: _nowTime,
-                  openTime: _openTime,
-                  endTime: _endTime,
-                  noEndPressed: () {
-                    setState(() {
-                      _noEndTime = !_noEndTime;
-                    });
-                  },
-                  openPressed: (DateTime date) {
-                    setState(() {
-                      if (_endTime.difference(date).inSeconds < 0) {
-                        _endTime = _openTime;
-                        _openTime = date;
-                      } else {
-                        _openTime = date;
-                      }
-                    });
-                  },
-                  endPressed: (DateTime date) {
-                    setState(() {
-                      if (date.difference(_openTime).inSeconds < 0) {
-                        _endTime = _openTime;
-                        _openTime = date;
-                      } else {
-                        _endTime = date;
-                      }
-                    });
-                  },
-                ),
-                UploadScreenLocationArea(
-                  location: _location,
-                  focusNode: _locationFocusNode,
-                  controller: _locationDetailController,
-                  locationUpdated: (String s) {
-                    setState(() {
-                      _location = s;
-                    });
-                  },
-                  locationSearchPressed: () async {
-                    // _connectController
-                    String _placeAddress = await Get.to(
-                        () => const UploadScreenLocationSearchScreen());
-                    setState(() {
-                      _location = _placeAddress;
-                    });
-                  },
-                ),
-                UploadScreenHostMessageArea(
-                  focusNode: _hostMessageFocusNode,
-                  controller: _hostMessageController,
-                ),
-                UploadScreenGatheringTagArea(
-                  focusNode: _gatheringTagFocusNode,
-                  controller: _gatheringTagController,
-                  tagEnterPressed: (String tag) {
-                    setState(() {
-                      _gatheringTagList.add(tag);
-                    });
-                  },
-                  tagList: _gatheringTagList,
-                ),
-              ],
+                  UploadScreenCategoryArea(
+                    category: widget.category,
+                  ),
+                  UploadScreenGuestArea(
+                      guestCount: _guestCount,
+                      onChanged: (double value) {
+                        setState(() {
+                          _guestCount = value.toInt();
+                        });
+                      }),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      '모임정보',
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                    ),
+                  ),
+                  UploadScreenDateTimeArea(
+                    noEnd: _noEndTime,
+                    nowTime: _nowTime,
+                    openTime: _openTime,
+                    endTime: _endTime,
+                    noEndPressed: () {
+                      setState(() {
+                        _noEndTime = !_noEndTime;
+                      });
+                    },
+                    openPressed: (DateTime date) {
+                      setState(() {
+                        if (_endTime.difference(date).inSeconds < 0) {
+                          _endTime = _openTime;
+                          _openTime = date;
+                        } else {
+                          _openTime = date;
+                        }
+                      });
+                    },
+                    endPressed: (DateTime date) {
+                      setState(() {
+                        if (date.difference(_openTime).inSeconds < 0) {
+                          _endTime = _openTime;
+                          _openTime = date;
+                        } else {
+                          _endTime = date;
+                        }
+                      });
+                    },
+                  ),
+                  UploadScreenLocationArea(
+                    location: _location,
+                    focusNode: _locationFocusNode,
+                    controller: _locationDetailController,
+                    locationUpdated: (String s) {
+                      setState(() {
+                        _location = s;
+                      });
+                    },
+                    locationSearchPressed: () async {
+                      // _connectController
+                      String _placeAddress = await Get.to(
+                          () => const UploadScreenLocationSearchScreen());
+                      setState(() {
+                        _location = _placeAddress;
+                      });
+                    },
+                  ),
+                  UploadScreenHostMessageArea(
+                    focusNode: _hostMessageFocusNode,
+                    controller: _hostMessageController,
+                  ),
+                  UploadScreenGatheringTagArea(
+                    focusNode: _gatheringTagFocusNode,
+                    controller: _gatheringTagController,
+                    tagEnterPressed: (String tag) {
+                      setState(() {
+                        _gatheringTagList.add(tag);
+                      });
+                    },
+                    tagList: _gatheringTagList,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: UploadScreenBottomBar(
         uploadPressed: () async {
@@ -209,6 +213,11 @@ class _UploadScreenState extends State<UploadScreen> {
             );
             return;
           }
+          if(_openTime.difference(_endTime).inSeconds>0){
+            DateTime tempTime = _openTime;
+            _openTime = _endTime;
+            _endTime = tempTime;
+          }
           Map<String, dynamic> body = {
             'host': {
               'userId': DatabaseController.to.user!.id,
@@ -234,7 +243,7 @@ class _UploadScreenState extends State<UploadScreen> {
             'cancelList': [],
             'timeStamp': DateTime.now().toString(),
           };
-          await DatabaseController.to.makeGathering(body).then((value) {
+          await GatheringController.to.makeGathering(body).then((value) {
             if (value) {
               Get.offAll(() => const MainScreen());
             } else {

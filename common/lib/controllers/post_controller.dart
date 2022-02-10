@@ -1,100 +1,89 @@
-import 'package:common/models/comment.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/controllers/database_controller.dart';
 import 'package:common/models/post.dart';
-import 'package:common/models/recomment.dart';
 import 'package:get/get.dart';
 
 class PostController extends GetxController {
   static PostController get to => Get.find();
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   List<Post> _postList = [];
   List<Post> get postList => _postList;
 
   Future<void> setPostList(String category) async {
-    _postList = [
-      Post(
-        id: '1234',
-        university: '123대학교',
-        category: '자유게시판',
-        title: '제목1',
-        content: '내용1',
-        timeStamp: '3일전',
-        authorId: '1234',
-        authorName: 'name',
-        commentList: [
-          Comment(
-            comment: '댓글내용1',
-            timeStamp: '4일전',
-            authorId: '1234',
-            authorName: 'name1',
-            recommentList: [],
-          ),
-          Comment(
-            comment: '댓글내용2',
-            timeStamp: '7일전',
-            authorId: '1234',
-            authorName: 'name2',
-            recommentList: [
-              Recomment(
-                comment: '대댓글내용1',
-                timeStamp: '7일전',
-                authorId: 'gkgkgk',
-                authorName: '이름3',
-              )
-            ],
-          ),
-          Comment(
-            comment: '댓글내용3',
-            timeStamp: '11일전',
-            authorId: '1234',
-            authorName: 'name3',
-            recommentList: [],
-          ),
-        ],
-      ),
-      Post(
-        id: '1234',university: '123대학교',
-        category: '자유게시판',
-        title: '제목1',
-        content: '내용1',
-        timeStamp: '3일전',
-        authorId: '1234',
-        authorName: 'name',
-        commentList: [
-          Comment(
-            comment: '댓글내용1',
-            timeStamp: '4일전',
-            authorId: '1234',
-            authorName: 'name1',
-            recommentList: [],
-          ),
-        ],
-      ),
-      Post(
-        id: '1234',university: '123대학교',
-        category: '자유게시판',
-        title: '제목1',
-        content: '내용1',
-        timeStamp: '3일전',
-        authorId: '1234',
-        authorName: 'name',
-        commentList: [
-          Comment(
-            comment: '댓글내용1',
-            timeStamp: '4일전',
-            authorId: '1234',
-            authorName: 'name1',
-            recommentList: [],
-          ),
-          Comment(
-            comment: '댓글내용3',
-            timeStamp: '11일전',
-            authorId: '1234',
-            authorName: 'name3',
-            recommentList: [],
-          ),
-        ],
-      ),
-    ];
+    _postList = (await getPostDocs(category))??[];
     update();
+  }
+
+  Future<bool> makePost(String category, String title, String content) async {
+    DateTime nowTime = DateTime.now();
+    Map<String, dynamic> body = {
+      'category': category,
+      'university': DatabaseController.to.user!.university,
+      'title': title,
+      'content': content,
+      'timeStamp': nowTime.toString(),
+      'authorId': DatabaseController.to.user!.id,
+      'authorName': DatabaseController.to.user!.name,
+      'commentList': [],
+    };
+    try {
+      await _firestore.collection('post').add(body);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<List<Post>?> getPostDocs(String category) async {
+    QuerySnapshot postData = await _firestore
+        .collection('post')
+        .where('category', isEqualTo: category)
+        .get();
+
+    List<Post> postList = [];
+    List postDocs = postData.docs;
+
+    for (int i = 0; i < postDocs.length; i++) {
+      Map<String, dynamic> body = {'id': postDocs[i].id, ...postDocs[i].data()};
+      postList.add(Post.fromJson(body));
+    }
+    return postList;
+  }
+
+  Future<bool> uploadComment(String postId,String comment)async{
+    DocumentSnapshot<Map<String, dynamic>> _postData =
+    await _firestore.collection('post').doc(postId).get();
+
+    List _commentList = _postData['commentList'];
+    _commentList.add({
+      'comment':comment,
+      'timeStamp':DateTime.now().toString(),
+      'authorId':DatabaseController.to.user!.id,
+      'authorName':DatabaseController.to.user!.name,
+      'recommentList':[],
+    });
+    await _firestore.collection('post').doc(postId).update({
+      'commentList':_commentList
+    });
+    return true;
+  }
+
+  Future<bool> uploadRecomment(String postId,int commentIndex,String comment)async{
+    DocumentSnapshot<Map<String, dynamic>> _postData =
+    await _firestore.collection('post').doc(postId).get();
+
+    List _commentList = _postData['commentList'];
+    _commentList[commentIndex]['recommentList'].add({
+      'comment':comment,
+      'timeStamp':DateTime.now().toString(),
+      'authorId':DatabaseController.to.user!.id,
+      'authorName':DatabaseController.to.user!.name,
+    });
+    await _firestore.collection('post').doc(postId).update({
+      'commentList':_commentList
+    });
+    return true;
   }
 }
