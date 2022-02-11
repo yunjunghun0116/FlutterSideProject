@@ -16,11 +16,7 @@ class HomeScreenCategoryArea extends StatelessWidget {
       children: kCategoryList.map((Map<String, dynamic> category) {
         return InkWell(
           onTap: () {
-            GatheringController.to
-                .setCategoryGatheringList(category['title'])
-                .then((value) {
-              Get.to(() => CategoryScreen(category: category['title']));
-            });
+            Get.to(() => CategoryScreen(category: category['title']));
           },
           child: Container(
             alignment: Alignment.center,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -22,23 +23,23 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
   int _currentSelectIndex = 0;
   List _applicantsList = [];
 
-  Widget _getApplicantsCard() {
+  Widget _getApplicantsCard(Gathering gathering) {
     switch (_currentSelectIndex) {
       case 0:
-        _applicantsList = widget.gathering.applyList;
+        _applicantsList = gathering.applyList;
         break;
       case 1:
-        _applicantsList = widget.gathering.approvalList;
+        _applicantsList = gathering.approvalList;
         break;
       default:
-        _applicantsList = widget.gathering.cancelList;
+        _applicantsList = gathering.cancelList;
         break;
     }
 
     return ListView(
       children: _applicantsList.map((applicant) {
         return ApplicantsScreenApplicantCard(
-          gathering: widget.gathering,
+          gathering: gathering,
           applicant: applicant,
           followed: false,
           currentIndex: _currentSelectIndex,
@@ -48,32 +49,14 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
               setState(() {});
             }
           },
-          approveFunction: () async {
-            await GatheringController.to
-                .userApproveGathering(widget.gathering.id, applicant.userId);
-            widget.gathering.approvalList.add(applicant);
-            widget.gathering.applyList.remove(applicant);
-            setState(() {});
-          },
-          removeInApprovalFunction: () async {
-            await GatheringController.to.removeUserInApprovalList(
-                widget.gathering.id, applicant.userId);
-            widget.gathering.approvalList.remove(applicant);
-            setState(() {});
-          },
-          cancelApproveFunction: () async {
-            await GatheringController.to
-                .cancelApproveUser(widget.gathering.id, applicant.userId);
-            widget.gathering.approvalList.remove(applicant);
-            widget.gathering.cancelList.remove(applicant);
-            setState(() {});
-          },
-          cancelDeleteFunction: () async {
-            await GatheringController.to
-                .cancelDeleteUser(widget.gathering.id, applicant.userId);
-            widget.gathering.cancelList.remove(applicant);
-            setState(() {});
-          },
+          approveFunction: () async => await GatheringController.to
+              .userApproveGathering(gathering.id, applicant.userId),
+          removeInApprovalFunction: () async => await GatheringController.to
+              .removeUserInApprovalList(gathering.id, applicant.userId),
+          cancelApproveFunction: () async => await GatheringController.to
+              .cancelApproveUser(gathering.id, applicant.userId),
+          cancelDeleteFunction: () async => await GatheringController.to
+              .cancelDeleteUser(gathering.id, applicant.userId),
         );
       }).toList(),
     );
@@ -96,26 +79,40 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          ApplicantsScreenSelectArea(
-            currentIndex: _currentSelectIndex,
-            onPressed: (int index) {
-              setState(() {
-                _currentSelectIndex = index;
-              });
-            },
-          ),
-          widget.gathering.approvalList.isNotEmpty
-              ? UserGatheringStatus(
-                  content:
-                      '${widget.gathering.capacity}명 중 ${widget.gathering.approvalList.length}명 모집 완료!!',
-                )
-              : Container(),
-          Expanded(
-            child: _getApplicantsCard(),
-          ),
-        ],
+      body: StreamBuilder(
+        stream: GatheringController.to.getGatheringStream(widget.gathering.id),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasData) {
+            Gathering gathering = Gathering.fromJson({
+              'id': snapshot.data!.id,
+              ...snapshot.data!.data() as Map<String, dynamic>,
+            });
+            return Column(
+              children: [
+                ApplicantsScreenSelectArea(
+                  currentIndex: _currentSelectIndex,
+                  onPressed: (int index) {
+                    setState(() {
+                      _currentSelectIndex = index;
+                    });
+                  },
+                ),
+                gathering.approvalList.isNotEmpty
+                    ? UserGatheringStatus(
+                        content:
+                            '${gathering.capacity}명 중 ${gathering.approvalList.length}명 모집 완료!!',
+                      )
+                    : Container(),
+                Expanded(
+                  child: _getApplicantsCard(gathering),
+                ),
+              ],
+            );
+          }
+          //TODO 신청자 보여줄것
+          return CircularProgressIndicator();
+        },
       ),
     );
   }

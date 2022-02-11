@@ -337,7 +337,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             };
             String id = await UserController.to.makeUser(body);
             await LocalController.to.setId(id);
-            GatheringController.to.setGatheringList();
             Get.offAll(() => const MainScreen());
           },
         );

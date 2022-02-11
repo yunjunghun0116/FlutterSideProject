@@ -77,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         _phoneController.text, _passwordController.text);
                 if (_id != null) {
                   LocalController.to.setId(_id);
-                  GatheringController.to.setGatheringList();
                   Get.offAll(() => const MainScreen());
                 } else {
                   showDialog(

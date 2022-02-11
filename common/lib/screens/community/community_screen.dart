@@ -33,7 +33,6 @@ class CommunityScreen extends StatelessWidget {
               color: category['color'],
               title: category['title'],
               onPressed: () async {
-                await PostController.to.setPostList(category['title']);
                 Get.to(() =>
                     CommunityScreenCategoryPage(category: category['title']));
               },

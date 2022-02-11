@@ -12,41 +12,19 @@ import '../screens/detail/detail_screen.dart';
 
 class GatheringCard extends StatelessWidget {
   final Gathering gathering;
-  final String userName;
-  final String userImageUrl;
-  final String userJob;
-  final String gatheringTitle;
-  final int gatheringParticipant;
-  final int gatheringCapacity;
-  final String gatheringOpenTime;
-  final String gatheringEndTime;
-  final String gatheringPlace;
-  final List gatheringTagList;
   const GatheringCard({
     Key? key,
     required this.gathering,
-    required this.userName,
-    required this.userImageUrl,
-    required this.userJob,
-    required this.gatheringTitle,
-    required this.gatheringParticipant,
-    required this.gatheringCapacity,
-    required this.gatheringOpenTime,
-    required this.gatheringEndTime,
-    required this.gatheringPlace,
-    required this.gatheringTagList,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<String> _dates = getDateTime(gatheringOpenTime, gatheringEndTime);
+    List<String> _dates = getDateTime(gathering.openTime, gathering.endTime);
 
     return GestureDetector(
       onTap: () async {
-        Gathering _gathering =
-            await GatheringController.to.getGathering(gathering.id);
         Get.to(() => DetailScreen(
-              gathering: _gathering,
+              gathering: gathering,
               isHost: gathering.host.userId == UserController.to.user!.id,
             ));
       },
@@ -70,7 +48,7 @@ class GatheringCard extends StatelessWidget {
                     height: 80,
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
-                      imageUrl: userImageUrl,
+                      imageUrl: gathering.host.imageUrl,
                       placeholder: (context, url) => Container(
                         width: 80,
                         height: 80,
@@ -81,7 +59,7 @@ class GatheringCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    userName,
+                    gathering.host.name,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -89,7 +67,7 @@ class GatheringCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    userJob,
+                    gathering.host.job,
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -104,16 +82,16 @@ class GatheringCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        gatheringTitle,
+                        gathering.title,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
                       Text(
-                        '인원 $gatheringParticipant/$gatheringCapacity',
+                        '인원 ${gathering.approvalList.length}/${gathering.capacity}',
                         style: TextStyle(
-                          color: gatheringParticipant >= gatheringCapacity
+                          color: gathering.approvalList.length >= gathering.capacity
                               ? kRedColor
                               : kBlueColor,
                         ),
@@ -131,11 +109,11 @@ class GatheringCard extends StatelessWidget {
                     icon: Icons.timer,
                   ),
                   GatheringCardInfo(
-                    content: gatheringPlace,
+                    content: gathering.locationDetail,
                     icon: Icons.location_on_outlined,
                   ),
                   GatheringCardTag(
-                    tagList: gatheringTagList,
+                    tagList: gathering.tagList,
                   ),
                 ],
               ),

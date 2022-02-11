@@ -29,19 +29,7 @@ class GatheringScreen extends StatelessWidget {
       ),
       body: ListView(
         children: gatheringList.map((gathering) {
-          return GatheringCard(
-            gathering: gathering,
-            userName: gathering.host.name,
-            userImageUrl: gathering.host.imageUrl,
-            userJob: gathering.host.job,
-            gatheringTitle: gathering.title,
-            gatheringParticipant: gathering.approvalList.length,
-            gatheringCapacity: gathering.capacity,
-            gatheringOpenTime: gathering.openTime,
-            gatheringEndTime: gathering.endTime,
-            gatheringPlace: gathering.locationDetail,
-            gatheringTagList: gathering.tagList,
-          );
+          return GatheringCard(gathering: gathering);
         }).toList(),
       ),
     );

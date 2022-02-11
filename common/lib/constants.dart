@@ -110,7 +110,6 @@ final List<String> kAdvertisementImageList = [
   'assets/images/exercise_1.jpeg',
 ];
 final List<Map<String, dynamic>> kCategoryList = [
-  {'title': '전체보기', 'icon': Icons.grid_on},
   {'title': '스터디', 'icon': Icons.local_library},
   {'title': '공모전', 'icon': Icons.people},
   {'title': '운동', 'icon': Icons.fitness_center},
@@ -118,6 +117,7 @@ final List<Map<String, dynamic>> kCategoryList = [
   {'title': '음주', 'icon': Icons.local_bar},
   {'title': '음악', 'icon': Icons.headset},
   {'title': '여행', 'icon': Icons.flight},
+  {'title': '기타', 'icon': Icons.grid_on},
 ];
 
 final List<Map<String, dynamic>> kLocationList = [

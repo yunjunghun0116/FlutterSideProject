@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/detail/components/detail_screen_over_bottom_bar.dart';
 import 'package:common/screens/main/main_screen.dart';
@@ -44,7 +45,6 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Future<void> updateScreen() async {
-    await GatheringController.to.setGatheringList();
     await UserController.to.currentUserUpdate(UserController.to.user!.id);
   }
 
@@ -92,125 +92,132 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          widget.isHost
-              ? Container()
-              : _userStateIndex == 0
-                  ? Container()
-                  : UserGatheringStatus(
-                      content: kDetailStateList[_userStateIndex]['guideLine'],
-                    ),
-          Expanded(
-            child: ListView(
+      body: StreamBuilder(
+        stream: GatheringController.to.getGatheringStream(widget.gathering.id),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasData) {
+            Gathering gathering = Gathering.fromJson({
+              'id': snapshot.data!.id,
+              ...snapshot.data!.data() as Map<String, dynamic>,
+            });
+            return Column(
               children: [
-                UserInfo(
-                  userId: widget.gathering.host.userId,
-                  imageUrl: widget.gathering.host.imageUrl,
-                  name: widget.gathering.host.name,
-                  job: widget.gathering.host.job,
-                  hostTagList: widget.gathering.host.userTagList,
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    User user = await UserController.to
-                        .getUser(widget.gathering.host.userId);
-                    Get.to(
-                      () => ProfileScreen(
-                        user: user,
+                widget.isHost
+                    ? Container()
+                    : _userStateIndex == 0
+                        ? Container()
+                        : UserGatheringStatus(
+                            content: kDetailStateList[_userStateIndex]
+                                ['guideLine'],
+                          ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      UserInfo(
+                        userId: gathering.host.userId,
+                        imageUrl: gathering.host.imageUrl,
+                        name: gathering.host.name,
+                        job: gathering.host.job,
+                        hostTagList: gathering.host.userTagList,
                       ),
-                    );
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: kGreyColor,
+                      GestureDetector(
+                        onTap: () async {
+                          User user = await UserController.to
+                              .getUser(gathering.host.userId);
+                          Get.to(() => ProfileScreen(user: user));
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: kGreyColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Text(
+                            '상세보기',
+                            style: TextStyle(
+                              color: kGreyColor,
+                            ),
+                          ),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Text(
-                      '상세보기',
-                      style: TextStyle(
-                        color: kGreyColor,
+                      DetailScreenGatheringInfoCard(
+                        title: '제목',
+                        content: gathering.title,
+                        icon: Icons.star,
+                        iconColor: kYellowColor,
                       ),
-                    ),
+                      DetailScreenGatheringInfoCard(
+                        title: '카테고리',
+                        content: gathering.category,
+                        icon: Icons.category,
+                      ),
+                      DetailScreenGatheringProgressBar(
+                        participantCount: gathering.approvalList.length,
+                        capacity: gathering.capacity,
+                      ),
+                      widget.isHost
+                          ? DetailScreenGatheringApplicantsCheckButton(
+                              onPressed: () {
+                                Get.to(() =>
+                                    ApplicantsScreen(gathering: gathering));
+                              },
+                            )
+                          : Container(),
+                      DetailScreenGatheringDateTime(
+                        openTime: gathering.openTime,
+                        endTime: gathering.endTime,
+                      ),
+                      DetailScreenGatheringPlaceInfo(
+                        location: gathering.location,
+                        locationDetail: gathering.locationDetail,
+                        hostMessage: gathering.hostMessage,
+                      ),
+                      DetailScreenGatheringHashTag(
+                        tagList: gathering.tagList,
+                      ),
+                    ],
                   ),
                 ),
-                DetailScreenGatheringInfoCard(
-                  title: '제목',
-                  content: widget.gathering.title,
-                  icon: Icons.star,
-                  iconColor: kYellowColor,
-                ),
-                DetailScreenGatheringInfoCard(
-                  title: '카테고리',
-                  content: widget.gathering.category,
-                  icon: Icons.category,
-                ),
-                DetailScreenGatheringProgressBar(
-                  participantCount: widget.gathering.approvalList.length,
-                  capacity: widget.gathering.capacity,
-                ),
-                widget.isHost
-                    ? DetailScreenGatheringApplicantsCheckButton(
-                        onPressed: () {
-                          Get.to(
-                            () => ApplicantsScreen(
-                              gathering: widget.gathering,
-                            ),
-                          );
-                        },
-                      )
-                    : Container(),
-                DetailScreenGatheringDateTime(
-                  openTime: widget.gathering.openTime,
-                  endTime: widget.gathering.endTime,
-                ),
-                DetailScreenGatheringPlaceInfo(
-                  location: widget.gathering.location,
-                  locationDetail: widget.gathering.locationDetail,
-                  hostMessage: widget.gathering.hostMessage,
-                ),
-                DetailScreenGatheringHashTag(
-                  tagList: widget.gathering.tagList,
-                ),
+                gathering.over
+                    ? const DetailScreenOverBottomBar()
+                    : widget.isHost
+                        ? DetailScreenHostBottomBar(
+                            onPressed: () async {
+                              await GatheringController.to.updateGathering(
+                                  gathering.id, {'over': true});
+                            },
+                            over: gathering.over,
+                          )
+                        : DetailScreenUserBottomBar(
+                            applyPressed: () async {
+                              await GatheringController.to
+                                  .userApplyGathering(gathering.id);
+                              setState(() {
+                                _userStateIndex = 1;
+                              });
+                            },
+                            cancelPressed: () async {
+                              await GatheringController.to
+                                  .userCancelGathering(gathering.id)
+                                  .then((value) {
+                                setState(() {
+                                  _userStateIndex = 3;
+                                });
+                              });
+                            },
+                            userStateIndex: _userStateIndex,
+                          )
               ],
-            ),
-          ),
-          widget.gathering.over
-              ? const DetailScreenOverBottomBar()
-              : widget.isHost
-              ? DetailScreenHostBottomBar(
-            onPressed: () async {
-              await GatheringController.to
-                  .updateGathering(widget.gathering.id, {'over': true});
-              Get.offAll(() => const MainScreen());
-            },
-            over: widget.gathering.over,
-          )
-              : DetailScreenUserBottomBar(
-            applyPressed: () async {
-              await GatheringController.to
-                  .userApplyGathering(widget.gathering.id);
-              setState(() {
-                _userStateIndex = 1;
-              });
-            },
-            cancelPressed: () async {
-              await GatheringController.to
-                  .userCancelGathering(widget.gathering.id)
-                  .then((value) {
-                setState(() {
-                  _userStateIndex = 3;
-                });
-              });
-            },
-            userStateIndex: _userStateIndex,
-          )
-        ],
+            );
+          }
+          //TODO 데이터가 없을경우(사실상 이런경우없을듯)
+          return CircularProgressIndicator();
+        },
       ),
     );
   }

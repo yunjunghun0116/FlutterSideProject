@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/post_controller.dart';
 import 'package:common/models/post.dart';
 import 'package:common/screens/community/components/community_screen_category_page_post_card.dart';
@@ -23,16 +24,24 @@ class CommunityScreenCategoryPage extends StatelessWidget {
         elevation: 1,
         title: Text(category),
       ),
-      body: GetBuilder<PostController>(
-        builder: (_){
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: PostController.to.postList.map((Post post) {
-                return CommunityScreenCategoryPagePostCard(post: post);
-              }).toList(),
-            ),
-          );
+      body: StreamBuilder(
+        stream: PostController.to.getPostListStream(category),
+        builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
+          if(snapshot.hasData){
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: snapshot.data!.docs.map((e) {
+                  Post post = Post.fromJson({
+                    'id':e.id,
+                    ...e.data() as Map<String,dynamic>,
+                  });
+                  return CommunityScreenCategoryPagePostCard(post: post);
+                }).toList(),
+              ),
+            );
+          }
+          return CircularProgressIndicator();
         },
       ),
       floatingActionButton: FloatingActionButton(

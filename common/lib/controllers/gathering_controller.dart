@@ -10,63 +10,35 @@ class GatheringController extends GetxController {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  List<Gathering> _gatheringList = [];
-  List<Gathering> get gatheringList => _gatheringList;
-
-  List<Gathering> _categoryGatheringList = [];
-  List<Gathering> get categoryGatheringList => _categoryGatheringList;
-
-  Future<void> setGatheringList() async {
-    QuerySnapshot _gatheringData = await _firestore
+  //데이터를 불러오는 과정
+  //1. 모든 모임들
+  Stream<QuerySnapshot> getGatheringListStream() {
+    return _firestore
         .collection('gathering')
         .where('university',
             isEqualTo: UserController.to.user != null
                 ? UserController.to.user!.university
                 : '충남대학교')
         .where('over', isEqualTo: false)
-        .get();
-
-    List<Gathering> _tempGatheringList = [];
-    List _gatheringDocs = _gatheringData.docs;
-    DateTime nowTime = DateTime.now();
-
-    for (int i = 0; i < _gatheringDocs.length; i++) {
-      Map<String, dynamic> body = {
-        'id': _gatheringDocs[i].id,
-        ..._gatheringDocs[i].data()
-      };
-      //시간종료되었을때(시작시간이 5일이상 지났을때)
-      if (DateTime.parse(body['openTime']).difference(nowTime).inDays <
-          -5) {
-        updateGathering(_gatheringDocs[i].id, {'over': true});
-      }else{
-        _tempGatheringList.add(Gathering.fromJson(body));
-      }
-    }
-    _gatheringList = _tempGatheringList;
-    update();
+        .snapshots();
   }
-
-  Future<void> setCategoryGatheringList(String category) async {
-    _categoryGatheringList = [];
-    for (Gathering gathering in _gatheringList) {
-      if (category == '전체보기' || gathering.category == category) {
-        _categoryGatheringList.add(gathering);
-      }
-    }
-    update();
+  //2. 해당 카테고리에 해당하는 모임들
+  Stream<QuerySnapshot> getCategoryGatheringListStream(String category) {
+    return _firestore
+        .collection('gathering')
+        .where('university',
+        isEqualTo: UserController.to.user != null
+            ? UserController.to.user!.university
+            : '충남대학교')
+        .where('over', isEqualTo: false)
+    .where('category',isEqualTo:category )
+        .snapshots();
   }
-
-  Future<Gathering> getGathering(String id) async {
-    DocumentSnapshot<Map<String, dynamic>> _dbGathering =
-        await (_firestore.collection('gathering').doc(id).get());
-
-    Map<String, dynamic> json = _dbGathering.data()!;
-    Gathering gatheringData = Gathering.fromJson({
-      'id': _dbGathering.id,
-      ...json,
-    });
-    return gatheringData;
+  //3.모임의 디테일
+  Stream<DocumentSnapshot> getGatheringStream(String gatheringId) {
+    return _firestore
+        .collection('gathering')
+    .doc(gatheringId).snapshots();
   }
 
   Future<bool> makeGathering(Map<String, dynamic> body) async {
@@ -92,7 +64,6 @@ class GatheringController extends GetxController {
         'openGatheringList': _openGatheringList,
       });
       await UserController.to.currentUserUpdate(UserController.to.user!.id);
-      await setGatheringList();
       return true;
     } catch (e) {
       return false;
@@ -104,7 +75,6 @@ class GatheringController extends GetxController {
       String gatheringId, Map<String, dynamic> body) async {
     try {
       await _firestore.collection('gathering').doc(gatheringId).update(body);
-      await GatheringController.to.setGatheringList();
       return true;
     } catch (e) {
       return false;

@@ -1,8 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/post_controller.dart';
-import 'package:common/controllers/user_controller.dart';
-import 'package:common/models/comment.dart';
 import 'package:common/models/post.dart';
-import 'package:common/models/recomment.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,19 +22,8 @@ class _CommunityScreenPostDetailPageState
     extends State<CommunityScreenPostDetailPage> {
   final TextEditingController _commentController = TextEditingController();
 
-  int commentIndex = 0;
-
-  List commentList = [];
   bool isRecomment = false;
   int selectedIndex = -1;
-
-  @override
-  initState() {
-    super.initState;
-    commentList = widget.post.commentList.sublist(0);
-    commentIndex = PostController.to.postList
-        .indexWhere((element) => element.id == widget.post.id);
-  }
 
   Widget _getCommentArea(List commentList) {
     List<CommunityScreenPostDetailPageCommentCard> _commentList = [];
@@ -84,7 +71,7 @@ class _CommunityScreenPostDetailPageState
         title: Text(widget.post.category),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 16,right: 16,top: 8),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
         color: kWhiteColor,
         child: Column(
           children: [
@@ -119,21 +106,28 @@ class _CommunityScreenPostDetailPageState
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const Divider(color: kDarkGreyColor,thickness: 1),
-                  GetBuilder<PostController>(builder: (_) {
-                    return PostController
-                            .to.postList[commentIndex].commentList.isNotEmpty
-                        ? _getCommentArea(PostController
-                            .to.postList[commentIndex].commentList)
-                        : Container();
-                  }),
+                  const Divider(color: kDarkGreyColor, thickness: 1),
+                  StreamBuilder(
+                      stream: PostController.to.getPostStream(widget.post.id),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot) {
+                        if (snapshot.hasData) {
+                          Post post = Post.fromJson({
+                            'id': snapshot.data!.id,
+                            ...snapshot.data!.data() as Map<String, dynamic>,
+                          });
+                          if (post.commentList.isEmpty) return Container();
+                          return _getCommentArea(post.commentList);
+                        }
+                        return CircularProgressIndicator();
+                      }),
                 ],
               ),
             ),
             Container(
               padding: EdgeInsets.only(
                 top: 5,
-                bottom: MediaQuery.of(context).padding.bottom+10,
+                bottom: MediaQuery.of(context).padding.bottom + 10,
               ),
               width: double.infinity,
               child: Container(

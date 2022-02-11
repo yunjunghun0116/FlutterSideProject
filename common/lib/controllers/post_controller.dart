@@ -8,12 +8,16 @@ class PostController extends GetxController {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  List<Post> _postList = [];
-  List<Post> get postList => _postList;
-
-  Future<void> setPostList(String category) async {
-    _postList = (await getPostDocs(category)) ?? [];
-    update();
+  Stream<QuerySnapshot> getPostListStream(String category) {
+    return _firestore
+        .collection('post')
+        .where('category', isEqualTo: category)
+        .snapshots();
+  }
+  Stream<DocumentSnapshot> getPostStream(String postId) {
+    return _firestore
+        .collection('post')
+        .doc(postId).snapshots();
   }
 
   Future<bool> makePost(String category, String title, String content) async {
@@ -30,7 +34,6 @@ class PostController extends GetxController {
     };
     try {
       await _firestore.collection('post').add(body);
-      setPostList(category);
       return true;
     } catch (e) {
       return false;
@@ -38,7 +41,7 @@ class PostController extends GetxController {
   }
 
   Future<List<Post>?> getPostDocs(String category) async {
-    QuerySnapshot postData = await _firestore
+    var postData = await _firestore
         .collection('post')
         .where('category', isEqualTo: category)
         .get();
@@ -69,7 +72,6 @@ class PostController extends GetxController {
         .collection('post')
         .doc(postId)
         .update({'commentList': _commentList});
-    setPostList(category);
     return true;
   }
 
@@ -89,7 +91,6 @@ class PostController extends GetxController {
         .collection('post')
         .doc(postId)
         .update({'commentList': _commentList});
-    setPostList(category);
     return true;
   }
 }
