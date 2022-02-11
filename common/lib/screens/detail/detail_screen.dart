@@ -35,45 +35,16 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  int _userStateIndex = 0;
-
   @override
   void initState() {
     super.initState();
     updateScreen();
-    checkUserStateIndex(UserController.to.user!.id);
   }
 
   Future<void> updateScreen() async {
     await UserController.to.currentUserUpdate(UserController.to.user!.id);
   }
 
-  void checkUserStateIndex(String id) {
-    for (int i = 0; i < widget.gathering.applyList.length; i++) {
-      if (widget.gathering.applyList[i].userId == id) {
-        setState(() {
-          _userStateIndex = 1;
-        });
-        return;
-      }
-    }
-    for (int i = 0; i < widget.gathering.cancelList.length; i++) {
-      if (widget.gathering.cancelList[i].userId == id) {
-        setState(() {
-          _userStateIndex = 3;
-        });
-        return;
-      }
-    }
-    for (int i = 0; i < widget.gathering.approvalList.length; i++) {
-      if (widget.gathering.approvalList[i].userId == id) {
-        setState(() {
-          _userStateIndex = 2;
-        });
-        return;
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,18 +68,32 @@ class _DetailScreenState extends State<DetailScreen> {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasData) {
+            int currentStateIndex = 0;
             Gathering gathering = Gathering.fromJson({
               'id': snapshot.data!.id,
               ...snapshot.data!.data() as Map<String, dynamic>,
             });
+            if (gathering.applyList.indexWhere((element) =>
+                    element.userId == UserController.to.user!.id) !=
+                -1) {
+              currentStateIndex = 1;
+            } else if (gathering.cancelList.indexWhere((element) =>
+                    element.userId == UserController.to.user!.id) !=
+                -1) {
+              currentStateIndex = 3;
+            } else if (gathering.approvalList.indexWhere((element) =>
+                    element.userId == UserController.to.user!.id) !=
+                -1) {
+              currentStateIndex = 2;
+            }
             return Column(
               children: [
-                widget.isHost
+                widget.isHost || gathering.over
                     ? Container()
-                    : _userStateIndex == 0
+                    :currentStateIndex == 0
                         ? Container()
                         : UserGatheringStatus(
-                            content: kDetailStateList[_userStateIndex]
+                            content: kDetailStateList[currentStateIndex]
                                 ['guideLine'],
                           ),
                 Expanded(
@@ -197,20 +182,12 @@ class _DetailScreenState extends State<DetailScreen> {
                             applyPressed: () async {
                               await GatheringController.to
                                   .userApplyGathering(gathering.id);
-                              setState(() {
-                                _userStateIndex = 1;
-                              });
                             },
                             cancelPressed: () async {
                               await GatheringController.to
-                                  .userCancelGathering(gathering.id)
-                                  .then((value) {
-                                setState(() {
-                                  _userStateIndex = 3;
-                                });
-                              });
+                                  .userCancelGathering(gathering.id);
                             },
-                            userStateIndex: _userStateIndex,
+                            userStateIndex: currentStateIndex,
                           )
               ],
             );

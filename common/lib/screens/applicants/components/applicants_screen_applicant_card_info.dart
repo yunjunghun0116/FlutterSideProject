@@ -49,7 +49,7 @@ class ApplicantsScreenApplicantCardInfo extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 18
                           )),
-                      TextSpan(text: ' | $job'),
+                      TextSpan(text: job!=''?' | $job':''),
                     ],
                   ),
                 ),
