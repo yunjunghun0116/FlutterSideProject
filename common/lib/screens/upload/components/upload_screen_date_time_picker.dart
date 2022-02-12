@@ -22,16 +22,13 @@ class UploadScreenDateTimePicker extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           if (!noEnd) {
-            DatePicker.showDateTimePicker(
-              context,
-              showTitleActions: true,
-              locale: LocaleType.ko,
-              minTime: nowTime,
-              maxTime: DateTime(2022, 12, 31),
-              onConfirm: (DateTime date){
-                onSubmitted(date);
-              }
-            );
+            DatePicker.showDateTimePicker(context,
+                showTitleActions: true,
+                locale: LocaleType.ko,
+                minTime: nowTime,
+                maxTime: DateTime(2022, 12, 31), onConfirm: (DateTime date) {
+              onSubmitted(date);
+            });
           }
         },
         child: Container(
@@ -46,13 +43,17 @@ class UploadScreenDateTimePicker extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${currentTime.year}.${getTime(currentTime.month)}.${getTime(currentTime.day)} (${kWeekDay[currentTime.weekday]})',
+                noEnd
+                    ? '종료시간'
+                    : '${currentTime.year}.${getTime(currentTime.month)}.${getTime(currentTime.day)} (${kWeekDay[currentTime.weekday]})',
                 style: TextStyle(
                   color: noEnd ? kGreyColor : kBlackColor,
                 ),
               ),
               Text(
-                '${getTime(currentTime.hour)} : ${getTime(currentTime.minute)}',
+                noEnd
+                    ? '미정'
+                    : '${getTime(currentTime.hour)} : ${getTime(currentTime.minute)}',
                 style: TextStyle(
                   color: noEnd ? kGreyColor : kBlackColor,
                 ),

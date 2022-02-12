@@ -39,7 +39,7 @@ class _UploadScreenState extends State<UploadScreen> {
   //DateTime 관련
   final DateTime _nowTime = DateTime.now();
   DateTime _openTime = DateTime.now();
-  DateTime _endTime = DateTime.now();
+  DateTime _endTime = DateTime.now().add(const Duration(days: 7));
   bool _noEndTime = false;
   //hostMessage 관련
   final TextEditingController _hostMessageController = TextEditingController();
@@ -69,197 +69,135 @@ class _UploadScreenState extends State<UploadScreen> {
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: UserInfo(
-                      userId: UserController.to.user!.id,
-                      imageUrl: UserController.to.user!.imageUrl,
-                      name: UserController.to.user!.name,
-                      job: UserController.to.user!.job,
-                      hostTagList: UserController.to.user!.userTagList,
+        child: Container(
+          color: kWhiteColor,
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: UserInfo(
+                        userId: UserController.to.user!.id,
+                        imageUrl: UserController.to.user!.imageUrl,
+                        name: UserController.to.user!.name,
+                        job: UserController.to.user!.job,
+                        hostTagList: UserController.to.user!.userTagList,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        UploadScreenTitleArea(
-                          controller: _titleController,
-                          focusNode: _titleFocusNode,
-                        ),
-                        UploadScreenCategoryArea(
-                          category: widget.category,
-                        ),
-                        UploadScreenGuestArea(
-                            guestCount: _guestCount,
-                            onChanged: (double value) {
-                              setState(() {
-                                _guestCount = value.toInt();
-                              });
-                            }),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            '모임정보',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          UploadScreenTitleArea(
+                            controller: _titleController,
+                            focusNode: _titleFocusNode,
                           ),
-                        ),
-                        UploadScreenDateTimeArea(
-                          noEnd: _noEndTime,
-                          nowTime: _nowTime,
-                          openTime: _openTime,
-                          endTime: _endTime,
-                          noEndPressed: () {
-                            setState(() {
-                              _noEndTime = !_noEndTime;
-                            });
-                          },
-                          openPressed: (DateTime date) {
-                            if (_endTime.difference(date).inSeconds < 0) {
-                              setState(() {
-                                _openTime = _endTime;
-                                _endTime = date;
-                              });
-                            } else {
-                              setState(() {
-                                _openTime = date;
-                              });
-                            }
-                          },
-                          endPressed: (DateTime date) {
-                            if (_openTime.difference(date).inSeconds > 0) {
-                              setState(() {
-                                _endTime = _openTime;
-                                _openTime = date;
-                              });
-                            } else {
-                              setState(() {
-                                _endTime = date;
-                              });
-                            }
-                          },
-                        ),
-                        UploadScreenLocationArea(
-                          location: _location,
-                          focusNode: _locationFocusNode,
-                          controller: _locationDetailController,
-                          locationUpdated: (String s) {
-                            setState(() {
-                              _location = s;
-                            });
-                          },
-                          locationSearchPressed: () async {
-                            // _connectController
-                            Map<String, dynamic>? _placeInfo = await Get.to(
-                                () => const UploadScreenLocationSearchScreen());
-                            if (_placeInfo != null) {
-                              setState(() {
-                                _location = _placeInfo['address'];
-                                _locationDetailController.text =
-                                    _placeInfo['place'];
-                              });
-                            }
-                          },
-                        ),
-                        const SizedBox(height: 10),
-                        UploadScreenHostMessageArea(
-                          focusNode: _hostMessageFocusNode,
-                          controller: _hostMessageController,
-                        ),
-                        UploadScreenGatheringTagArea(
-                          focusNode: _gatheringTagFocusNode,
-                          controller: _gatheringTagController,
-                          tagEnterPressed: (String tag) {
-                            setState(() {
-                              _gatheringTagList.add(tag);
-                            });
-                          },
-                          tagList: _gatheringTagList,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            UploadScreenBottomBar(
-              uploadPressed: () async {
-                if (_titleController.text.isEmpty ||
-                    _locationDetailController.text.isEmpty ||
-                    _hostMessageController.text.isEmpty) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        title: const Text('모두 입력해주세요!!'),
-                        actions: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  '닫기',
-                                  style: TextStyle(
-                                    color: kBlueColor,
-                                  ),
-                                ),
-                              ),
+                          UploadScreenCategoryArea(
+                            category: widget.category,
+                          ),
+                          UploadScreenGuestArea(
+                              guestCount: _guestCount,
+                              onChanged: (double value) {
+                                setState(() {
+                                  _guestCount = value.toInt();
+                                });
+                              }),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Text(
+                              '모임정보',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 20),
                             ),
                           ),
+                          UploadScreenDateTimeArea(
+                            noEnd: _noEndTime,
+                            nowTime: _nowTime,
+                            openTime: _openTime,
+                            endTime: _endTime,
+                            noEndPressed: () {
+                              setState(() {
+                                _noEndTime = !_noEndTime;
+                              });
+                            },
+                            openPressed: (DateTime date) {
+                              if (!_noEndTime &&
+                                  _endTime.difference(date).inSeconds < 0) {
+                                setState(() {
+                                  _openTime = _endTime;
+                                  _endTime = date;
+                                });
+                              } else {
+                                setState(() {
+                                  _openTime = date;
+                                });
+                              }
+                            },
+                            endPressed: (DateTime date) {
+                              if (_openTime.difference(date).inSeconds > 0) {
+                                setState(() {
+                                  _endTime = _openTime;
+                                  _openTime = date;
+                                });
+                              } else {
+                                setState(() {
+                                  _endTime = date;
+                                });
+                              }
+                            },
+                          ),
+                          UploadScreenLocationArea(
+                            location: _location,
+                            focusNode: _locationFocusNode,
+                            controller: _locationDetailController,
+                            locationUpdated: (String s) {
+                              setState(() {
+                                _location = s;
+                              });
+                            },
+                            locationSearchPressed: () async {
+                              // _connectController
+                              Map<String, dynamic>? _placeInfo = await Get.to(
+                                  () =>
+                                      const UploadScreenLocationSearchScreen());
+                              if (_placeInfo != null) {
+                                setState(() {
+                                  _location = _placeInfo['address'];
+                                  _locationDetailController.text =
+                                      _placeInfo['place'];
+                                });
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          UploadScreenHostMessageArea(
+                            focusNode: _hostMessageFocusNode,
+                            controller: _hostMessageController,
+                          ),
+                          UploadScreenGatheringTagArea(
+                            focusNode: _gatheringTagFocusNode,
+                            controller: _gatheringTagController,
+                            tagEnterPressed: (String tag) {
+                              setState(() {
+                                _gatheringTagList.add(tag);
+                              });
+                            },
+                            tagList: _gatheringTagList,
+                          ),
                         ],
-                      );
-                    },
-                  );
-                  return;
-                }
-                if (_openTime.difference(_endTime).inSeconds > 0) {
-                  DateTime tempTime = _openTime;
-                  _openTime = _endTime;
-                  _endTime = tempTime;
-                }
-                Map<String, dynamic> body = {
-                  'host': {
-                    'userId': UserController.to.user!.id,
-                    'name': UserController.to.user!.name,
-                    'imageUrl': UserController.to.user!.imageUrl,
-                    'job': UserController.to.user!.job,
-                    'userTagList': UserController.to.user!.userTagList,
-                  },
-                  'over': false,
-                  'title': _titleController.text,
-                  'category': widget.category,
-                  'participant': 1,
-                  'capacity': _guestCount,
-                  'university': UserController.to.user!.university,
-                  'openTime': _openTime.toString(),
-                  'endTime': _noEndTime ? '' : _endTime.toString(),
-                  'location': _location,
-                  'locationDetail': _locationDetailController.text,
-                  'hostMessage': _hostMessageController.text,
-                  'tagList': _gatheringTagList,
-                  'applyList': [],
-                  'approvalList': [],
-                  'cancelList': [],
-                  'timeStamp': DateTime.now().toString(),
-                };
-                await GatheringController.to.makeGathering(body).then((value) {
-                  if (value) {
-                    Get.offAll(() => const MainScreen());
-                  } else {
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              UploadScreenBottomBar(
+                uploadPressed: () async {
+                  if (_titleController.text.isEmpty ||
+                      _locationDetailController.text.isEmpty ||
+                      _hostMessageController.text.isEmpty) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -267,7 +205,7 @@ class _UploadScreenState extends State<UploadScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          title: const Text('등록을 실패했습니다'),
+                          title: const Text('모두 입력해주세요!!'),
                           actions: [
                             GestureDetector(
                               onTap: () {
@@ -290,11 +228,80 @@ class _UploadScreenState extends State<UploadScreen> {
                         );
                       },
                     );
+                    return;
                   }
-                });
-              },
-            ),
-          ],
+                  if (_openTime.difference(_endTime).inSeconds > 0) {
+                    DateTime tempTime = _openTime;
+                    _openTime = _endTime;
+                    _endTime = tempTime;
+                  }
+                  Map<String, dynamic> body = {
+                    'host': {
+                      'userId': UserController.to.user!.id,
+                      'name': UserController.to.user!.name,
+                      'imageUrl': UserController.to.user!.imageUrl,
+                      'job': UserController.to.user!.job,
+                      'userTagList': UserController.to.user!.userTagList,
+                    },
+                    'over': false,
+                    'title': _titleController.text,
+                    'category': widget.category,
+                    'participant': 1,
+                    'capacity': _guestCount,
+                    'university': UserController.to.user!.university,
+                    'openTime': _openTime.toString(),
+                    'endTime': _noEndTime ? '' : _endTime.toString(),
+                    'location': _location,
+                    'locationDetail': _locationDetailController.text,
+                    'hostMessage': _hostMessageController.text,
+                    'tagList': _gatheringTagList,
+                    'applyList': [],
+                    'approvalList': [],
+                    'cancelList': [],
+                    'timeStamp': DateTime.now().toString(),
+                  };
+                  await GatheringController.to
+                      .makeGathering(body)
+                      .then((value) {
+                    if (value) {
+                      Get.offAll(() => const MainScreen());
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            title: const Text('등록을 실패했습니다'),
+                            actions: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      '닫기',
+                                      style: TextStyle(
+                                        color: kBlueColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

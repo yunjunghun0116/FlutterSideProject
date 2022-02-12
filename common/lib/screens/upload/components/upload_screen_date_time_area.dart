@@ -44,8 +44,11 @@ class UploadScreenDateTimeArea extends StatelessWidget {
                 noEnd: false,
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Icon(Icons.arrow_forward),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: const Text(
+                  '~',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
               UploadScreenDateTimePicker(
                 nowTime: nowTime,
@@ -66,8 +69,8 @@ class UploadScreenDateTimeArea extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               noEnd
-                  ? const Icon(Icons.check_box)
-                  : const Icon(Icons.check_box_outlined),
+                  ? const Icon(Icons.check_box_outlined)
+                  : const Icon(Icons.check_box_outline_blank),
               const Text('종료 시간 미정'),
             ],
           ),

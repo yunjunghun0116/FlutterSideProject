@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/detail/components/detail_screen_over_bottom_bar.dart';
-import 'package:common/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../profile/profile_screen.dart';
