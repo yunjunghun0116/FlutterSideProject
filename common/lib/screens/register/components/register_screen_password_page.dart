@@ -13,10 +13,8 @@ class RegisterScreenPasswordPage extends StatelessWidget {
   final bool passwordCheckEnabled;
   final String passwordCheckGuideLine;
   final Color buttonColor;
-  final Function passwordEnabledFunction;
-  final Function passwordDisabledFunction;
-  final Function passwordCheckEnabledFunction;
-  final Function passwordCheckDisabledFunction;
+  final Function passwordCheckFunction;
+  final Function passwordSameCheckFunction;
   final Function buttonPressedFunction;
   final Function passwordRefreshFunction;
   const RegisterScreenPasswordPage({
@@ -29,10 +27,8 @@ class RegisterScreenPasswordPage extends StatelessWidget {
     required this.passwordCheckEnabled,
     required this.passwordCheckGuideLine,
     required this.buttonColor,
-    required this.passwordEnabledFunction,
-    required this.passwordDisabledFunction,
-    required this.passwordCheckEnabledFunction,
-    required this.passwordCheckDisabledFunction,
+    required this.passwordCheckFunction,
+    required this.passwordSameCheckFunction,
     required this.buttonPressedFunction,
     required this.passwordRefreshFunction,
   }) : super(key: key);
@@ -48,18 +44,15 @@ class RegisterScreenPasswordPage extends StatelessWidget {
           passwordEnabled: passwordEnabled,
           passwordCheckEnabled: passwordCheckEnabled,
           passwordGuideLine: passwordGuideLine,
-          passwordEnabledFunction: passwordEnabledFunction,
-          passwordDisabledFunction: passwordDisabledFunction,
+          passwordCheckFunction: passwordCheckFunction,
           passwordRefreshFunction: passwordRefreshFunction,
         ),
         passwordChecked
             ? RegisterScreenPasswordPagePasswordCheckArea(
-                passwordController: passwordController,
                 passwordCheckController: passwordCheckController,
                 passwordCheckEnabled: passwordCheckEnabled,
                 passwordCheckGuideLine: passwordCheckGuideLine,
-                passwordCheckEnabledFunction: passwordCheckEnabledFunction,
-                passwordCheckDisabledFunction: passwordCheckDisabledFunction,
+                passwordSameCheckFunction: passwordSameCheckFunction,
               )
             : Container(),
         const SizedBox(height: 20),

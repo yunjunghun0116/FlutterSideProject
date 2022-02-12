@@ -179,17 +179,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
           certificationNumber: certificationNumber,
           currentSeconds: currentSecond,
           buttonColor: _getButtonColor(),
-          phoneEnabledFunction: () {
-            setState(() {
-              _phoneEnabled = true;
-              _phoneGuideLine = '';
-            });
-          },
-          phoneDisabledFunction: () {
-            setState(() {
-              _phoneEnabled = false;
-              _phoneGuideLine = '휴대폰 번호를 다시 한번 확인해주세요';
-            });
+          phoneCheckFunction: (String s) {
+            if (s.length == 11 &&
+                kPhoneNumberList.contains(s.substring(0, 3))) {
+              setState(() {
+                _phoneEnabled = true;
+                _phoneGuideLine = '';
+              });
+            } else {
+              setState(() {
+                _phoneEnabled = false;
+                _phoneGuideLine = '휴대폰 번호를 다시 한번 확인해주세요';
+              });
+            }
           },
           sendCertificationNumberFunction: sendCertificationNumber,
           certificationCheckFunction: (String s) {
@@ -207,11 +209,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           buttonPressedFunction: () async {
             if (_phoneChecked && _certificationEnabled) {
-              if(await UserController.to.checkPhoneNumberIsDuplicated(_phoneController.text)){
+              if (await UserController.to
+                  .checkPhoneNumberIsDuplicated(_phoneController.text)) {
                 setState(() {
                   ++_currentPageIndex;
                 });
-              }else{
+              } else {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -264,29 +267,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
           passwordCheckEnabled: _passwordCheckEnabled,
           passwordCheckGuideLine: _passwordCheckGuideLine,
           buttonColor: _getButtonColor(),
-          passwordEnabledFunction: () {
-            setState(() {
-              _passwordEnabled = true;
-              _passwordGuideLine = '사용가능한 비밀번호입니다';
-            });
+          passwordCheckFunction: (String s) {
+            if (s.length >= 6) {
+              setState(() {
+                _passwordEnabled = true;
+                _passwordGuideLine = '사용가능한 비밀번호입니다';
+              });
+            } else {
+              setState(() {
+                _passwordEnabled = false;
+                _passwordGuideLine = '6~14자리 비밀번호를 입력해주세요';
+              });
+            }
+
           },
-          passwordDisabledFunction: () {
-            setState(() {
-              _passwordEnabled = false;
-              _passwordGuideLine = '6~14자리 비밀번호를 입력해주세요';
-            });
-          },
-          passwordCheckEnabledFunction: () {
-            setState(() {
-              _passwordCheckEnabled = true;
-              _passwordCheckGuideLine = '비밀번호가 일치합니다';
-            });
-          },
-          passwordCheckDisabledFunction: () {
-            setState(() {
-              _passwordCheckEnabled = false;
-              _passwordCheckGuideLine = '사용한 비밀번호와 동일한 비밀번호를 입력해주세요';
-            });
+          passwordSameCheckFunction: (String s) {
+            if (s == _passwordController.text) {
+              setState(() {
+                _passwordCheckEnabled = true;
+                _passwordCheckGuideLine = '비밀번호가 일치합니다';
+              });
+            } else {
+              setState(() {
+                _passwordCheckEnabled = false;
+                _passwordCheckGuideLine = '사용한 비밀번호와 동일한 비밀번호를 입력해주세요';
+              });
+            }
+
           },
           buttonPressedFunction: () {
             if (_passwordChecked) {

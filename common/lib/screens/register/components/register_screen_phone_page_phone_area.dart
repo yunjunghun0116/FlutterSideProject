@@ -7,8 +7,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
   final bool phoneEnabled;
   final String phoneGuideLine;
   final bool certificationEnabled;
-  final Function phoneEnabledFunction;
-  final Function phoneDisabledFunction;
+  final Function phoneCheckFunction;
   final Function phoneRefreshFunction;
   final Function sendCertificationNumberFunction;
   const RegisterScreenPhonePagePhoneArea({
@@ -18,8 +17,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
     required this.phoneEnabled,
     required this.phoneGuideLine,
     required this.certificationEnabled,
-    required this.phoneEnabledFunction,
-    required this.phoneDisabledFunction,
+    required this.phoneCheckFunction,
     required this.phoneRefreshFunction,
     required this.sendCertificationNumberFunction,
   }) : super(key: key);
@@ -100,12 +98,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
             ),
           ),
           onChanged: (String s) {
-            if (s.length == 11 &&
-                kPhoneNumberList.contains(s.substring(0, 3))) {
-              phoneEnabledFunction();
-            } else {
-              phoneDisabledFunction();
-            }
+            phoneCheckFunction(s);
           },
         ),
         Padding(

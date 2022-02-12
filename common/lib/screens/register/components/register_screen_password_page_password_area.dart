@@ -8,8 +8,7 @@ class RegisterScreenPasswordPagePasswordArea extends StatelessWidget {
   final bool passwordEnabled;
   final bool passwordCheckEnabled;
   final String passwordGuideLine;
-  final Function passwordEnabledFunction;
-  final Function passwordDisabledFunction;
+  final Function passwordCheckFunction;
   final Function passwordRefreshFunction;
   const RegisterScreenPasswordPagePasswordArea({
     Key? key,
@@ -18,8 +17,7 @@ class RegisterScreenPasswordPagePasswordArea extends StatelessWidget {
     required this.passwordEnabled,
     required this.passwordCheckEnabled,
     required this.passwordGuideLine,
-    required this.passwordEnabledFunction,
-    required this.passwordDisabledFunction,
+    required this.passwordCheckFunction,
     required this.passwordRefreshFunction,
   }) : super(key: key);
 
@@ -94,11 +92,7 @@ class RegisterScreenPasswordPagePasswordArea extends StatelessWidget {
             ),
           ),
           onChanged: (String s) {
-            if (s.length >= 6) {
-              passwordEnabledFunction();
-            } else {
-              passwordDisabledFunction();
-            }
+            passwordCheckFunction(s);
           },
         ),
         Padding(

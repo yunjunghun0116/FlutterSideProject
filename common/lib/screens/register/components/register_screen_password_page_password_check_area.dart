@@ -3,20 +3,16 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class RegisterScreenPasswordPagePasswordCheckArea extends StatelessWidget {
-  final TextEditingController passwordController;
   final TextEditingController passwordCheckController;
   final bool passwordCheckEnabled;
   final String passwordCheckGuideLine;
-  final Function passwordCheckEnabledFunction;
-  final Function passwordCheckDisabledFunction;
+  final Function passwordSameCheckFunction;
   const RegisterScreenPasswordPagePasswordCheckArea({
     Key? key,
-    required this.passwordController,
     required this.passwordCheckController,
     required this.passwordCheckEnabled,
     required this.passwordCheckGuideLine,
-    required this.passwordCheckEnabledFunction,
-    required this.passwordCheckDisabledFunction,
+    required this.passwordSameCheckFunction,
   }) : super(key: key);
 
   @override
@@ -64,11 +60,7 @@ class RegisterScreenPasswordPagePasswordCheckArea extends StatelessWidget {
             ),
           ),
           onChanged: (String s) {
-            if (s == passwordController.text) {
-              passwordCheckEnabledFunction();
-            } else {
-              passwordCheckDisabledFunction();
-            }
+passwordSameCheckFunction(s);
           },
         ),
         Padding(
