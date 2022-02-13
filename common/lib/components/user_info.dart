@@ -27,15 +27,18 @@ class UserInfo extends StatelessWidget {
           margin: const EdgeInsets.all(10),
           width: 100,
           height: 100,
-          child: CachedNetworkImage(
-            fit: BoxFit.cover,
-            imageUrl: imageUrl,
-            placeholder: (context, url) => Container(
-              width: 100,
-              height: 100,
-              color: kLightGreyColor,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: imageUrl,
+              placeholder: (context, url) => Container(
+                width: 100,
+                height: 100,
+                color: kLightGreyColor,
+              ),
+              errorWidget: (context, url, error) => Icon(error),
             ),
-            errorWidget: (context, url, error) => Icon(error),
           ),
         ),
         Expanded(

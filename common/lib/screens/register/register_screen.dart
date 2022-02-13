@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:common/controllers/connect_controller.dart';
-import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/screens/location/location_screen.dart';
 import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/register/components/register_screen_password_page.dart';
 import 'package:flutter/material.dart';
@@ -211,10 +211,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             if (_phoneChecked && _certificationEnabled) {
               if (await UserController.to
                   .checkPhoneNumberIsDuplicated(_phoneController.text)) {
-                setState(() {
-                  ++_currentPageIndex;
-                });
-              } else {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -245,7 +241,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                   },
                 );
+                return;
               }
+              setState(() {
+                ++_currentPageIndex;
+              });
             } else {
               if (_phoneEnabled) {
                 setState(() {
@@ -327,11 +327,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             });
           },
           registerFunction: () async {
+            Map<String,dynamic>? cityTown = await Get.to(()=>const LocationScreen());
+            if(cityTown == null) return;
             Map<String, dynamic> body = {
               'name': _nameController.text,
               'phoneNumber': _phoneController.text,
               'password': _passwordController.text,
-              'university': '충남대학교',
+              'city': cityTown['city'],
+              'town':cityTown['town'],
               'job': '',
               'imageUrl': noPersonImage,
               'kakaoLinkUrl': '',

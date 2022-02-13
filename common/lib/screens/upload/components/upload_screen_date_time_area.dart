@@ -28,7 +28,7 @@ class UploadScreenDateTimeArea extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const UploadScreenIconText(
-          title: '날짜/시간을 설정해주세요',
+          title: '날짜/시간',
           icon: Icons.event_available,
         ),
         Padding(

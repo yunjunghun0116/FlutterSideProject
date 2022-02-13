@@ -5,7 +5,6 @@ class LocalController extends GetxController {
   static LocalController get to => Get.find();
   SharedPreferences? _sharedPreferences;
   final String _idKey = 'id';
-  final String _universityKey = 'university';
   final String _certificationTimeKey = 'certificationTime';
 
   @override
@@ -22,17 +21,6 @@ class LocalController extends GetxController {
       await _setSharedPreferences();
     }
     await _sharedPreferences!.clear();
-  }
-
-  Future<void> setUniversity(String university) async{
-    await _sharedPreferences!.setString(_universityKey, university);
-  }
-
-  Future<String?> getUniversity() async{
-    if(_sharedPreferences == null){
-      await _setSharedPreferences();
-    }
-    return _sharedPreferences!.getString(_universityKey);
   }
 
   Future<void> setId(String id) async{

@@ -36,7 +36,9 @@ class DetailScreenGatheringInfoCard extends StatelessWidget {
                 color: iconColor,
               ),
               const SizedBox(width: 10),
-              Text(content)
+              Expanded(
+                child: Text(content),
+              ),
             ],
           ),
         ],

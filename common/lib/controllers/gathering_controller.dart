@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/applicant.dart';
-import 'package:common/models/user.dart';
 import 'package:get/get.dart';
-import '../models/gathering.dart';
 
 class GatheringController extends GetxController {
   static GatheringController get to => Get.find();
@@ -15,30 +13,30 @@ class GatheringController extends GetxController {
   Stream<QuerySnapshot> getGatheringListStream() {
     return _firestore
         .collection('gathering')
-        .where('university',
+        .where('city',
             isEqualTo: UserController.to.user != null
-                ? UserController.to.user!.university
-                : '충남대학교')
+                ? UserController.to.user!.city
+                : '서울특별시')
         .where('over', isEqualTo: false)
         .snapshots();
   }
+
   //2. 해당 카테고리에 해당하는 모임들
   Stream<QuerySnapshot> getCategoryGatheringListStream(String category) {
     return _firestore
         .collection('gathering')
-        .where('university',
-        isEqualTo: UserController.to.user != null
-            ? UserController.to.user!.university
-            : '충남대학교')
+        .where('city',
+            isEqualTo: UserController.to.user != null
+                ? UserController.to.user!.city
+                : '서울특별시')
         .where('over', isEqualTo: false)
-    .where('category',isEqualTo:category )
+        .where('category', isEqualTo: category)
         .snapshots();
   }
+
   //3.모임의 디테일
   Stream<DocumentSnapshot> getGatheringStream(String gatheringId) {
-    return _firestore
-        .collection('gathering')
-    .doc(gatheringId).snapshots();
+    return _firestore.collection('gathering').doc(gatheringId).snapshots();
   }
 
   Future<bool> makeGathering(Map<String, dynamic> body) async {
@@ -72,7 +70,7 @@ class GatheringController extends GetxController {
 
   //모임 수정 및 신청/수락/취소 등의 작업을 할때 사용하는 함수
   Future<bool> updateGathering(
-      String gatheringId, Map<String, dynamic> body) async {
+      {required String gatheringId, required Map<String, dynamic> body}) async {
     try {
       await _firestore.collection('gathering').doc(gatheringId).update(body);
       return true;
@@ -131,7 +129,7 @@ class GatheringController extends GetxController {
 
   //주최자 입장에서 필요 함수
   Future<void> userApproveGathering(
-      String gatheringId, String applicantId) async {
+      {required String gatheringId, required String applicantId}) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
 
@@ -162,7 +160,7 @@ class GatheringController extends GetxController {
   }
 
   Future<void> removeUserInApprovalList(
-      String gatheringId, String applicantId) async {
+      {required String gatheringId, required String applicantId}) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
     List _approvalList = _gatheringData['approvalList'];
@@ -184,7 +182,7 @@ class GatheringController extends GetxController {
         .update({'applyGatheringList': _applyGatheringList});
   }
 
-  Future<void> cancelApproveUser(String gatheringId, String applicantId) async {
+  Future<void> cancelApproveUser({required String gatheringId, required String applicantId}) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
     List _approvalList = _gatheringData['approvalList'];
@@ -199,7 +197,7 @@ class GatheringController extends GetxController {
     });
   }
 
-  Future<void> cancelDeleteUser(String gatheringId, String applicantId) async {
+  Future<void> cancelDeleteUser({required String gatheringId, required String applicantId}) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
     List _cancelList = _gatheringData['cancelList'];

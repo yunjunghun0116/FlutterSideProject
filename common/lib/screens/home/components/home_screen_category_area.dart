@@ -1,4 +1,3 @@
-import 'package:common/controllers/gathering_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../category/category_screen.dart';

@@ -38,8 +38,10 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
         return Expanded(
           child: InkWell(
             onTap: () async {
-              await GatheringController.to
-                  .userApproveGathering(gathering.id, applicant.userId);
+              await GatheringController.to.userApproveGathering(
+                gatheringId: gathering.id,
+                applicantId: applicant.userId,
+              );
               await approveFunction();
               await updateFunction();
             },
@@ -63,8 +65,10 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
         return Expanded(
           child: InkWell(
             onTap: () async {
-              await GatheringController.to
-                  .removeUserInApprovalList(gathering.id, applicant.userId);
+              await GatheringController.to.removeUserInApprovalList(
+                gatheringId: gathering.id,
+                applicantId: applicant.userId,
+              );
               await removeInApprovalFunction();
               await updateFunction();
             },
@@ -90,8 +94,10 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
         return Expanded(
           child: InkWell(
             onTap: () async {
-              await GatheringController.to
-                  .cancelApproveUser(gathering.id, applicant.userId);
+              await GatheringController.to.cancelApproveUser(
+                gatheringId: gathering.id,
+                applicantId: applicant.userId,
+              );
               await cancelApproveFunction();
               await updateFunction();
             },
@@ -136,8 +142,10 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   if (currentIndex == 2) {
-                    await GatheringController.to
-                        .cancelDeleteUser(gathering.id, applicant.userId);
+                    await GatheringController.to.cancelDeleteUser(
+                      gatheringId: gathering.id,
+                      applicantId: applicant.userId,
+                    );
                     await cancelDeleteFunction();
                     await updateFunction();
                   } else {

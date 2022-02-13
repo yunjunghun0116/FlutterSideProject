@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,15 +45,20 @@ class GatheringCard extends StatelessWidget {
                   SizedBox(
                     width: 80,
                     height: 80,
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl: gathering.host.imageUrl,
-                      placeholder: (context, url) => Container(
-                        width: 80,
-                        height: 80,
-                        color: kLightGreyColor,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: gathering.host.imageUrl,
+                        placeholder: (context, url) => Container(
+                          width: 80,
+                          height: 80,
+                          color: kLightGreyColor,
+                        ),
+                        errorWidget: (context, url, error) => Center(
+                          child: Icon(error),
+                        ),
                       ),
-                      errorWidget: (context, url, error) => Icon(error),
                     ),
                   ),
                   const SizedBox(height: 5),
@@ -64,11 +68,16 @@ class GatheringCard extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 5),
                   Text(
                     gathering.host.job,
                     textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
@@ -81,17 +90,22 @@ class GatheringCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        gathering.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      Expanded(
+                        child: Text(
+                          gathering.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Text(
-                        '인원 ${gathering.approvalList.length}/${gathering.capacity}',
+                        '인원 ${gathering.approvalList.length + 1}/${gathering.capacity}',
                         style: TextStyle(
-                          color: gathering.approvalList.length >= gathering.capacity
+                          color: gathering.approvalList.length + 1 >=
+                                  gathering.capacity
                               ? kRedColor
                               : kBlueColor,
                         ),

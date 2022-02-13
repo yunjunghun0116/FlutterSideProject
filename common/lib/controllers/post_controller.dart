@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/user_controller.dart';
-import 'package:common/models/post.dart';
 import 'package:get/get.dart';
 
 class PostController extends GetxController {
@@ -14,22 +13,25 @@ class PostController extends GetxController {
         .where('category', isEqualTo: category)
         .snapshots();
   }
+
   Stream<DocumentSnapshot> getPostStream(String postId) {
-    return _firestore
-        .collection('post')
-        .doc(postId).snapshots();
+    return _firestore.collection('post').doc(postId).snapshots();
   }
 
-  Future<bool> makePost(String category, String title, String content) async {
+  Future<bool> makePost(
+      {required String category,
+      required String title,
+      required String content}) async {
     DateTime nowTime = DateTime.now();
     Map<String, dynamic> body = {
       'category': category,
-      'university': UserController.to.user!.university,
+      'city': UserController.to.user!.city,
+      'town': UserController.to.user!.town,
       'title': title,
       'content': content,
       'timeStamp': nowTime.toString(),
       'authorId': UserController.to.user!.id,
-      'authorName': UserController.to.user!.name,
+      'authorName': category == '익명게시판' ? '익명' : UserController.to.user!.name,
       'commentList': [],
     };
     try {
@@ -40,23 +42,8 @@ class PostController extends GetxController {
     }
   }
 
-  Future<List<Post>?> getPostDocs(String category) async {
-    var postData = await _firestore
-        .collection('post')
-        .where('category', isEqualTo: category)
-        .get();
-
-    List<Post> postList = [];
-    List postDocs = postData.docs;
-
-    for (int i = 0; i < postDocs.length; i++) {
-      Map<String, dynamic> body = {'id': postDocs[i].id, ...postDocs[i].data()};
-      postList.add(Post.fromJson(body));
-    }
-    return postList;
-  }
-
-  Future<bool> uploadComment(String postId,String category, String comment) async {
+  Future<bool> uploadComment(
+      {required String postId, required String category, required String comment}) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
         await _firestore.collection('post').doc(postId).get();
 
@@ -65,7 +52,7 @@ class PostController extends GetxController {
       'comment': comment,
       'timeStamp': DateTime.now().toString(),
       'authorId': UserController.to.user!.id,
-      'authorName': UserController.to.user!.name,
+      'authorName': category == '익명게시판' ? '익명' : UserController.to.user!.name,
       'recommentList': [],
     });
     await _firestore
@@ -75,8 +62,8 @@ class PostController extends GetxController {
     return true;
   }
 
-  Future<bool> uploadRecomment(
-      String postId, String category, int commentIndex, String comment) async {
+  Future<bool> uploadRecomment({
+      required String postId, required String category, required int commentIndex, required String comment}) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
         await _firestore.collection('post').doc(postId).get();
 
@@ -85,7 +72,7 @@ class PostController extends GetxController {
       'comment': comment,
       'timeStamp': DateTime.now().toString(),
       'authorId': UserController.to.user!.id,
-      'authorName': UserController.to.user!.name,
+      'authorName': category == '익명게시판' ? '익명' : UserController.to.user!.name,
     });
     await _firestore
         .collection('post')

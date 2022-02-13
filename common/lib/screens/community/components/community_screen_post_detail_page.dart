@@ -3,8 +3,6 @@ import 'package:common/controllers/post_controller.dart';
 import 'package:common/models/post.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../../../constants.dart';
 import '../../../utils.dart';
 
@@ -119,7 +117,7 @@ class _CommunityScreenPostDetailPageState
                           if (post.commentList.isEmpty) return Container();
                           return _getCommentArea(post.commentList);
                         }
-                        return CircularProgressIndicator();
+                        return Container();
                       }),
                 ],
               ),
@@ -153,10 +151,11 @@ class _CommunityScreenPostDetailPageState
                       onTap: () async {
                         if (isRecomment) {
                           bool upload = await PostController.to.uploadRecomment(
-                              widget.post.id,
-                              widget.post.category,
-                              selectedIndex,
-                              _commentController.text);
+                            postId: widget.post.id,
+                            category: widget.post.category,
+                            commentIndex: selectedIndex,
+                            comment: _commentController.text,
+                          );
                           if (upload) {
                             _commentController.clear();
                             FocusScope.of(context).unfocus();
@@ -164,9 +163,10 @@ class _CommunityScreenPostDetailPageState
                           return;
                         }
                         bool upload = await PostController.to.uploadComment(
-                            widget.post.id,
-                            widget.post.category,
-                            _commentController.text);
+                          postId: widget.post.id,
+                          category: widget.post.category,
+                          comment: _commentController.text,
+                        );
                         if (upload) {
                           _commentController.clear();
                           FocusScope.of(context).unfocus();

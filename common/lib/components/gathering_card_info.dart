@@ -14,12 +14,13 @@ class GatheringCardInfo extends StatelessWidget {
     return Column(
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(
               icon,
               size: 20,
             ),
-            Text(content),
+            Expanded(child: Text(content),),
           ],
         ),
         const SizedBox(height: 5),

@@ -26,22 +26,32 @@ class CommunityScreenCategoryPage extends StatelessWidget {
       ),
       body: StreamBuilder(
         stream: PostController.to.getPostListStream(category),
-        builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
-          if(snapshot.hasData){
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.docs.isEmpty) {
+              return const Center(
+                child: Text(
+                  '글을 작성해보세요!!',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: snapshot.data!.docs.map((e) {
                   Post post = Post.fromJson({
-                    'id':e.id,
-                    ...e.data() as Map<String,dynamic>,
+                    'id': e.id,
+                    ...e.data() as Map<String, dynamic>,
                   });
                   return CommunityScreenCategoryPagePostCard(post: post);
                 }).toList(),
               ),
             );
           }
-          return CircularProgressIndicator();
+          return Container();
         },
       ),
       floatingActionButton: FloatingActionButton(

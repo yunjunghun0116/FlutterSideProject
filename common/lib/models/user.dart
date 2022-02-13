@@ -2,7 +2,8 @@ import 'gathering.dart';
 
 class User {
   final String id;
-  final String university;
+  final String city;
+  final String town;
   String phoneNumber;
   String password;
   String name;
@@ -16,7 +17,7 @@ class User {
   final List likeUser;//User
 
   User({
-    required this.id,required this.university,
+    required this.id,required this.city,required this.town,
     required this.phoneNumber,
     required this.password,
     required this.name,
@@ -36,7 +37,8 @@ class User {
         phoneNumber: json['phoneNumber'],
         name: json['name'],
         password: json['password'],
-        university: json['university'],
+        city: json['city'],
+        town: json['town'],
         job: json['job'],
         imageUrl: json['imageUrl'],
         kakaoLinkUrl: json['kakaoLinkUrl'],
@@ -63,7 +65,8 @@ class User {
       'phoneNumber': phoneNumber,
       'name': name,
       'password':password,
-      'university': university,
+      'city': city,
+      'town':town,
       'job': job,
       'imageUrl': imageUrl,
       'userTagList': userTagList,

@@ -64,11 +64,11 @@ class UserScreen extends StatelessWidget {
                   const UserScreenContentTitle(title: '어플정보'),
                   UserScreenContentCard(text: '공지사항', onPressed: () {}),
                   UserScreenContentCard(text: '1:1 문의', onPressed: () {}),
-                  // UserScreenContentCard(
-                  //     text: '기기데이터 초기화',
-                  //     onPressed: () {
-                  //       LocalController.to.clearSharedPreferences();
-                  //     }),
+                  UserScreenContentCard(
+                      text: '기기데이터 초기화',
+                      onPressed: () {
+                        LocalController.to.clearSharedPreferences();
+                      }),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(

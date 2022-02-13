@@ -55,18 +55,20 @@ class _EditNameScreenState extends State<EditNameScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      if (!isChecked) {
+                    if (!isChecked) {
+                      setState(() {
                         isChecked = true;
-                      }
-                    });
+                      });
+                    }
                   },
                   child: Container(
                     margin: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
                     alignment: Alignment.center,
-                    width: 70,
-                    height: 50,
-                    color: kGreyColor,
+                    decoration: BoxDecoration(
+                        color: isChecked ? kGreyColor : kBlueColor,
+                        borderRadius: BorderRadius.circular(5)),
                     child: Text(
                       isChecked ? '확인 완료' : '중복 확인',
                       style: const TextStyle(

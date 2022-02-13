@@ -1,4 +1,3 @@
-import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/community/community_screen.dart';
 import 'package:flutter/material.dart';
 import 'components/main_screen_bottom_navigation_bar.dart';
@@ -18,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget _getMainScreen() {
     switch (_currentScreenIndex) {
       case 0:
-        return HomeScreen(university: UserController.to.user!.university);
+        return const HomeScreen();
       case 1:
         return const FollowScreen();
       case 2:

@@ -32,6 +32,17 @@ class CategoryScreen extends StatelessWidget {
         stream: GatheringController.to.getCategoryGatheringListStream(category),
         builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
           if(snapshot.hasData){
+            if (snapshot.data!.docs.isEmpty) {
+              return const Center(
+                child: Text(
+                  '모임을 만들고\n사람들과 모임을 가져보세요!!!',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
             return ListView(
               children: [
                 Column(
@@ -48,7 +59,7 @@ class CategoryScreen extends StatelessWidget {
               ],
             );
           }
-          return CircularProgressIndicator();
+          return Container();
 
         },
       ),

@@ -3,7 +3,8 @@ import 'package:common/models/comment.dart';
 class Post {
   final String id;
   final String category;
-  final String university;
+  final String city;
+  final String town;
   final String title;
   final String content;
   final String timeStamp;
@@ -14,7 +15,8 @@ class Post {
   Post({
     required this.id,
     required this.category,
-    required this.university,
+    required this.city,
+    required this.town,
     required this.title,
     required this.content,
     required this.timeStamp,
@@ -26,7 +28,8 @@ class Post {
   factory Post.fromJson(json) => Post(
     id: json['id'],
     category: json['category'],
-    university: json['university'],
+    city: json['city'],
+    town: json['town'],
     title: json['title'],
     content: json['content'],
     timeStamp: json['timeStamp'],
@@ -41,7 +44,8 @@ class Post {
     return {
       'id':id,
       'category':category,
-      'university':university,
+      'city':city,
+      'town':town,
       'title':title,
       'content':content,
       'timeStamp':timeStamp,

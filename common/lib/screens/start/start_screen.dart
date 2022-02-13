@@ -33,7 +33,7 @@ class StartScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 40),
             width: double.infinity,
             child: const Text(
-              '함께 하고싶은\n너를 위한\n우리학교 모임어플',
+              '함께 하고싶은\n너를 위한\n우리들의 모임어플',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,

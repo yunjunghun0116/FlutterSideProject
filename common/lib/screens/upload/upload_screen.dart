@@ -33,7 +33,7 @@ class _UploadScreenState extends State<UploadScreen> {
   final TextEditingController _locationDetailController =
       TextEditingController();
   final FocusNode _locationFocusNode = FocusNode();
-  String _location = '대전 유성구 대학로 99';
+  String _location = '장소를 설정해주세요!!';
   //Guest 관련
   int _guestCount = 2;
   //DateTime 관련
@@ -196,6 +196,7 @@ class _UploadScreenState extends State<UploadScreen> {
               UploadScreenBottomBar(
                 uploadPressed: () async {
                   if (_titleController.text.isEmpty ||
+                      _location == '장소를 설정해주세요!!' ||
                       _locationDetailController.text.isEmpty ||
                       _hostMessageController.text.isEmpty) {
                     showDialog(
@@ -230,11 +231,6 @@ class _UploadScreenState extends State<UploadScreen> {
                     );
                     return;
                   }
-                  if (_openTime.difference(_endTime).inSeconds > 0) {
-                    DateTime tempTime = _openTime;
-                    _openTime = _endTime;
-                    _endTime = tempTime;
-                  }
                   Map<String, dynamic> body = {
                     'host': {
                       'userId': UserController.to.user!.id,
@@ -248,7 +244,8 @@ class _UploadScreenState extends State<UploadScreen> {
                     'category': widget.category,
                     'participant': 1,
                     'capacity': _guestCount,
-                    'university': UserController.to.user!.university,
+                    'city': UserController.to.user!.city,
+                    'town': UserController.to.user!.town,
                     'openTime': _openTime.toString(),
                     'endTime': _noEndTime ? '' : _endTime.toString(),
                     'location': _location,

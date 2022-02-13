@@ -49,14 +49,26 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
               setState(() {});
             }
           },
-          approveFunction: () async => await GatheringController.to
-              .userApproveGathering(gathering.id, applicant.userId),
-          removeInApprovalFunction: () async => await GatheringController.to
-              .removeUserInApprovalList(gathering.id, applicant.userId),
-          cancelApproveFunction: () async => await GatheringController.to
-              .cancelApproveUser(gathering.id, applicant.userId),
-          cancelDeleteFunction: () async => await GatheringController.to
-              .cancelDeleteUser(gathering.id, applicant.userId),
+          approveFunction: () async =>
+              await GatheringController.to.userApproveGathering(
+            gatheringId: gathering.id,
+            applicantId: applicant.userId,
+          ),
+          removeInApprovalFunction: () async =>
+              await GatheringController.to.removeUserInApprovalList(
+            gatheringId: gathering.id,
+            applicantId: applicant.userId,
+          ),
+          cancelApproveFunction: () async =>
+              await GatheringController.to.cancelApproveUser(
+            gatheringId: gathering.id,
+            applicantId: applicant.userId,
+          ),
+          cancelDeleteFunction: () async =>
+              await GatheringController.to.cancelDeleteUser(
+            gatheringId: gathering.id,
+            applicantId: applicant.userId,
+          ),
         );
       }).toList(),
     );
@@ -110,8 +122,7 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
               ],
             );
           }
-          //TODO 신청자 보여줄것
-          return CircularProgressIndicator();
+          return Container();
         },
       ),
     );

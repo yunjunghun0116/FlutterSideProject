@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constants.dart';
 
-class UniversityScreenLocationSelectArea extends StatelessWidget {
+class LocationScreenCitySelectArea extends StatelessWidget {
   final int currentIndex;
   final List<Map<String, dynamic>> locationList;
   final Function locationClicked;
-  const UniversityScreenLocationSelectArea({
+  const LocationScreenCitySelectArea({
     Key? key,
     required this.currentIndex,
     required this.locationList,
@@ -48,7 +48,7 @@ class UniversityScreenLocationSelectArea extends StatelessWidget {
           int _index = i++;
           return GestureDetector(
             onTap: () {
-              if (kLocationList[_index]['university'].isNotEmpty) {
+              if (kCityList[_index]['town'].isNotEmpty) {
                 locationClicked(_index);
               } else {
                 _showDialog(context);

@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/controllers/local_controller.dart';
 import 'package:common/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
@@ -60,6 +58,7 @@ class UserController extends GetxController {
       await currentUserUpdate(user!.id);
       return true;
     } catch (e) {
+      print(e);
       return false;
     }
   }
@@ -122,7 +121,7 @@ class UserController extends GetxController {
   }
 
   //회원가입, 로그인 기능 수행할때 필요한 함수
-  Future<String?> signInWithEmailPassword(String phone, String password) async {
+  Future<String?> signInWithEmailPassword({required String phone, required String password}) async {
     QuerySnapshot<Map<String, dynamic>> _userData = await _firestore
         .collection('user')
         .where('phoneNumber', isEqualTo: phone)
@@ -148,15 +147,26 @@ class UserController extends GetxController {
         .where('phoneNumber', isEqualTo: phoneNumber)
         .get());
     List _getPhoneList = _dbPhoneList.docs.toList();
-    return _getPhoneList.isEmpty;
+    return _getPhoneList.isNotEmpty;
+  }
+
+  Future<bool> checkNameIsDuplicated(String name)async{
+    QuerySnapshot _dbPhoneList = await (_firestore
+        .collection('user')
+        .where('name', isEqualTo: name)
+        .get());
+    List _getPhoneList = _dbPhoneList.docs.toList();
+    return _getPhoneList.isNotEmpty;
   }
 
   /*유저 정보 변경하는 함수*/
 
-  Future<bool> setUserUniversity(String newUniversity) async {
-    Map<String, dynamic> _body = {'university': newUniversity};
+  Future<bool> setUserCityTown({required String city,required String town}) async {
+    Map<String, dynamic> _body = {
+      'city':city,
+      'town':town
+    };
     if(await updateUser(_body)){
-      LocalController.to.setUniversity(newUniversity);
       return await currentUserUpdate(user!.id);
     }
     return false;

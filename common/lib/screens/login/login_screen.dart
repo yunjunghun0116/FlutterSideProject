@@ -1,4 +1,3 @@
-import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/main/main_screen.dart';
@@ -50,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 hintText: '휴대폰 번호를 입력해주세요',
+                counterText: '',
               ),
             ),
             const SizedBox(
@@ -67,14 +67,16 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               decoration: const InputDecoration(
                 hintText: '비밀번호를 입력해주세요',
+                counterText: '',
               ),
             ),
             const SizedBox(height: 30),
             InkWell(
               onTap: () async {
-                String? _id = await UserController.to
-                    .signInWithEmailPassword(
-                        _phoneController.text, _passwordController.text);
+                String? _id = await UserController.to.signInWithEmailPassword(
+                  phone: _phoneController.text,
+                  password: _passwordController.text,
+                );
                 if (_id != null) {
                   LocalController.to.setId(_id);
                   Get.offAll(() => const MainScreen());

@@ -28,7 +28,10 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
             onTap: () async {
               //TODO 업로드하는함수 작성
               bool upload = await PostController.to.makePost(
-                  category, _titleController.text, _contentController.text);
+               category: category,
+               title: _titleController.text,
+               content: _contentController.text,
+              );
               if (upload) {
                 await getDialog('글을 올리셨습니다.');
                 Get.back();

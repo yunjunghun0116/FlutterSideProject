@@ -15,7 +15,7 @@ class EditJobScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EditScreenAppBar(
-        title: '신상정보',
+        title: '직업',
         onPressed: () async {
           await UserController.to.setUserJob(_controller.text);
           user.setUserJob(_controller.text);
@@ -27,7 +27,7 @@ class EditJobScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              '신상정보',
+              '직업',
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -41,7 +41,7 @@ class EditJobScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                '10글자 이내 직업이나 간략한 신상정보를 적어주세요',
+                '직업을 적어주세요',
                 style: TextStyle(
                   color: kGreyColor,
                 ),

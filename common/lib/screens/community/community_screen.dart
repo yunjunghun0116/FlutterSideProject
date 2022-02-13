@@ -1,4 +1,3 @@
-import 'package:common/controllers/post_controller.dart';
 import 'package:common/screens/community/components/community_screen_category_card.dart';
 import 'package:common/screens/community/components/community_screen_category_page.dart';
 import 'package:flutter/material.dart';

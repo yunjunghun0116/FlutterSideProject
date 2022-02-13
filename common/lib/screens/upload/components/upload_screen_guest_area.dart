@@ -29,7 +29,7 @@ class UploadScreenGuestArea extends StatelessWidget {
                   children: [
                     TextSpan(text: '참여 인원수'),
                     TextSpan(
-                      text: '(최대 20명)',
+                      text: '(최대 50명)',
                       style: TextStyle(
                         fontSize: 15,
                       ),
@@ -53,7 +53,7 @@ class UploadScreenGuestArea extends StatelessWidget {
           ),
           child: Slider(
             min: 2,
-            max: 20,
+            max: 50,
             value: guestCount.toDouble(),
             onChanged: (double value) {
               onChanged(value);

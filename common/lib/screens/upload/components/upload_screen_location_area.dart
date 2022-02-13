@@ -22,7 +22,7 @@ class UploadScreenLocationArea extends StatelessWidget {
     return Column(
       children: [
         const UploadScreenIconText(
-          title: '장소를 설정해주세요',
+          title: '장소',
           icon: Icons.location_on,
         ),
         const SizedBox(height: 10),
@@ -42,9 +42,9 @@ class UploadScreenLocationArea extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  location != '' ? location : '장소를 설정해주세요',
-                  style: TextStyle(
-                    color: location != '' ? kBlackColor : kGreyColor,
+                  location,
+                  style:  TextStyle(
+                    color:location=='장소를 설정해주세요!!'?kGreyColor:kBlackColor,
                     fontSize: 16,
                   ),
                 ),

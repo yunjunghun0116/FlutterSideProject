@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'components/university_screen_location_select_area.dart';
-import 'components/university_screen_university_select_area.dart';
+import 'components/location_screen_city_select_area.dart';
+import 'components/location_screen_town_select_area.dart';
 import '../../constants.dart';
 
-class UniversityScreen extends StatefulWidget {
-  const UniversityScreen({Key? key}) : super(key: key);
+class LocationScreen extends StatefulWidget {
+  final bool? update;
+  const LocationScreen({Key? key, this.update}) : super(key: key);
 
   @override
-  _UniversityScreenState createState() => _UniversityScreenState();
+  State<LocationScreen> createState() => _LocationScreenState();
 }
 
-class _UniversityScreenState extends State<UniversityScreen> {
+class _LocationScreenState extends State<LocationScreen> {
   int _currentLocationListIndex = 0;
 
   @override
@@ -19,16 +20,17 @@ class _UniversityScreenState extends State<UniversityScreen> {
       appBar: AppBar(
         backgroundColor: kWhiteColor,
         foregroundColor: kBlackColor,
+        automaticallyImplyLeading: false,
         elevation: 1,
-        title: const Text('학교설정'),
+        title: const Text('지역설정'),
       ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: UniversityScreenLocationSelectArea(
+            child: LocationScreenCitySelectArea(
               currentIndex: _currentLocationListIndex,
-              locationList: kLocationList,
+              locationList: kCityList,
               locationClicked: (int index) {
                 setState(() {
                   _currentLocationListIndex = index;
@@ -38,9 +40,10 @@ class _UniversityScreenState extends State<UniversityScreen> {
           ),
           Expanded(
             flex: 2,
-            child: UniversityScreenUniversitySelectArea(
-              universityList: kLocationList[_currentLocationListIndex]
-                  ['university'],
+            child: LocationScreenTownSelectArea(
+              selectedIndex: _currentLocationListIndex,
+              update: widget.update ?? false,
+              universityList: kCityList[_currentLocationListIndex]['town'],
             ),
           ),
         ],

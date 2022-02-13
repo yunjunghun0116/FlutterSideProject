@@ -44,7 +44,6 @@ class _DetailScreenState extends State<DetailScreen> {
     await UserController.to.currentUserUpdate(UserController.to.user!.id);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +88,7 @@ class _DetailScreenState extends State<DetailScreen> {
               children: [
                 widget.isHost || gathering.over
                     ? Container()
-                    :currentStateIndex == 0
+                    : currentStateIndex == 0
                         ? Container()
                         : UserGatheringStatus(
                             content: kDetailStateList[currentStateIndex]
@@ -173,7 +172,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         ? DetailScreenHostBottomBar(
                             onPressed: () async {
                               await GatheringController.to.updateGathering(
-                                  gathering.id, {'over': true});
+                                gatheringId: gathering.id,
+                                body: {'over': true},
+                              );
                             },
                             over: gathering.over,
                           )
@@ -191,8 +192,7 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             );
           }
-          //TODO 데이터가 없을경우(사실상 이런경우없을듯)
-          return CircularProgressIndicator();
+          return Container();
         },
       ),
     );
