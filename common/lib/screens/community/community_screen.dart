@@ -25,18 +25,21 @@ class CommunityScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: kCommunityCategoryList.map((Map<String, dynamic> category) {
-            return CommunityScreenCategoryCard(
-              icon: category['icon'],
-              color: category['color'],
-              title: category['title'],
-              onPressed: () async {
-                Get.to(() =>
-                    CommunityScreenCategoryPage(category: category['title']));
-              },
-            );
-          }).toList(),
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            children: kCommunityCategoryList.map((Map<String, dynamic> category) {
+              return CommunityScreenCategoryCard(
+                icon: category['icon'],
+                color: category['color'],
+                title: category['title'],
+                onPressed: () async {
+                  Get.to(() =>
+                      CommunityScreenCategoryPage(category: category['title']));
+                },
+              );
+            }).toList(),
+          ),
         ),
       ),
     );

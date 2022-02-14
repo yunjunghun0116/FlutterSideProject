@@ -69,7 +69,7 @@ class _CommunityScreenPostDetailPageState
         title: Text(widget.post.category),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
         color: kWhiteColor,
         child: Column(
           children: [
