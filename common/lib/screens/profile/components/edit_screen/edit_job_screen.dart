@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'edit_screen_appbar.dart';
 import '../../../../controllers/user_controller.dart';
 import '../../../../constants.dart';
-import '../../../../models/user.dart';
 
 class EditJobScreen extends StatelessWidget {
-  final User user;
-  EditJobScreen({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+
+  EditJobScreen({Key? key}) : super(key: key);
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,7 @@ class EditJobScreen extends StatelessWidget {
         title: '직업',
         onPressed: () async {
           await UserController.to.setUserJob(_controller.text);
-          user.setUserJob(_controller.text);
+          Get.back();
         },
       ),
       body: Padding(
@@ -34,8 +31,9 @@ class EditJobScreen extends StatelessWidget {
             ),
             TextField(
               controller: _controller,
-              decoration: const InputDecoration(
-                suffixIcon: Icon(Icons.clear),
+              decoration: InputDecoration(
+                suffixIcon: const Icon(Icons.clear),
+                hintText: UserController.to.user!.job,
               ),
             ),
             const Padding(

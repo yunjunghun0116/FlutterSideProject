@@ -52,7 +52,7 @@ class ProfileScreenGatheringArea extends StatelessWidget {
         ),
         Column(
           children: gatheringList
-              .sublist(0, gatheringList.length > 3 ? 3 : gatheringList.length)
+              .sublist(0, gatheringList.length > 2 ? 2 : gatheringList.length)
               .map((gathering) {
             return GatheringCard(
               gathering: gathering,

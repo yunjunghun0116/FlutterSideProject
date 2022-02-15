@@ -22,7 +22,7 @@ class RegisterScreenNamePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          '닉네임을\n입력해주세요',
+          '사용할 닉네임을\n입력해주세요',
           style: TextStyle(
             fontSize: 24,
           ),

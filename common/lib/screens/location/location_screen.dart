@@ -43,7 +43,7 @@ class _LocationScreenState extends State<LocationScreen> {
             child: LocationScreenTownSelectArea(
               selectedIndex: _currentLocationListIndex,
               update: widget.update ?? false,
-              universityList: kCityList[_currentLocationListIndex]['town'],
+              townList: kCityList[_currentLocationListIndex]['town'],
             ),
           ),
         ],

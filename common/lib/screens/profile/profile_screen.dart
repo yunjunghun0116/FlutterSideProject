@@ -81,8 +81,9 @@ class ProfileScreen extends StatelessWidget {
               );
             },
           ),
+          const Divider(),
           ProfileScreenGatheringArea(
-            title: '호스트로 개최한 모임',
+            title: '호스트로 주최한 모임',
             gatheringList: user.openGatheringList,
             onPressed: () {
               Get.to(
@@ -93,6 +94,25 @@ class ProfileScreen extends StatelessWidget {
               );
             },
           ),
+          user.openGatheringList.isEmpty
+              ? Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100,
+                      child: const Text(
+                        '주최한 모임이 없습니다',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: kGreyColor,
+                        ),
+                      ),
+                    ),
+                    const Divider(),
+                  ],
+                )
+              : Container(),
           ProfileScreenGatheringArea(
             title: '게스트로 참여한 모임',
             gatheringList: user.applyGatheringList,
@@ -105,6 +125,19 @@ class ProfileScreen extends StatelessWidget {
               );
             },
           ),
+          user.applyGatheringList.isEmpty
+              ? Container(
+                  alignment: Alignment.center,
+                  height: 100,
+                  child: const Text(
+                    '참여한 모임이 없습니다',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: kGreyColor,
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

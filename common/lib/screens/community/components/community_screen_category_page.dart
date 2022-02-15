@@ -34,6 +34,7 @@ class CommunityScreenCategoryPage extends StatelessWidget {
                   '글을 작성해보세요!!',
                   style: TextStyle(
                     fontSize: 24,
+                    color: kGreyColor,
                   ),
                 ),
               );

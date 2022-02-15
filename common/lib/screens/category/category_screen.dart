@@ -38,6 +38,7 @@ class CategoryScreen extends StatelessWidget {
                   '모임을 만들고\n사람들과 모임을 가져보세요!!!',
                   style: TextStyle(
                     fontSize: 24,
+                    color: kGreyColor,
                   ),
                   textAlign: TextAlign.center,
                 ),

@@ -101,10 +101,11 @@ class GatheringCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
+                      //TODO +1해주는 이유는 이 1은 주최자
                       Text(
-                        '인원 ${gathering.approvalList.length + 1}/${gathering.capacity}',
+                        '인원 ${gathering.approvalList.length + 1}/${gathering.capacity + 1}',
                         style: TextStyle(
-                          color: gathering.approvalList.length + 1 >=
+                          color: gathering.approvalList.length >=
                                   gathering.capacity
                               ? kRedColor
                               : kBlueColor,

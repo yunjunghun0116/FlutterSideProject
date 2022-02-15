@@ -6,11 +6,7 @@ import '../../../../constants.dart';
 import '../../../../models/user.dart';
 
 class EditKakaoScreen extends StatelessWidget {
-  final User user;
-  EditKakaoScreen({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  EditKakaoScreen({Key? key}) : super(key: key);
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -22,17 +18,16 @@ class EditKakaoScreen extends StatelessWidget {
               _controller.text.substring(0, 25) ==
                   'https://open.kakao.com/o/') {
             await UserController.to.setUserKakaoLinkUrl(_controller.text);
-            user.setUserKakaoLinkUrl(_controller.text);
           } else {
             await Get.defaultDialog(
               middleText: '올바른 형식의 카카오톡 링크를 입력해주세요',
               cancel: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Get.back();
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children:const [
+                  children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text('확인'),

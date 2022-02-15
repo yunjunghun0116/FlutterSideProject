@@ -68,6 +68,7 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 14,
                   color: kGreyColor,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               TextField(

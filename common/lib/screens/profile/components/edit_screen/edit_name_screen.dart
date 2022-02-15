@@ -1,15 +1,13 @@
+import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'edit_screen_appbar.dart';
 import '../../../../controllers/user_controller.dart';
 import '../../../../constants.dart';
 import '../../../../models/user.dart';
 
 class EditNameScreen extends StatefulWidget {
-  final User user;
-  const EditNameScreen({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  const EditNameScreen({Key? key}) : super(key: key);
 
   @override
   State<EditNameScreen> createState() => _EditNameScreenState();
@@ -27,8 +25,10 @@ class _EditNameScreenState extends State<EditNameScreen> {
         onPressed: () async {
           if (isChecked) {
             await UserController.to.setUserName(_controller.text);
-            widget.user.setUserName(_controller.text);
+            Get.back();
+            return;
           }
+          await getDialog('닉네임 중복 확인을 해주세요!!');
         },
       ),
       body: Padding(
@@ -50,12 +50,18 @@ class _EditNameScreenState extends State<EditNameScreen> {
                     enabled: !isChecked,
                     decoration: InputDecoration(
                       suffixIcon: isChecked ? null : const Icon(Icons.clear),
+                      hintText: UserController.to.user!.name,
                     ),
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (!isChecked) {
+                      if (await UserController.to
+                          .checkNameIsDuplicated(_controller.text)) {
+                        getDialog('이미 사용중인 닉네임입니다!!\n다른 닉네임을 사용해주세요!!');
+                        return;
+                      }
                       setState(() {
                         isChecked = true;
                       });

@@ -4,13 +4,13 @@ class User {
   final String id;
   final String city;
   final String town;
-  String phoneNumber;
-  String password;
-  String name;
-  String job;
-  String imageUrl;
-  String kakaoLinkUrl;
-  List userTagList;//String
+  final String phoneNumber;
+  final String password;
+  final String name;
+  final String job;
+  final  String imageUrl;
+  final String kakaoLinkUrl;
+  final  List userTagList;//String
   final List applyGatheringList;//Gathering
   final List openGatheringList;//Gathering
   final List likeGathering;//Gathering
@@ -84,29 +84,5 @@ class User {
         return user.toMap();
       }).toList(),
     };
-  }
-
-  void setUserName(String newName) {
-    name = newName;
-  }
-
-  void setUserPhoneNumber(String newPhoneNumber) {
-    phoneNumber = newPhoneNumber;
-  }
-
-  void setUserImageUrl(String newImageUrl) {
-    imageUrl = newImageUrl;
-  }
-
-  void setUserJob(String newJob) {
-    job = newJob;
-  }
-
-  void setUserTagList(List<String> newTagList) {
-    userTagList = newTagList;
-  }
-
-  void setUserKakaoLinkUrl(String newKakaoLinkUrl) {
-    kakaoLinkUrl = newKakaoLinkUrl;
   }
 }

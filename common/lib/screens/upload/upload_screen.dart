@@ -35,7 +35,7 @@ class _UploadScreenState extends State<UploadScreen> {
   final FocusNode _locationFocusNode = FocusNode();
   String _location = '장소를 설정해주세요!!';
   //Guest 관련
-  int _guestCount = 2;
+  int _guestCount = 1;
   //DateTime 관련
   final DateTime _nowTime = DateTime.now();
   DateTime _openTime = DateTime.now();

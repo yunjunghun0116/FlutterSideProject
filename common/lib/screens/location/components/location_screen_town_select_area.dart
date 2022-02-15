@@ -6,19 +6,19 @@ import '../../../controllers/user_controller.dart';
 class LocationScreenTownSelectArea extends StatelessWidget {
   final int selectedIndex;
   final bool update;
-  final List universityList;
+  final List townList;
   const LocationScreenTownSelectArea({
     Key? key,
     required this.selectedIndex,
     required this.update,
-    required this.universityList,
+    required this.townList,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: universityList.map((town) {
+        children: townList.map((town) {
           return GestureDetector(
             onTap: () async {
               if(update){

@@ -44,23 +44,25 @@ class UserScreen extends StatelessWidget {
                       }),
                   const UserScreenContentTitle(title: '모임 정보'),
                   UserScreenContentCard(
-                      text: '호스트로 주최한 모임',
-                      onPressed: () {
-                        Get.to(() => GatheringScreen(
-                              title: '호스트로 주최한 모임',
-                              gatheringList:
-                              UserController.to.user!.openGatheringList,
-                            ));
-                      }),
+                    text: '호스트로 주최한 모임',
+                    onPressed: () => Get.to(
+                      () => GatheringScreen(
+                        title: '호스트로 주최한 모임',
+                        gatheringList:
+                            UserController.to.user!.openGatheringList,
+                      ),
+                    ),
+                  ),
                   UserScreenContentCard(
-                      text: '게스트로 참여한 모임',
-                      onPressed: () {
-                        Get.to(() => GatheringScreen(
-                              title: '게스트로 참여한 모임',
-                              gatheringList: UserController
-                                  .to.user!.applyGatheringList,
-                            ));
-                      }),
+                    text: '게스트로 참여한 모임',
+                    onPressed: () => Get.to(
+                      () => GatheringScreen(
+                        title: '게스트로 참여한 모임',
+                        gatheringList:
+                            UserController.to.user!.applyGatheringList,
+                      ),
+                    ),
+                  ),
                   const UserScreenContentTitle(title: '어플정보'),
                   UserScreenContentCard(text: '공지사항', onPressed: () {}),
                   UserScreenContentCard(text: '1:1 문의', onPressed: () {}),

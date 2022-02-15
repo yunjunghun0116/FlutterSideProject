@@ -52,7 +52,7 @@ class UploadScreenGuestArea extends StatelessWidget {
             thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
           ),
           child: Slider(
-            min: 2,
+            min: 1,
             max: 50,
             value: guestCount.toDouble(),
             onChanged: (double value) {

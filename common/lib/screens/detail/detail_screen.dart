@@ -160,9 +160,11 @@ class _DetailScreenState extends State<DetailScreen> {
                         locationDetail: gathering.locationDetail,
                         hostMessage: gathering.hostMessage,
                       ),
-                      DetailScreenGatheringHashTag(
-                        tagList: gathering.tagList,
-                      ),
+                      gathering.tagList.isNotEmpty
+                          ? DetailScreenGatheringHashTag(
+                              tagList: gathering.tagList,
+                            )
+                          : Container(),
                     ],
                   ),
                 ),

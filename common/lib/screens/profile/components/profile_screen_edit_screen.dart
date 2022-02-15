@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'edit_screen/edit_kakao_screen.dart';
 import 'edit_screen/edit_name_screen.dart';
-import 'edit_screen/edit_phone_screen.dart';
 import 'edit_screen/edit_tag_screen.dart';
 import 'profile_screen_edit_screen_image_area.dart';
 import 'profile_screen_edit_screen_info_card.dart';
@@ -30,7 +29,7 @@ class ProfileScreenEditScreen extends StatelessWidget {
     String? _downloadUrl = await UserController.to.updateImage(image);
     if (_downloadUrl != null) {
       Map<String, String> body = {'imageUrl': _downloadUrl};
-     return  await UserController.to.updateUser(body);
+      return await UserController.to.updateUser(body);
     }
     return false;
   }
@@ -47,7 +46,7 @@ class ProfileScreenEditScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Get.offAll(()=>const MainScreen());
+            Get.offAll(() => const MainScreen());
           },
         ),
         title: const Text(
@@ -59,7 +58,7 @@ class ProfileScreenEditScreen extends StatelessWidget {
         ),
       ),
       body: GetBuilder<UserController>(
-        builder: (_){
+        builder: (_) {
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -78,9 +77,7 @@ class ProfileScreenEditScreen extends StatelessWidget {
                               title: const Text('이미지 등록 완료'),
                               actions: [
                                 GestureDetector(
-                                  onTap: () {
-                                    Get.back();
-                                  },
+                                  onTap: () => Get.back(),
                                   child: Container(
                                     padding: const EdgeInsets.only(bottom: 20),
                                     child: Container(
@@ -105,43 +102,27 @@ class ProfileScreenEditScreen extends StatelessWidget {
                 ProfileScreenEditScreenInfoCard(
                   title: '닉네임',
                   text: UserController.to.user!.name,
-                  onPressed: () {
-                    Get.to(() => EditNameScreen(user: UserController.to.user!));
-                  },
+                  onPressed: () => Get.to(() => const EditNameScreen()),
                 ),
                 ProfileScreenEditScreenInfoCard(
                   title: '직업',
                   text: UserController.to.user!.job,
-                  onPressed: () {
-                    Get.to(() => EditJobScreen(user:UserController.to.user!));
-                  },
+                  onPressed: () => Get.to(() => EditJobScreen()),
                 ),
                 ProfileScreenEditScreenInfoTagCard(
                   title: '소개 해시태그',
                   tagList: UserController.to.user!.userTagList,
-                  onPressed: () {
-                    Get.to(() => EditTagScreen(user: UserController.to.user!));
-                  },
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '휴대폰번호',
-                  text: UserController.to.user!.phoneNumber,
-                  onPressed: () {
-                    Get.to(() => EditPhoneScreen(user: UserController.to.user!));
-                  },
+                  onPressed: () => Get.to(() => const EditTagScreen()),
                 ),
                 ProfileScreenEditScreenInfoCard(
                   title: '카카오톡 링크',
                   text: UserController.to.user!.kakaoLinkUrl,
-                  onPressed: ()  {
-                    Get.to(() => EditKakaoScreen(user: UserController.to.user!));
-                  },
+                  onPressed: () => Get.to(() => EditKakaoScreen()),
                 ),
               ],
             ),
           );
         },
-
       ),
     );
   }
