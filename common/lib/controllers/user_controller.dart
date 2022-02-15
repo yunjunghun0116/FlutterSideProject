@@ -58,7 +58,6 @@ class UserController extends GetxController {
       await currentUserUpdate(user!.id);
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

@@ -36,18 +36,22 @@ class EditScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () {
-            onPressed();
-          },
-          child: const Text(
-            '완료',
-            style: TextStyle(
-              color: kBlueColor,
-              fontSize: 18,
+        InkWell(
+          onTap: () => onPressed(),
+          child: Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: const Text(
+              '변경',
+              style: TextStyle(
+                fontSize: 16,
+                color: kBlueColor,
+                fontWeight: FontWeight.bold
+              ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

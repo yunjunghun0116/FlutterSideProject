@@ -27,11 +27,20 @@ class GatheringScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: gatheringList.map((gathering) {
-          return GatheringCard(gathering: gathering);
-        }).toList(),
-      ),
+      body: gatheringList.isNotEmpty
+          ? ListView(
+              children: gatheringList.map((gathering) {
+                return GatheringCard(gathering: gathering);
+              }).toList(),
+            )
+          : Center(
+              child: Text(
+                '$title이 없습니다',
+                style: const TextStyle(
+                  color: kGreyColor,
+                ),
+              ),
+            ),
     );
   }
 }

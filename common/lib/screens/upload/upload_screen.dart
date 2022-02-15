@@ -193,76 +193,13 @@ class _UploadScreenState extends State<UploadScreen> {
                   ],
                 ),
               ),
-              UploadScreenBottomBar(
-                uploadPressed: () async {
-                  if (_titleController.text.isEmpty ||
-                      _location == '장소를 설정해주세요!!' ||
-                      _locationDetailController.text.isEmpty ||
-                      _hostMessageController.text.isEmpty) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          title: const Text('모두 입력해주세요!!'),
-                          actions: [
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    '닫기',
-                                    style: TextStyle(
-                                      color: kBlueColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    return;
-                  }
-                  Map<String, dynamic> body = {
-                    'host': {
-                      'userId': UserController.to.user!.id,
-                      'name': UserController.to.user!.name,
-                      'imageUrl': UserController.to.user!.imageUrl,
-                      'job': UserController.to.user!.job,
-                      'userTagList': UserController.to.user!.userTagList,
-                    },
-                    'over': false,
-                    'title': _titleController.text,
-                    'category': widget.category,
-                    'participant': 1,
-                    'capacity': _guestCount,
-                    'city': UserController.to.user!.city,
-                    'town': UserController.to.user!.town,
-                    'openTime': _openTime.toString(),
-                    'endTime': _noEndTime ? '' : _endTime.toString(),
-                    'location': _location,
-                    'locationDetail': _locationDetailController.text,
-                    'hostMessage': _hostMessageController.text,
-                    'tagList': _gatheringTagList,
-                    'applyList': [],
-                    'approvalList': [],
-                    'cancelList': [],
-                    'timeStamp': DateTime.now().toString(),
-                  };
-                  await GatheringController.to
-                      .makeGathering(body)
-                      .then((value) {
-                    if (value) {
-                      Get.offAll(() => const MainScreen());
-                    } else {
+              SafeArea(
+                child: UploadScreenBottomBar(
+                  uploadPressed: () async {
+                    if (_titleController.text.isEmpty ||
+                        _location == '장소를 설정해주세요!!' ||
+                        _locationDetailController.text.isEmpty ||
+                        _hostMessageController.text.isEmpty) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -270,7 +207,7 @@ class _UploadScreenState extends State<UploadScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            title: const Text('등록을 실패했습니다'),
+                            title: const Text('모두 입력해주세요!!'),
                             actions: [
                               GestureDetector(
                                 onTap: () {
@@ -293,9 +230,74 @@ class _UploadScreenState extends State<UploadScreen> {
                           );
                         },
                       );
+                      return;
                     }
-                  });
-                },
+                    Map<String, dynamic> body = {
+                      'host': {
+                        'userId': UserController.to.user!.id,
+                        'name': UserController.to.user!.name,
+                        'imageUrl': UserController.to.user!.imageUrl,
+                        'job': UserController.to.user!.job,
+                        'userTagList': UserController.to.user!.userTagList,
+                      },
+                      'over': false,
+                      'title': _titleController.text,
+                      'category': widget.category,
+                      'participant': 1,
+                      'capacity': _guestCount,
+                      'city': UserController.to.user!.city,
+                      'town': UserController.to.user!.town,
+                      'openTime': _openTime.toString(),
+                      'endTime': _noEndTime ? '' : _endTime.toString(),
+                      'location': _location,
+                      'locationDetail': _locationDetailController.text,
+                      'hostMessage': _hostMessageController.text,
+                      'tagList': _gatheringTagList,
+                      'applyList': [],
+                      'approvalList': [],
+                      'cancelList': [],
+                      'timeStamp': DateTime.now().toString(),
+                    };
+                    await GatheringController.to
+                        .makeGathering(body)
+                        .then((value) {
+                      if (value) {
+                        Get.offAll(() => const MainScreen());
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              title: const Text('등록을 실패했습니다'),
+                              actions: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        '닫기',
+                                        style: TextStyle(
+                                          color: kBlueColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    });
+                  },
+                ),
               ),
             ],
           ),

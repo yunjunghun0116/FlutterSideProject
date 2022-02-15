@@ -20,7 +20,15 @@ List<String> getDateTime(String openTime, String endTime) {
       DateTime.parse(endTime).difference(DateTime.parse(openTime)).inHours;
   _returnDate
       .add('${_openDate[1].substring(0, 5)}~${_endDate[1].substring(0, 5)}');
-  _returnDate.add('$_hours시간');
+  if(_hours<1){
+    _returnDate.add('${DateTime.parse(endTime).difference(DateTime.parse(openTime)).inMinutes}분');
+  }else if(_hours<24){
+    _returnDate.add('$_hours시간');
+  }else if(_hours<720){
+    _returnDate.add('${(_hours/24).floor()}일 ${(_hours%24).floor()}시간');
+  }else{
+    _returnDate.add('${(_hours/720).floor()}개월');
+  }
   return _returnDate;
 }
 

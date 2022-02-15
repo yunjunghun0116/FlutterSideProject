@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'edit_screen_appbar.dart';
 import '../../../../controllers/user_controller.dart';
 import '../../../../constants.dart';
-import '../../../../models/user.dart';
 
 class EditNameScreen extends StatefulWidget {
   const EditNameScreen({Key? key}) : super(key: key);
