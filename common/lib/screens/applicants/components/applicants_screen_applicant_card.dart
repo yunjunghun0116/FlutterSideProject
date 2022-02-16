@@ -14,7 +14,6 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
   final Applicant applicant;
   final bool followed;
   final int currentIndex;
-  final Function updateFunction;
   final Function approveFunction;
   final Function removeInApprovalFunction;
   final Function cancelApproveFunction;
@@ -25,7 +24,6 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
     required this.applicant,
     required this.followed,
     required this.currentIndex,
-    required this.updateFunction,
     required this.approveFunction,
     required this.removeInApprovalFunction,
     required this.cancelApproveFunction,
@@ -37,14 +35,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
       case 0:
         return Expanded(
           child: InkWell(
-            onTap: () async {
-              await GatheringController.to.userApproveGathering(
-                gatheringId: gathering.id,
-                applicantId: applicant.userId,
-              );
-              await approveFunction();
-              await updateFunction();
-            },
+            onTap: () => approveFunction(),
             child: Container(
               alignment: Alignment.center,
               height: 40,
@@ -64,14 +55,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
       case 1:
         return Expanded(
           child: InkWell(
-            onTap: () async {
-              await GatheringController.to.removeUserInApprovalList(
-                gatheringId: gathering.id,
-                applicantId: applicant.userId,
-              );
-              await removeInApprovalFunction();
-              await updateFunction();
-            },
+            onTap: () => removeInApprovalFunction(),
             child: Container(
               alignment: Alignment.center,
               height: 40,
@@ -93,14 +77,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
       default:
         return Expanded(
           child: InkWell(
-            onTap: () async {
-              await GatheringController.to.cancelApproveUser(
-                gatheringId: gathering.id,
-                applicantId: applicant.userId,
-              );
-              await cancelApproveFunction();
-              await updateFunction();
-            },
+            onTap: () => cancelApproveFunction(),
             child: Container(
               alignment: Alignment.center,
               height: 40,
@@ -142,12 +119,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   if (currentIndex == 2) {
-                    await GatheringController.to.cancelDeleteUser(
-                      gatheringId: gathering.id,
-                      applicantId: applicant.userId,
-                    );
                     await cancelDeleteFunction();
-                    await updateFunction();
                   } else {
                     User user =
                         await UserController.to.getUser(applicant.userId);

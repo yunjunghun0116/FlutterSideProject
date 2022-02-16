@@ -1,4 +1,5 @@
 import 'package:common/controllers/post_controller.dart';
+import 'package:common/models/post.dart';
 import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,9 +8,11 @@ import '../../../constants.dart';
 
 class CommunityScreenPostUploadPage extends StatelessWidget {
   final String category;
+  final Post? post;
   CommunityScreenPostUploadPage({
     Key? key,
     required this.category,
+    this.post,
   }) : super(key: key);
 
   final TextEditingController _titleController = TextEditingController();
@@ -17,6 +20,10 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (post != null) {
+      _titleController.text = post!.title;
+      _contentController.text = post!.content;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kWhiteColor,
@@ -26,14 +33,25 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () async {
-              //TODO 업로드하는함수 작성
+              if (post != null) {
+                bool update = await PostController.to.updatePost(
+                  postId: post!.id,
+                  title: _titleController.text,
+                  content: _contentController.text,
+                );
+                if (update) {
+                  await getDialog('글이 수정되었습니다');
+                  Get.back();
+                }
+                return;
+              }
               bool upload = await PostController.to.makePost(
-               category: category,
-               title: _titleController.text,
-               content: _contentController.text,
+                category: category,
+                title: _titleController.text,
+                content: _contentController.text,
               );
               if (upload) {
-                await getDialog('글을 올리셨습니다.');
+                await getDialog('글을 올리셨습니다');
                 Get.back();
               }
             },
@@ -45,9 +63,9 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
                 color: kBlueColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text(
-                '완료',
-                style: TextStyle(
+              child: Text(
+                post==null?'완료':'수정',
+                style: const TextStyle(
                   color: kWhiteColor,
                 ),
               ),

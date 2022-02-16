@@ -43,12 +43,6 @@ class _ApplicantsScreenState extends State<ApplicantsScreen> {
           applicant: applicant,
           followed: false,
           currentIndex: _currentSelectIndex,
-          updateFunction: () async {
-            if (await UserController.to
-                .currentUserUpdate(UserController.to.user!.id)) {
-              setState(() {});
-            }
-          },
           approveFunction: () async =>
               await GatheringController.to.userApproveGathering(
             gatheringId: gathering.id,

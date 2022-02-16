@@ -43,7 +43,9 @@ class PostController extends GetxController {
   }
 
   Future<bool> uploadComment(
-      {required String postId, required String category, required String comment}) async {
+      {required String postId,
+      required String category,
+      required String comment}) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
         await _firestore.collection('post').doc(postId).get();
 
@@ -62,8 +64,11 @@ class PostController extends GetxController {
     return true;
   }
 
-  Future<bool> uploadRecomment({
-      required String postId, required String category, required int commentIndex, required String comment}) async {
+  Future<bool> uploadRecomment(
+      {required String postId,
+      required String category,
+      required int commentIndex,
+      required String comment}) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
         await _firestore.collection('post').doc(postId).get();
 
@@ -79,5 +84,17 @@ class PostController extends GetxController {
         .doc(postId)
         .update({'commentList': _commentList});
     return true;
+  }
+
+  Future<bool> updatePost({required String postId,required String title,required String content}) async {
+    try {
+      await _firestore.collection('post').doc(postId).update({
+        'title':title,
+        'content':content,
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

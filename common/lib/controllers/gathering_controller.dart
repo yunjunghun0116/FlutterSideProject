@@ -73,6 +73,26 @@ class GatheringController extends GetxController {
       {required String gatheringId, required Map<String, dynamic> body}) async {
     try {
       await _firestore.collection('gathering').doc(gatheringId).update(body);
+
+      DocumentSnapshot<Map<String, dynamic>> _userData = await _firestore
+          .collection('user')
+          .doc(UserController.to.user!.id)
+          .get();
+      List _openGatheringList = _userData['openGatheringList'];
+
+      int index = _openGatheringList.indexWhere((element) => element['id']==gatheringId);
+      _openGatheringList[index] = {
+        'id':gatheringId,
+        ...body,
+      };
+
+      await _firestore
+          .collection('user')
+          .doc(UserController.to.user!.id)
+          .update({
+        'openGatheringList': _openGatheringList,
+      });
+      await UserController.to.currentUserUpdate(UserController.to.user!.id);
       return true;
     } catch (e) {
       return false;
@@ -93,6 +113,7 @@ class GatheringController extends GetxController {
       job: UserController.to.user!.job,
       userTagList: UserController.to.user!.userTagList,
     ).toMap());
+
     await _firestore
         .collection('gathering')
         .doc(gatheringId)
@@ -102,8 +123,11 @@ class GatheringController extends GetxController {
         .collection('user')
         .doc(UserController.to.user!.id)
         .get();
+
     List _applyGatheringList = _dbUser['applyGatheringList'];
+
     _applyGatheringList.add({'id': gatheringId, ...?_gatheringData.data()});
+
     await _firestore.collection('user').doc(UserController.to.user!.id).update({
       'applyGatheringList': _applyGatheringList,
     });
@@ -136,6 +160,7 @@ class GatheringController extends GetxController {
     List _applyList = _gatheringData['applyList'];
     int _index = _applyList
         .indexWhere((applicant) => applicant['userId'] == applicantId);
+
     if (_index > -1) {
       List _approvalList = _gatheringData['approvalList'];
       _approvalList.add(_applyList[_index]);
@@ -145,10 +170,12 @@ class GatheringController extends GetxController {
         'approvalList': _approvalList,
         'applyList': _applyList,
       });
-
       DocumentSnapshot<Map<String, dynamic>> _applicantData =
-          await _firestore.collection('user').doc(applicantId).get();
+      await _firestore.collection('user').doc(applicantId).get();
       List _applyGatheringList = _applicantData['applyGatheringList'];
+      if(_applyGatheringList.indexWhere((element) => element['id']==gatheringId)!=-1){
+        return;
+      }
       _applyGatheringList
           .add({'id': _gatheringData.id, ..._gatheringData.data()!});
 
@@ -195,6 +222,16 @@ class GatheringController extends GetxController {
       'approvalList': _approvalList,
       'cancelList': _cancelList,
     });
+
+    DocumentSnapshot<Map<String, dynamic>> _applicantData =
+    await _firestore.collection('user').doc(applicantId).get();
+    List _applyGatheringList = _applicantData['applyGatheringList'];
+    _applyGatheringList
+        .removeWhere((gathering) => gathering['id'] == gatheringId);
+    await _firestore
+        .collection('user')
+        .doc(applicantId)
+        .update({'applyGatheringList': _applyGatheringList});
   }
 
   Future<void> cancelDeleteUser({required String gatheringId, required String applicantId}) async {

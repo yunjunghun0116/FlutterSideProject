@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/post_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/post.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
+import 'package:common/screens/community/components/community_screen_post_upload_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../constants.dart';
 import '../../../utils.dart';
 
@@ -61,132 +64,161 @@ class _CommunityScreenPostDetailPageState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        title: Text(widget.post.category),
-      ),
-      body: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
-        color: kWhiteColor,
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  Text(
-                    widget.post.authorName,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    getUploadTime(DateTime.parse(widget.post.timeStamp)),
-                    style: kCommunityTextStyle,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.post.title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.post.content,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: kDarkGreyColor,
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  const Divider(color: kDarkGreyColor, thickness: 1),
-                  StreamBuilder(
-                      stream: PostController.to.getPostStream(widget.post.id),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<DocumentSnapshot> snapshot) {
-                        if (snapshot.hasData) {
-                          Post post = Post.fromJson({
-                            'id': snapshot.data!.id,
-                            ...snapshot.data!.data() as Map<String, dynamic>,
-                          });
-                          if (post.commentList.isEmpty) return Container();
-                          return _getCommentArea(post.commentList);
-                        }
-                        return Container();
-                      }),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                top: 5,
-                bottom: MediaQuery.of(context).padding.bottom + 10,
-              ),
-              width: double.infinity,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: kLightGreyColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: TextField(
-                          controller: _commentController,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText:
-                                  isRecomment ? '대댓글을 입력하세요' : '댓글을 입력하세요'),
-                        ),
+    return StreamBuilder(
+        stream: PostController.to.getPostStream(widget.post.id),
+        builder: (BuildContext context,
+            AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasData) {
+            Post post = Post.fromJson({
+              'id': snapshot.data!.id,
+              ...snapshot.data!.data() as Map<String, dynamic>,
+            });
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: kWhiteColor,
+                foregroundColor: kBlackColor,
+                elevation: 1,
+                title: Text(post.category),
+                actions: [
+                 post.authorId == UserController.to.user!.id
+                      ? InkWell(
+                    onTap: () => Get.to(() => CommunityScreenPostUploadPage(
+                        category: post.category, post: post)),
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const Icon(
+                        Icons.edit,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        if (isRecomment) {
-                          bool upload = await PostController.to.uploadRecomment(
-                            postId: widget.post.id,
-                            category: widget.post.category,
-                            commentIndex: selectedIndex,
-                            comment: _commentController.text,
-                          );
-                          if (upload) {
-                            _commentController.clear();
-                            FocusScope.of(context).unfocus();
-                          }
-                          return;
-                        }
-                        bool upload = await PostController.to.uploadComment(
-                          postId: widget.post.id,
-                          category: widget.post.category,
-                          comment: _commentController.text,
-                        );
-                        if (upload) {
-                          _commentController.clear();
-                          FocusScope.of(context).unfocus();
-                        }
-                      },
+                  )
+                      : Container()
+                ],
+              ),
+              body: Container(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
+                color: kWhiteColor,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          Text(
+                            post.authorName,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            getUploadTime(DateTime.parse(post.timeStamp)),
+                            style: kCommunityTextStyle,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            post.title,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            post.content,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: kDarkGreyColor,
+                            ),
+                          ),
+                          const SizedBox(height: 30),
+                          const Divider(color: kDarkGreyColor, thickness: 1),
+                          _getCommentArea(post.commentList),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: 5,
+                        bottom: MediaQuery.of(context).padding.bottom + 10,
+                      ),
+                      width: double.infinity,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: const Icon(
-                          Icons.send_outlined,
-                          color: kBlueColor,
+                        decoration: BoxDecoration(
+                          color: kLightGreyColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: TextField(
+                                  controller: _commentController,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText:
+                                      isRecomment ? '대댓글을 입력하세요' : '댓글을 입력하세요'),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                if (isRecomment) {
+                                  bool upload = await PostController.to.uploadRecomment(
+                                    postId: widget.post.id,
+                                    category: widget.post.category,
+                                    commentIndex: selectedIndex,
+                                    comment: _commentController.text,
+                                  );
+                                  if (upload) {
+                                    _commentController.clear();
+                                    FocusScope.of(context).unfocus();
+                                  }
+                                  return;
+                                }
+                                bool upload = await PostController.to.uploadComment(
+                                  postId: widget.post.id,
+                                  category: widget.post.category,
+                                  comment: _commentController.text,
+                                );
+                                if (upload) {
+                                  _commentController.clear();
+                                  FocusScope.of(context).unfocus();
+                                }
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: const Icon(
+                                  Icons.send_outlined,
+                                  color: kBlueColor,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+            );
+          }
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: kWhiteColor,
+              foregroundColor: kBlackColor,
+              elevation: 1,
+              title: Text(widget.post.category),
             ),
-          ],
-        ),
-      ),
-    );
+            body: const Center(
+              child: Text('네트워크 연결을\n다시한번 확인해주세요!!',style: TextStyle(
+                fontSize: 24,
+                color: kGreyColor,
+              ),
+              textAlign: TextAlign.center,),
+            ),
+          );
+
+        });
   }
 }

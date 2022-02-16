@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/detail/components/detail_screen_over_bottom_bar.dart';
+import 'package:common/screens/upload/upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../profile/profile_screen.dart';
@@ -60,6 +61,23 @@ class _DetailScreenState extends State<DetailScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          widget.isHost
+              ? InkWell(
+                  onTap: () => Get.to(
+                    () => UploadScreen(
+                      category: widget.gathering.category,
+                      gathering: widget.gathering,
+                    ),
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
+                    child: const Icon(Icons.edit),
+                  ),
+                )
+              : Container(),
+        ],
       ),
       body: StreamBuilder(
         stream: GatheringController.to.getGatheringStream(widget.gathering.id),

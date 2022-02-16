@@ -1,5 +1,6 @@
 import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/models/gathering.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/upload_screen_bottom_bar.dart';
@@ -17,9 +18,11 @@ import '../../constants.dart';
 
 class UploadScreen extends StatefulWidget {
   final String category;
+  final Gathering? gathering;
   const UploadScreen({
     Key? key,
     required this.category,
+    this.gathering,
   }) : super(key: key);
 
   @override
@@ -47,7 +50,27 @@ class _UploadScreenState extends State<UploadScreen> {
   //tag 관련
   final TextEditingController _gatheringTagController = TextEditingController();
   final FocusNode _gatheringTagFocusNode = FocusNode();
-  final List<String> _gatheringTagList = [];
+  List _gatheringTagList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.gathering != null) {
+      setState(() {
+        _titleController.text = widget.gathering!.title;
+        _locationDetailController.text = widget.gathering!.locationDetail;
+        _hostMessageController.text = widget.gathering!.hostMessage;
+        _guestCount = widget.gathering!.capacity;
+        _openTime = DateTime.parse(widget.gathering!.openTime);
+        widget.gathering!.endTime != ''
+            ? _endTime = DateTime.parse(widget.gathering!.endTime)
+            : null;
+        _location = widget.gathering!.location;
+        _gatheringTagList = widget.gathering!.tagList;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,6 +218,7 @@ class _UploadScreenState extends State<UploadScreen> {
               ),
               SafeArea(
                 child: UploadScreenBottomBar(
+                  isUpdate: widget.gathering!=null,
                   uploadPressed: () async {
                     if (_titleController.text.isEmpty ||
                         _location == '장소를 설정해주세요!!' ||
@@ -258,6 +282,12 @@ class _UploadScreenState extends State<UploadScreen> {
                       'cancelList': [],
                       'timeStamp': DateTime.now().toString(),
                     };
+                    if (widget.gathering != null) {
+                      await GatheringController.to.updateGathering(
+                          gatheringId: widget.gathering!.id, body: body);
+                      Get.offAll(()=>const MainScreen());
+                      return;
+                    }
                     await GatheringController.to
                         .makeGathering(body)
                         .then((value) {

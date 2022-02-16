@@ -25,6 +25,7 @@ class UserScreen extends StatelessWidget {
       ),
       body: GetBuilder<UserController>(
         builder: (_) {
+          UserController.to.currentUserUpdate(UserController.to.user!.id);
           return Padding(
             padding: const EdgeInsets.all(10),
             child: SingleChildScrollView(
@@ -34,32 +35,26 @@ class UserScreen extends StatelessWidget {
                   const UserScreenContentTitle(title: '내정보'),
                   UserScreenContentCard(
                       text: '프로필 보기',
-                      onPressed: () {
-                        Get.to(
-                          () => ProfileScreen(
-                            user: UserController.to.user!,
-                          ),
-                        );
-                      }),
+                      onPressed: () => Get.to(
+                            () => ProfileScreen(user: UserController.to.user!),
+                          )),
                   const UserScreenContentTitle(title: '모임 정보'),
                   UserScreenContentCard(
                     text: '호스트로 주최한 모임',
                     onPressed: () => Get.to(
                       () => GatheringScreen(
-                        title: '호스트로 주최한 모임',
-                        gatheringList:
-                            UserController.to.user!.openGatheringList,
-                      ),
+                          title: '호스트로 주최한 모임',
+                          gatheringList:
+                              UserController.to.user!.openGatheringList),
                     ),
                   ),
                   UserScreenContentCard(
                     text: '게스트로 참여한 모임',
                     onPressed: () => Get.to(
                       () => GatheringScreen(
-                        title: '게스트로 참여한 모임',
-                        gatheringList:
-                            UserController.to.user!.applyGatheringList,
-                      ),
+                          title: '게스트로 참여한 모임',
+                          gatheringList:
+                              UserController.to.user!.applyGatheringList),
                     ),
                   ),
                   const UserScreenContentTitle(title: '어플정보'),

@@ -6,7 +6,7 @@ class UploadScreenGatheringTagArea extends StatelessWidget {
   final FocusNode focusNode;
   final TextEditingController controller;
   final Function tagEnterPressed;
-  final List<String> tagList;
+  final List tagList;
   const UploadScreenGatheringTagArea({
     Key? key,
     required this.focusNode,
