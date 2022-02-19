@@ -39,6 +39,7 @@ class RegisterScreenPhonePageCertificationArea extends StatelessWidget {
           ),
           decoration: InputDecoration(
             hintText: '0000',
+            counterText: '',
             focusedBorder: certificationEnabled
                 ? kBlueUnderlineBorder
                 : kRedUnderlineBorder,

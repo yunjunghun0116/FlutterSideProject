@@ -60,11 +60,6 @@ class UploadScreenLocationArea extends StatelessWidget {
           minLines: 1,
           maxLines: 2,
           maxLength: 50,
-          onChanged: (String s) {
-            if (s.isNotEmpty && s.substring(s.length - 1) == '\n') {
-              focusNode.unfocus();
-            }
-          },
           decoration: InputDecoration(
             border: kGreyOutlinedBorder,
             enabledBorder: kGreyOutlinedBorder,

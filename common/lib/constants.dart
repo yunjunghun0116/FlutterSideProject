@@ -71,7 +71,6 @@ const List<Map<String, dynamic>> kCommunityCategoryList = [
     'color': kBlueColor,
     'icon': Icons.coffee_outlined,
   },
-
   {
     'title': '익명게시판',
     'color': kGreenColor,
@@ -87,7 +86,6 @@ const List<Map<String, dynamic>> kCommunityCategoryList = [
     'color': kYellowColor,
     'icon': Icons.dashboard_outlined,
   },
-
 ];
 
 const List<Map<String, dynamic>> kDetailStateList = [
@@ -117,13 +115,15 @@ final List<String> kAdvertisementImageList = [
   'assets/images/exercise_1.jpeg',
 ];
 final List<Map<String, dynamic>> kCategoryList = [
-  {'title': '스터디', 'icon': Icons.local_library},
-  {'title': '공모전', 'icon': Icons.people},
-  {'title': '운동', 'icon': Icons.fitness_center},
+  {'title': '여행', 'icon': Icons.flight},
+  {'title': '운동', 'icon': Icons.directions_bike},
+  {'title': '공부', 'icon': Icons.edit},
+  {'title': '맛집', 'icon': Icons.restaurant_menu},
+  {'title': '봉사', 'icon': Icons.volunteer_activism},
+  {'title': '헬스', 'icon': Icons.fitness_center},
   {'title': '카페', 'icon': Icons.local_cafe},
   {'title': '음주', 'icon': Icons.local_bar},
-  {'title': '음악', 'icon': Icons.headset},
-  {'title': '여행', 'icon': Icons.flight},
+  {'title': '클래스', 'icon': Icons.local_library},
   {'title': '기타', 'icon': Icons.grid_on},
 ];
 

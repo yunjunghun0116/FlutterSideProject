@@ -35,50 +35,52 @@ class RegisterScreenPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RegisterScreenPasswordPagePasswordArea(
-          passwordController: passwordController,
-          passwordChecked: passwordChecked,
-          passwordEnabled: passwordEnabled,
-          passwordCheckEnabled: passwordCheckEnabled,
-          passwordGuideLine: passwordGuideLine,
-          passwordCheckFunction: passwordCheckFunction,
-          passwordRefreshFunction: passwordRefreshFunction,
-        ),
-        passwordChecked
-            ? RegisterScreenPasswordPagePasswordCheckArea(
-                passwordCheckController: passwordCheckController,
-                passwordCheckEnabled: passwordCheckEnabled,
-                passwordCheckGuideLine: passwordCheckGuideLine,
-                passwordSameCheckFunction: passwordSameCheckFunction,
-              )
-            : Container(),
-        const SizedBox(height: 20),
-        GestureDetector(
-          onTap: () {
-            buttonPressedFunction();
-          },
-          child: Container(
-            alignment: Alignment.center,
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              color: buttonColor,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Text(
-              passwordChecked ? '완료' : '비밀번호사용하기',
-              style: const TextStyle(
-                color: kWhiteColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RegisterScreenPasswordPagePasswordArea(
+            passwordController: passwordController,
+            passwordChecked: passwordChecked,
+            passwordEnabled: passwordEnabled,
+            passwordCheckEnabled: passwordCheckEnabled,
+            passwordGuideLine: passwordGuideLine,
+            passwordCheckFunction: passwordCheckFunction,
+            passwordRefreshFunction: passwordRefreshFunction,
+          ),
+          passwordChecked
+              ? RegisterScreenPasswordPagePasswordCheckArea(
+                  passwordCheckController: passwordCheckController,
+                  passwordCheckEnabled: passwordCheckEnabled,
+                  passwordCheckGuideLine: passwordCheckGuideLine,
+                  passwordSameCheckFunction: passwordSameCheckFunction,
+                )
+              : Container(),
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: () {
+              buttonPressedFunction();
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                color: buttonColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Text(
+                passwordChecked ? '완료' : '비밀번호사용하기',
+                style: const TextStyle(
+                  color: kWhiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

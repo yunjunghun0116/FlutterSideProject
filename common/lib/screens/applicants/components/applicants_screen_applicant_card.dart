@@ -1,4 +1,3 @@
-import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

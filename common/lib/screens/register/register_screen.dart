@@ -140,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
       return;
     }
-
+    _certificationController.clear();
     String _newCertificationNumber = getNewCertificationNumber();
     LocalController.to.setCertificationTime(nowDateTime);
     ConnectController.to
@@ -153,11 +153,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     timer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) return;
-      if (currentSecond <= 0) timer?.cancel();
-      if (currentSecond < 0 && !_certificationEnabled) {
+      if (currentSecond <= 0 && !_certificationEnabled) {
         setState(() {
           _certificationGuideLine = '인증번호 입력 시간이 초과되었습니다';
         });
+        timer?.cancel();
       }
       setState(() {
         currentSecond--;
@@ -195,15 +195,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           sendCertificationNumberFunction: sendCertificationNumber,
           certificationCheckFunction: (String s) {
-            if (s.length == 4) {
-              setState(() {
-                if (s == certificationNumber) {
+            if (currentSecond > 0) {
+              if (s == certificationNumber) {
+                setState(() {
                   _certificationGuideLine = '인증번호가 확인되었습니다';
                   _certificationEnabled = true;
-                } else {
+                });
+                timer?.cancel();
+              } else {
+                setState(() {
                   _certificationGuideLine = '인증번호가 일치하지 않습니다';
                   _certificationEnabled = false;
-                }
+                });
+              }
+            } else {
+              setState(() {
+                _certificationGuideLine = '인증번호 입력 시간이 초과되었습니다';
+                _certificationEnabled = false;
               });
             }
           },
@@ -279,7 +287,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 _passwordGuideLine = '6~14자리 비밀번호를 입력해주세요';
               });
             }
-
           },
           passwordSameCheckFunction: (String s) {
             if (s == _passwordController.text) {
@@ -293,7 +300,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 _passwordCheckGuideLine = '사용한 비밀번호와 동일한 비밀번호를 입력해주세요';
               });
             }
-
           },
           buttonPressedFunction: () {
             if (_passwordChecked) {
@@ -327,19 +333,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
             });
           },
           registerFunction: () async {
-            bool duplicated = await UserController.to.checkNameIsDuplicated(_nameController.text);
-            if(duplicated){
+            bool duplicated = await UserController.to
+                .checkNameIsDuplicated(_nameController.text);
+            if (duplicated) {
               getDialog('이미 사용중인 닉네임입니다!!\n다른 닉네임을 사용해주세요!!');
               return;
             }
-            Map<String,dynamic>? cityTown = await Get.to(()=>const LocationScreen());
-            if(cityTown == null) return;
+            Map<String, dynamic>? cityTown =
+                await Get.to(() => const LocationScreen());
+            if (cityTown == null) return;
             Map<String, dynamic> body = {
               'name': _nameController.text,
               'phoneNumber': _phoneController.text,
               'password': _passwordController.text,
               'city': cityTown['city'],
-              'town':cityTown['town'],
+              'town': cityTown['town'],
               'job': '',
               'imageUrl': noPersonImage,
               'kakaoLinkUrl': '',

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/gathering_controller.dart';
-import 'package:common/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'components/applicants_screen_select_area.dart';
 import 'components/applicants_screen_applicant_card.dart';

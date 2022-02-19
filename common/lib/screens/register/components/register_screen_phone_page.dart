@@ -40,53 +40,55 @@ class RegisterScreenPhonePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RegisterScreenPhonePagePhoneArea(
-          phoneController: phoneController,
-          phoneChecked: phoneChecked,
-          phoneEnabled: phoneEnabled,
-          phoneGuideLine: phoneGuideLine,
-          certificationEnabled: certificationEnabled,
-          phoneCheckFunction: phoneCheckFunction,
-          phoneRefreshFunction: phoneRefreshFunction,
-          sendCertificationNumberFunction:
-          sendCertificationNumberFunction,
-        ),
-        phoneChecked
-            ? RegisterScreenPhonePageCertificationArea(
-                certificationController: certificationController,
-                certificationEnabled: certificationEnabled,
-                certificationGuideLine: certificationGuideLine,
-                certificationNumber: certificationNumber,
-                currentSeconds: currentSeconds,
-                certificationCheckFunction: certificationCheckFunction,
-              )
-            : Container(),
-        GestureDetector(
-          onTap: () {
-            buttonPressedFunction();
-          },
-          child: Container(
-            alignment: Alignment.center,
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              color: buttonColor,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Text(
-              phoneChecked ? '다음' : '인증번호 받기',
-              style: const TextStyle(
-                color: kWhiteColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RegisterScreenPhonePagePhoneArea(
+            phoneController: phoneController,
+            phoneChecked: phoneChecked,
+            phoneEnabled: phoneEnabled,
+            phoneGuideLine: phoneGuideLine,
+            certificationEnabled: certificationEnabled,
+            phoneCheckFunction: phoneCheckFunction,
+            phoneRefreshFunction: phoneRefreshFunction,
+            sendCertificationNumberFunction:
+            sendCertificationNumberFunction,
+          ),
+          phoneChecked
+              ? RegisterScreenPhonePageCertificationArea(
+                  certificationController: certificationController,
+                  certificationEnabled: certificationEnabled,
+                  certificationGuideLine: certificationGuideLine,
+                  certificationNumber: certificationNumber,
+                  currentSeconds: currentSeconds,
+                  certificationCheckFunction: certificationCheckFunction,
+                )
+              : Container(),
+          GestureDetector(
+            onTap: () {
+              buttonPressedFunction();
+            },
+            child: Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                color: buttonColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Text(
+                phoneChecked ? '다음' : '인증번호 받기',
+                style: const TextStyle(
+                  color: kWhiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

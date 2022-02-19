@@ -1,6 +1,9 @@
+import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/screens/user/components/user_screen_announce_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'components/user_screen_content_card.dart';
 import 'components/user_screen_content_title.dart';
 import '../../components/gathering_screen.dart';
@@ -58,13 +61,19 @@ class UserScreen extends StatelessWidget {
                     ),
                   ),
                   const UserScreenContentTitle(title: '어플정보'),
-                  UserScreenContentCard(text: '공지사항', onPressed: () {}),
-                  UserScreenContentCard(text: '1:1 문의', onPressed: () {}),
-                  // UserScreenContentCard(
-                  //     text: '기기데이터 초기화',
-                  //     onPressed: () {
-                  //       LocalController.to.clearSharedPreferences();
-                  //     }),
+                  UserScreenContentCard(
+                    text: '공지사항',
+                    onPressed: () =>
+                        Get.to(() => const UserScreenAnnouncePage()),
+                  ),
+                  UserScreenContentCard(
+                      text: '1:1 문의',
+                      onPressed: () => launch('http://pf.kakao.com/_dHVrb')),
+                  UserScreenContentCard(
+                      text: '기기데이터 초기화',
+                      onPressed: () {
+                        LocalController.to.clearSharedPreferences();
+                      }),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(

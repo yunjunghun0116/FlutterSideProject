@@ -69,15 +69,12 @@ class ProfileScreen extends StatelessWidget {
               return ProfileScreenButtonArea(
                 userIsMe: UserController.to.user!.id == user.id,
                 isFollowed: _isFollowed,
-                followPressed: () async {
-                  await UserController.to.followUser(user);
-                },
-                followedPressed: () async {
-                  await UserController.to.unfollowUser(user);
-                },
-                editPressed: () async {
-                  await Get.to(() => ProfileScreenEditScreen(user: user));
-                },
+                followPressed: () async =>
+                    await UserController.to.followUser(user),
+                followedPressed: () async =>
+                    await UserController.to.unfollowUser(user),
+                editPressed: () async =>
+                    await Get.to(() => ProfileScreenEditScreen(user: user)),
               );
             },
           ),
@@ -85,14 +82,12 @@ class ProfileScreen extends StatelessWidget {
           ProfileScreenGatheringArea(
             title: '호스트로 주최한 모임',
             gatheringList: user.openGatheringList,
-            onPressed: () {
-              Get.to(
-                () => GatheringScreen(
-                  title: '호스트로 주최한 모임',
-                  gatheringList: user.openGatheringList,
-                ),
-              );
-            },
+            onPressed: () => Get.to(
+              () => GatheringScreen(
+                title: '호스트로 주최한 모임',
+                gatheringList: user.openGatheringList,
+              ),
+            ),
           ),
           user.openGatheringList.isEmpty
               ? Column(
@@ -116,14 +111,12 @@ class ProfileScreen extends StatelessWidget {
           ProfileScreenGatheringArea(
             title: '게스트로 참여한 모임',
             gatheringList: user.applyGatheringList,
-            onPressed: () {
-              Get.to(
-                () => GatheringScreen(
-                  title: '게스트로 참여한 모임',
-                  gatheringList: user.applyGatheringList,
-                ),
-              );
-            },
+            onPressed: () => Get.to(
+              () => GatheringScreen(
+                title: '게스트로 참여한 모임',
+                gatheringList: user.applyGatheringList,
+              ),
+            ),
           ),
           user.applyGatheringList.isEmpty
               ? Container(

@@ -70,11 +70,6 @@ class _UploadScreenLocationSearchScreenState
           TextField(
             focusNode: _focusNode,
             controller: _addressController,
-            onChanged: (String s) async {
-              if (s.isNotEmpty && s.substring(s.length - 1) == '\n') {
-                getPlaceList(s);
-              }
-            },
             onSubmitted: (String s) {
               getPlaceList(s);
             },

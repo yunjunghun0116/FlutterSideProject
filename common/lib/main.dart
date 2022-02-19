@@ -1,3 +1,4 @@
+import 'package:common/controllers/announce_controller.dart';
 import 'package:common/controllers/post_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         Get.put(GatheringController());
     final ConnectController _connectController = Get.put(ConnectController());
     final PostController _postController = Get.put(PostController());
+    final AnnounceController _announceController = Get.put(AnnounceController());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

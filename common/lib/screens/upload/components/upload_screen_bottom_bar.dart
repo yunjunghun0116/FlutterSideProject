@@ -25,7 +25,7 @@ class UploadScreenBottomBar extends StatelessWidget {
         },
         child: Container(
           alignment: Alignment.center,
-          height: 50,
+          height: 40,
           decoration: BoxDecoration(
             color: kBlueColor,
             borderRadius: BorderRadius.circular(10),

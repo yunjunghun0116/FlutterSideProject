@@ -59,67 +59,89 @@ class ProfileScreenEditScreen extends StatelessWidget {
       ),
       body: GetBuilder<UserController>(
         builder: (_) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                ProfileScreenEditScreenImageArea(
-                  imageUrl: UserController.to.user!.imageUrl,
-                  updateImage: () async {
-                    await updateImage().then((value) {
-                      if (value) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              title: const Text('이미지 등록 완료'),
-                              actions: [
-                                GestureDetector(
-                                  onTap: () => Get.back(),
-                                  child: Container(
-                                    padding: const EdgeInsets.only(bottom: 20),
+          return Padding(
+            padding: const EdgeInsets.all(8),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ProfileScreenEditScreenImageArea(
+                    imageUrl: UserController.to.user!.imageUrl,
+                    updateImage: () async {
+                      await updateImage().then((value) {
+                        if (value) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                title: const Text('이미지 등록 완료'),
+                                actions: [
+                                  GestureDetector(
+                                    onTap: () => Get.back(),
                                     child: Container(
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        '닫기',
-                                        style: TextStyle(
-                                          color: kBlueColor,
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: const Text(
+                                          '닫기',
+                                          style: TextStyle(
+                                            color: kBlueColor,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    });
-                  },
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '닉네임',
-                  text: UserController.to.user!.name,
-                  onPressed: () => Get.to(() => const EditNameScreen()),
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '직업',
-                  text: UserController.to.user!.job,
-                  onPressed: () => Get.to(() => EditJobScreen()),
-                ),
-                ProfileScreenEditScreenInfoTagCard(
-                  title: '소개 해시태그',
-                  tagList: UserController.to.user!.userTagList,
-                  onPressed: () => Get.to(() => const EditTagScreen()),
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '카카오톡 링크',
-                  text: UserController.to.user!.kakaoLinkUrl,
-                  onPressed: () => Get.to(() => EditKakaoScreen()),
-                ),
-              ],
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      });
+                    },
+                  ),
+                  ProfileScreenEditScreenInfoCard(
+                    title: '닉네임',
+                    text: UserController.to.user!.name,
+                    onPressed: () => Get.to(() => const EditNameScreen()),
+                  ),
+                  ProfileScreenEditScreenInfoCard(
+                    title: '직업',
+                    text: UserController.to.user!.job,
+                    onPressed: () => Get.to(() => EditJobScreen()),
+                  ),
+                  ProfileScreenEditScreenInfoTagCard(
+                    title: '소개 해시태그',
+                    tagList: UserController.to.user!.userTagList,
+                    onPressed: () => Get.to(() => const EditTagScreen()),
+                  ),
+                  ProfileScreenEditScreenInfoCard(
+                    title: '카카오톡 링크',
+                    text: UserController.to.user!.kakaoLinkUrl,
+                    onPressed: () => Get.to(() => EditKakaoScreen()),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Container(),
+                      ),
+                      const SizedBox(width: 10,),
+                      const Expanded(
+                        flex: 7,
+                        child: Text(
+                          '카카오톡 링크 입력시 유저가 \n카카오톡을 통해 연락할수 있어요!!',
+                          style: TextStyle(
+                            color: kGreyColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           );
         },

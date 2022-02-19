@@ -26,11 +26,6 @@ class UploadScreenHostMessageArea extends StatelessWidget {
           minLines: 1,
           maxLines: 100,
           maxLength: 1000,
-          onChanged: (String s) {
-            if (s.isNotEmpty && s.substring(s.length - 1) == '\n') {
-              focusNode.unfocus();
-            }
-          },
           decoration: InputDecoration(
             border: kGreyOutlinedBorder,
             enabledBorder: kGreyOutlinedBorder,

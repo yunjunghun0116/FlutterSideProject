@@ -29,6 +29,18 @@ class FollowScreen extends StatelessWidget {
       ),
       body: GetBuilder<UserController>(
         builder: (_) {
+          if (UserController.to.user!.likeUser.isEmpty) {
+            return const Center(
+              child: Text(
+                '팔로우한 유저가 없네요ㅠㅠ\n다양한 유저들을 팔로우해보세요!!',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: kGreyColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            );
+          }
           return ListView(
             children: UserController.to.user!.likeUser.map((user) {
               return Column(

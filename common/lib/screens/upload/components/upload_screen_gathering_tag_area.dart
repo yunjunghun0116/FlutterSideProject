@@ -40,18 +40,10 @@ class UploadScreenGatheringTagArea extends StatelessWidget {
           controller: controller,
           minLines: 1,
           maxLines: 1,
-          onChanged: (String s) {
-            if (s.isNotEmpty && s.substring(s.length - 1) == '\n') {
-              tagEnterPressed(s.trim());
-              controller.clear();
-              focusNode.unfocus();
-            }
-          },
           onSubmitted: (String s) {
             if (s.isNotEmpty) {
               tagEnterPressed(s.trim());
               controller.clear();
-              focusNode.unfocus();
             }
           },
           decoration: InputDecoration(
