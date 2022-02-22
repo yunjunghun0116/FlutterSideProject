@@ -13,6 +13,7 @@ const Color kYellowColor = Color(0xFFFFB800);
 const Color kPinkColor = Color(0xFFFF7878);
 const Color kGreenColor = Color(0xFF81C147);
 const Color kShimmerColor = Color(0x80979797);
+const Color kSplashBackgroundColor = Color(0xFFFAFAFA);
 
 const String kNaverServiceId = 'ncp:sms:kr:272033493278:common'; //sms
 const String kNaverAccessKey = 'zjOM8XgBcfQ2NdUBwEVM';

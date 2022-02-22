@@ -1,5 +1,6 @@
 import 'package:common/controllers/announce_controller.dart';
 import 'package:common/controllers/post_controller.dart';
+import 'package:common/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kGreyColor,
         focusColor: kGreyColor,
       ),
-      home: const StartScreen(),
+      home: const SplashScreen(),
     );
   }
 }

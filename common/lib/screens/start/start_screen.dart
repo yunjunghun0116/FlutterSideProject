@@ -1,29 +1,14 @@
-import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/login/login_screen.dart';
 import 'package:common/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../main/main_screen.dart';
 import '../../constants.dart';
-import '../../controllers/local_controller.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({Key? key}) : super(key: key);
 
-  void _checkUserSignedIn() async {
-    String? _userId = await (LocalController.to.getId());
-    if (_userId != null) {
-      UserController.to.currentUserUpdate(_userId).then((value) {
-        if (value) {
-          Get.offAll(() => const MainScreen());
-        }
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    _checkUserSignedIn();
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +17,7 @@ class StartScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 40),
             width: double.infinity,
             child: const Text(
-              '함께 하고싶은\n너를 위한\n우리들의 모임어플',
+              '우리지역 사람들과\n함께하는 취미생활',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
@@ -44,15 +29,17 @@ class StartScreen extends StatelessWidget {
             alignment: Alignment.center,
             width: double.infinity,
             child: const Text(
-              'Common\n커먼',
+              'Common',
               style: TextStyle(
-                fontSize: 48,
+                fontSize: 60,
                 fontWeight: FontWeight.bold,
+                color: kBlueColor,
+                fontStyle: FontStyle.italic,
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          const SizedBox(height: 80),
+          const SizedBox(height: 100),
           InkWell(
             onTap: () {
               Get.to(() => const LoginScreen());

@@ -69,11 +69,11 @@ class UserScreen extends StatelessWidget {
                   UserScreenContentCard(
                       text: '1:1 문의',
                       onPressed: () => launch('http://pf.kakao.com/_dHVrb')),
-                  UserScreenContentCard(
-                      text: '기기데이터 초기화',
-                      onPressed: () {
-                        LocalController.to.clearSharedPreferences();
-                      }),
+                  // UserScreenContentCard(
+                  //     text: '기기데이터 초기화',
+                  //     onPressed: () {
+                  //       LocalController.to.clearSharedPreferences();
+                  //     }),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(

@@ -34,7 +34,9 @@ class UserScreenAnnouncePage extends StatelessWidget {
                           title: e['title'],
                           content: e['content']),
                     ),
-                    child: Padding(
+                    child: Container(
+                      color: kWhiteColor,
+                      width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
