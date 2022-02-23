@@ -1,7 +1,9 @@
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../utils.dart';
 import 'components/profile_screen_button_area.dart';
 import 'components/profile_screen_gathering_area.dart';
 import 'components/profile_screen_edit_screen.dart';
@@ -40,8 +42,8 @@ class ProfileScreen extends StatelessWidget {
                     launch(user.kakaoLinkUrl);
                   },
                   child: SizedBox(
-                    width: 30,
-                    height: 30,
+                    width: 20,
+                    height: 20,
                     child: Image.asset(
                       'assets/images/kakaotalk_logo.png',
                       fit: BoxFit.fitWidth,
@@ -50,6 +52,23 @@ class ProfileScreen extends StatelessWidget {
                 )
               : Container(),
           const SizedBox(width: 10),
+          user.id != UserController.to.user!.id
+              ? InkWell(
+                  onTap: () async {
+                    await UserController.to.blockUser(user.id);
+                    await getDialog('${user.name} 유저를 차단했습니다');
+                    Get.offAll(()=>const MainScreen());
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.report,
+                      color: kRedColor,
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
       body: ListView(

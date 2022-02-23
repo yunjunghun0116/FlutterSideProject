@@ -17,9 +17,10 @@ class Gathering {
   final String locationDetail;
   final String hostMessage;
   final List tagList;
-  List applyList;
-  List approvalList;
-  List cancelList;
+  final List applyList;
+  final List approvalList;
+  final List cancelList;
+  final List reportedList;
 
   Gathering({
     required this.id,
@@ -28,8 +29,8 @@ class Gathering {
     required this.title,
     required this.category,
     required this.capacity,
-    required this.city
-    ,required this.town,
+    required this.city,
+    required this.town,
     required this.openTime,
     required this.endTime,
     required this.location,
@@ -39,6 +40,7 @@ class Gathering {
     required this.applyList,
     required this.approvalList,
     required this.cancelList,
+    required this.reportedList,
   });
 
   factory Gathering.fromJson(json) => Gathering(
@@ -55,17 +57,17 @@ class Gathering {
         location: json['location'],
         locationDetail: json['locationDetail'],
         hostMessage: json['hostMessage'],
-        tagList: json['tagList'],
+        tagList: json['tagList']??[],
         applyList: json['applyList'].map((applicant) {
           return Applicant.fromJson(applicant);
         }).toList(),
-        approvalList:
-            json['approvalList'].map((applicant) {
+        approvalList: json['approvalList'].map((applicant) {
           return Applicant.fromJson(applicant);
         }).toList(),
         cancelList: json['cancelList'].map((applicant) {
           return Applicant.fromJson(applicant);
         }).toList(),
+        reportedList: json['reportedList']??[],
       );
 
   Map<String, dynamic> toMap() {
@@ -76,23 +78,24 @@ class Gathering {
       'title': title,
       'category': category,
       'capacity': capacity,
-      'city':city,
-      'town':town,
+      'city': city,
+      'town': town,
       'openTime': openTime,
       'endTime': endTime,
       'location': location,
       'locationDetail': locationDetail,
       'hostMessage': hostMessage,
       'tagList': tagList,
-      'applyList':applyList.map((applicant){
+      'applyList': applyList.map((applicant) {
         return applicant.toMap();
       }).toList(),
-      'approvalList':approvalList.map((applicant){
+      'approvalList': approvalList.map((applicant) {
         return applicant.toMap();
       }).toList(),
-      'cancelList':cancelList.map((applicant){
+      'cancelList': cancelList.map((applicant) {
         return applicant.toMap();
       }).toList(),
+      'reportedList': reportedList,
     };
   }
 }

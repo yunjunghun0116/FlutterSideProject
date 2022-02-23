@@ -66,8 +66,8 @@ class _CommunityScreenPostDetailPageState
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: PostController.to.getPostStream(widget.post.id),
-        builder: (BuildContext context,
-            AsyncSnapshot<DocumentSnapshot> snapshot) {
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasData) {
             Post post = Post.fromJson({
               'id': snapshot.data!.id,
@@ -80,19 +80,37 @@ class _CommunityScreenPostDetailPageState
                 elevation: 1,
                 title: Text(post.category),
                 actions: [
-                 post.authorId == UserController.to.user!.id
+                  post.authorId == UserController.to.user!.id
                       ? InkWell(
-                    onTap: () => Get.to(() => CommunityScreenPostUploadPage(
-                        category: post.category, post: post)),
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: const Icon(
-                        Icons.edit,
-                      ),
-                    ),
-                  )
-                      : Container()
+                          onTap: () => Get.to(() =>
+                              CommunityScreenPostUploadPage(
+                                  category: post.category, post: post)),
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            child: const Icon(
+                              Icons.edit,
+                            ),
+                          ),
+                        )
+                      : InkWell(
+                          onTap: () async {
+                            await PostController.to.reportPost(
+                              postId: post.id,
+                              userId: UserController.to.user!.id,
+                            );
+                            await getDialog('모임이 신고되었습니다');
+                            Get.back();
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            child: const Icon(
+                              Icons.report,
+                              color: kRedColor,
+                            ),
+                          ),
+                        )
                 ],
               ),
               body: Container(
@@ -151,20 +169,23 @@ class _CommunityScreenPostDetailPageState
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: TextField(
                                   controller: _commentController,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                      isRecomment ? '대댓글을 입력하세요' : '댓글을 입력하세요'),
+                                      hintText: isRecomment
+                                          ? '대댓글을 입력하세요'
+                                          : '댓글을 입력하세요'),
                                 ),
                               ),
                             ),
                             GestureDetector(
                               onTap: () async {
                                 if (isRecomment) {
-                                  bool upload = await PostController.to.uploadRecomment(
+                                  bool upload =
+                                      await PostController.to.uploadRecomment(
                                     postId: widget.post.id,
                                     category: widget.post.category,
                                     commentIndex: selectedIndex,
@@ -176,7 +197,8 @@ class _CommunityScreenPostDetailPageState
                                   }
                                   return;
                                 }
-                                bool upload = await PostController.to.uploadComment(
+                                bool upload =
+                                    await PostController.to.uploadComment(
                                   postId: widget.post.id,
                                   category: widget.post.category,
                                   comment: _commentController.text,
@@ -187,7 +209,8 @@ class _CommunityScreenPostDetailPageState
                                 }
                               },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: const Icon(
                                   Icons.send_outlined,
                                   color: kBlueColor,
@@ -211,14 +234,16 @@ class _CommunityScreenPostDetailPageState
               title: Text(widget.post.category),
             ),
             body: const Center(
-              child: Text('네트워크 연결을\n다시한번 확인해주세요!!',style: TextStyle(
-                fontSize: 24,
-                color: kGreyColor,
+              child: Text(
+                '네트워크 연결을\n다시한번 확인해주세요!!',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: kGreyColor,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,),
             ),
           );
-
         });
   }
 }

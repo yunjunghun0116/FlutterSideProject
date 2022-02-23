@@ -11,6 +11,7 @@ class Post {
   final String authorId;
   final String authorName;
   final List commentList;
+  final List reportedList;
 
   Post({
     required this.id,
@@ -23,6 +24,7 @@ class Post {
     required this.authorId,
     required this.authorName,
     required this.commentList,
+    required this.reportedList,
   });
 
   factory Post.fromJson(json) => Post(
@@ -38,6 +40,7 @@ class Post {
     commentList: json['commentList'].map((comment) {
       return Comment.fromJson(comment);
     }).toList(),
+    reportedList: json['reportedList']??[],
   );
 
   Map<String, dynamic> toMap() {
@@ -54,6 +57,7 @@ class Post {
       'commentList':commentList.map((comment){
         return comment.toMap();
       }).toList(),
+      'reportedList':reportedList,
     };
   }
 }

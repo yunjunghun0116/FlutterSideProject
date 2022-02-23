@@ -8,20 +8,22 @@ class User {
   final String password;
   final String name;
   final String job;
-  final  String imageUrl;
+  final String imageUrl;
   final String kakaoLinkUrl;
-  final  List userTagList;//String
-  final List applyGatheringList;//Gathering
-  final List openGatheringList;//Gathering
-  final List likeGathering;//Gathering
-  final List likeUser;//User
+  final List userTagList; //String
+  final List applyGatheringList; //Gathering
+  final List openGatheringList; //Gathering
+  final List likeGathering; //Gathering
+  final List likeUser; //User
+  final List blockUser;
 
   User({
-    required this.id,required this.city,required this.town,
+    required this.id,
+    required this.city,
+    required this.town,
     required this.phoneNumber,
     required this.password,
     required this.name,
-
     required this.job,
     required this.imageUrl,
     required this.kakaoLinkUrl,
@@ -30,6 +32,7 @@ class User {
     required this.openGatheringList,
     required this.likeGathering,
     required this.likeUser,
+    required this.blockUser,
   });
 
   factory User.fromJson(json) => User(
@@ -42,17 +45,15 @@ class User {
         job: json['job'],
         imageUrl: json['imageUrl'],
         kakaoLinkUrl: json['kakaoLinkUrl'],
-        userTagList: json['userTagList'],
-        applyGatheringList:
-            json['applyGatheringList'].map((gathering) {
+        userTagList: json['userTagList']??[],
+        blockUser: json['blockUser']??[],
+        applyGatheringList: json['applyGatheringList'].map((gathering) {
           return Gathering.fromJson(gathering);
         }).toList(),
-        openGatheringList:
-            json['openGatheringList'].map((gathering) {
+        openGatheringList: json['openGatheringList'].map((gathering) {
           return Gathering.fromJson(gathering);
         }).toList(),
-        likeGathering:
-            json['likeGathering'].map((gathering) {
+        likeGathering: json['likeGathering'].map((gathering) {
           return Gathering.fromJson(gathering);
         }).toList(),
         likeUser: json['likeUser'].map((user) {
@@ -64,13 +65,14 @@ class User {
       'id': id,
       'phoneNumber': phoneNumber,
       'name': name,
-      'password':password,
+      'password': password,
       'city': city,
-      'town':town,
+      'town': town,
       'job': job,
       'imageUrl': imageUrl,
       'userTagList': userTagList,
       'kakaoLinkUrl': kakaoLinkUrl,
+      'blockUser': blockUser,
       'applyGatheringList': applyGatheringList.map((gathering) {
         return gathering.toMap();
       }).toList(),

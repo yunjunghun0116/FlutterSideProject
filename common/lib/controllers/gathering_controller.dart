@@ -69,8 +69,10 @@ class GatheringController extends GetxController {
   }
 
   //모임 수정 및 신청/수락/취소 등의 작업을 할때 사용하는 함수
-  Future<bool> updateGathering(
-      {required String gatheringId, required Map<String, dynamic> body}) async {
+  Future<bool> updateGathering({
+    required String gatheringId,
+    required Map<String, dynamic> body,
+  }) async {
     try {
       await _firestore.collection('gathering').doc(gatheringId).update(body);
 
@@ -80,9 +82,10 @@ class GatheringController extends GetxController {
           .get();
       List _openGatheringList = _userData['openGatheringList'];
 
-      int index = _openGatheringList.indexWhere((element) => element['id']==gatheringId);
+      int index = _openGatheringList
+          .indexWhere((element) => element['id'] == gatheringId);
       _openGatheringList[index] = {
-        'id':gatheringId,
+        'id': gatheringId,
         ...body,
       };
 
@@ -97,6 +100,20 @@ class GatheringController extends GetxController {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<void> reportGathering(
+      {required String gatheringId, required String userId}) async {
+    DocumentSnapshot<Map<String, dynamic>> _gatheringData =
+        await _firestore.collection('gathering').doc(gatheringId).get();
+    List _reportedList = _gatheringData['reportedList'];
+    if (!_reportedList.contains(userId)) {
+      _reportedList.add(userId);
+    }
+    await _firestore
+        .collection('gathering')
+        .doc(gatheringId)
+        .update({'reportedList': _reportedList});
   }
 
   //이용자 입장에서 필요 함수
@@ -152,8 +169,10 @@ class GatheringController extends GetxController {
   }
 
   //주최자 입장에서 필요 함수
-  Future<void> userApproveGathering(
-      {required String gatheringId, required String applicantId}) async {
+  Future<void> userApproveGathering({
+    required String gatheringId,
+    required String applicantId,
+  }) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
 
@@ -171,9 +190,11 @@ class GatheringController extends GetxController {
         'applyList': _applyList,
       });
       DocumentSnapshot<Map<String, dynamic>> _applicantData =
-      await _firestore.collection('user').doc(applicantId).get();
+          await _firestore.collection('user').doc(applicantId).get();
       List _applyGatheringList = _applicantData['applyGatheringList'];
-      if(_applyGatheringList.indexWhere((element) => element['id']==gatheringId)!=-1){
+      if (_applyGatheringList
+              .indexWhere((element) => element['id'] == gatheringId) !=
+          -1) {
         return;
       }
       _applyGatheringList
@@ -186,8 +207,10 @@ class GatheringController extends GetxController {
     }
   }
 
-  Future<void> removeUserInApprovalList(
-      {required String gatheringId, required String applicantId}) async {
+  Future<void> removeUserInApprovalList({
+    required String gatheringId,
+    required String applicantId,
+  }) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
     List _approvalList = _gatheringData['approvalList'];
@@ -209,7 +232,10 @@ class GatheringController extends GetxController {
         .update({'applyGatheringList': _applyGatheringList});
   }
 
-  Future<void> cancelApproveUser({required String gatheringId, required String applicantId}) async {
+  Future<void> cancelApproveUser({
+    required String gatheringId,
+    required String applicantId,
+  }) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
     List _approvalList = _gatheringData['approvalList'];
@@ -224,7 +250,7 @@ class GatheringController extends GetxController {
     });
 
     DocumentSnapshot<Map<String, dynamic>> _applicantData =
-    await _firestore.collection('user').doc(applicantId).get();
+        await _firestore.collection('user').doc(applicantId).get();
     List _applyGatheringList = _applicantData['applyGatheringList'];
     _applyGatheringList
         .removeWhere((gathering) => gathering['id'] == gatheringId);
@@ -234,7 +260,10 @@ class GatheringController extends GetxController {
         .update({'applyGatheringList': _applyGatheringList});
   }
 
-  Future<void> cancelDeleteUser({required String gatheringId, required String applicantId}) async {
+  Future<void> cancelDeleteUser({
+    required String gatheringId,
+    required String applicantId,
+  }) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =
         await _firestore.collection('gathering').doc(gatheringId).get();
     List _cancelList = _gatheringData['cancelList'];

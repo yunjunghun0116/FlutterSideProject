@@ -18,10 +18,11 @@ class PostController extends GetxController {
     return _firestore.collection('post').doc(postId).snapshots();
   }
 
-  Future<bool> makePost(
-      {required String category,
-      required String title,
-      required String content}) async {
+  Future<bool> makePost({
+    required String category,
+    required String title,
+    required String content,
+  }) async {
     DateTime nowTime = DateTime.now();
     Map<String, dynamic> body = {
       'category': category,
@@ -33,6 +34,7 @@ class PostController extends GetxController {
       'authorId': UserController.to.user!.id,
       'authorName': category == '익명게시판' ? '익명' : UserController.to.user!.name,
       'commentList': [],
+      'reportedList': [],
     };
     try {
       await _firestore.collection('post').add(body);
@@ -42,10 +44,11 @@ class PostController extends GetxController {
     }
   }
 
-  Future<bool> uploadComment(
-      {required String postId,
-      required String category,
-      required String comment}) async {
+  Future<bool> uploadComment({
+    required String postId,
+    required String category,
+    required String comment,
+  }) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
         await _firestore.collection('post').doc(postId).get();
 
@@ -64,11 +67,12 @@ class PostController extends GetxController {
     return true;
   }
 
-  Future<bool> uploadRecomment(
-      {required String postId,
-      required String category,
-      required int commentIndex,
-      required String comment}) async {
+  Future<bool> uploadRecomment({
+    required String postId,
+    required String category,
+    required int commentIndex,
+    required String comment,
+  }) async {
     DocumentSnapshot<Map<String, dynamic>> _postData =
         await _firestore.collection('post').doc(postId).get();
 
@@ -86,15 +90,33 @@ class PostController extends GetxController {
     return true;
   }
 
-  Future<bool> updatePost({required String postId,required String title,required String content}) async {
+  Future<bool> updatePost({
+    required String postId,
+    required String title,
+    required String content,
+  }) async {
     try {
       await _firestore.collection('post').doc(postId).update({
-        'title':title,
-        'content':content,
+        'title': title,
+        'content': content,
       });
       return true;
     } catch (e) {
       return false;
     }
+  }
+
+  Future<void> reportPost(
+      {required String postId, required String userId}) async {
+    DocumentSnapshot<Map<String, dynamic>> _gatheringData =
+    await _firestore.collection('post').doc(postId).get();
+    List _reportedList = _gatheringData['reportedList'];
+    if (!_reportedList.contains(userId)) {
+      _reportedList.add(userId);
+    }
+    await _firestore
+        .collection('post')
+        .doc(postId)
+        .update({'reportedList': _reportedList});
   }
 }

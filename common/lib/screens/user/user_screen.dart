@@ -67,8 +67,23 @@ class UserScreen extends StatelessWidget {
                         Get.to(() => const UserScreenAnnouncePage()),
                   ),
                   UserScreenContentCard(
-                      text: '1:1 문의',
-                      onPressed: () => launch('http://pf.kakao.com/_dHVrb')),
+                    text: '자랑하기[이벤트]',
+                    onPressed: () =>
+                        launch('https://open.kakao.com/o/s2VO2O0d'),
+                  ),
+                  UserScreenContentCard(
+                    text: '차단한 유저 목록',
+                    onPressed: () {},
+                  ),
+                  UserScreenContentCard(
+                    text: '1:1 문의',
+                    onPressed: () => launch('http://pf.kakao.com/_dHVrb'),
+                  ),
+
+                  UserScreenContentCard(
+                    text: '이용약관',
+                    onPressed: () {},
+                  ),
                   // UserScreenContentCard(
                   //     text: '기기데이터 초기화',
                   //     onPressed: () {

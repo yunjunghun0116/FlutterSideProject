@@ -280,6 +280,7 @@ class _UploadScreenState extends State<UploadScreen> {
                       'applyList': [],
                       'approvalList': [],
                       'cancelList': [],
+                      'reportedList':[],
                       'timeStamp': DateTime.now().toString(),
                     };
                     if (widget.gathering != null) {

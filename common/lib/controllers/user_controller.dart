@@ -15,13 +15,12 @@ class UserController extends GetxController {
 
   //유저데이터 가져오기 - 상세보기에 사용
   Future<User> getUser(String id) async {
-    DocumentSnapshot<Map<String, dynamic>> _dbUser =
-    await (_firestore.collection('user').doc(id).get());
+    DocumentSnapshot _dbUser =
+        await (_firestore.collection('user').doc(id).get());
 
-    Map<String, dynamic> json = _dbUser.data()!;
     User userData = User.fromJson({
       'id': _dbUser.id,
-      ...json,
+      ..._dbUser.data()! as Map<String, dynamic>,
     });
     return userData;
   }
@@ -64,7 +63,7 @@ class UserController extends GetxController {
 
   Future<bool> currentUserUpdate(String id) async {
     DocumentSnapshot<Map<String, dynamic>> _dbUser =
-    await (_firestore.collection('user').doc(id).get());
+        await (_firestore.collection('user').doc(id).get());
     if (_dbUser.data() == null) {
       return false;
     } else {
@@ -79,11 +78,27 @@ class UserController extends GetxController {
     return true;
   }
 
+  Future<void> blockUser(userId) async {
+    DocumentSnapshot<Map<String, dynamic>> _userData =
+        await _firestore.collection('user').doc(user!.id).get();
+    List _blockUserList = _userData['blockUser'];
+    List _likeUserList = _userData['likeUser'];
+    if (!_blockUserList.contains(userId)) {
+      _blockUserList.add(userId);
+    }
+    _likeUserList.removeWhere((element) => element['id'] == userId);
+    await _firestore.collection('user').doc(user!.id).update({
+      'blockUser': _blockUserList,
+      'likeUser': _likeUserList,
+    });
+    await currentUserUpdate(user!.id);
+  }
+
   //팔로우 기능 수행하기 위한 함수
   Future<bool> followUser(User follower) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> _userData =
-      await _firestore.collection('user').doc(user!.id).get();
+          await _firestore.collection('user').doc(user!.id).get();
 
       List _likeUserList = _userData['likeUser'];
       _likeUserList.add(follower.toMap());
@@ -102,7 +117,7 @@ class UserController extends GetxController {
   Future<bool> unfollowUser(User follower) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> _userData =
-      await _firestore.collection('user').doc(user!.id).get();
+          await _firestore.collection('user').doc(user!.id).get();
 
       List _likeUserList = _userData['likeUser'];
       _likeUserList.removeWhere((user) => user['id'] == follower.id);
@@ -120,7 +135,8 @@ class UserController extends GetxController {
   }
 
   //회원가입, 로그인 기능 수행할때 필요한 함수
-  Future<String?> signInWithEmailPassword({required String phone, required String password}) async {
+  Future<String?> signInWithEmailPassword(
+      {required String phone, required String password}) async {
     QuerySnapshot<Map<String, dynamic>> _userData = await _firestore
         .collection('user')
         .where('phoneNumber', isEqualTo: phone)
@@ -149,7 +165,7 @@ class UserController extends GetxController {
     return _getPhoneList.isNotEmpty;
   }
 
-  Future<bool> checkNameIsDuplicated(String name)async{
+  Future<bool> checkNameIsDuplicated(String name) async {
     QuerySnapshot _dbPhoneList = await (_firestore
         .collection('user')
         .where('name', isEqualTo: name)
@@ -160,12 +176,10 @@ class UserController extends GetxController {
 
   /*유저 정보 변경하는 함수*/
 
-  Future<bool> setUserCityTown({required String city,required String town}) async {
-    Map<String, dynamic> _body = {
-      'city':city,
-      'town':town
-    };
-    if(await updateUser(_body)){
+  Future<bool> setUserCityTown(
+      {required String city, required String town}) async {
+    Map<String, dynamic> _body = {'city': city, 'town': town};
+    if (await updateUser(_body)) {
       return await currentUserUpdate(user!.id);
     }
     return false;

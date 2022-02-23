@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/post_controller.dart';
+import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/post.dart';
 import 'package:common/screens/community/components/community_screen_category_page_post_card.dart';
 import 'package:common/screens/community/components/community_screen_post_upload_page.dart';
@@ -47,7 +48,10 @@ class CommunityScreenCategoryPage extends StatelessWidget {
                     'id': e.id,
                     ...e.data() as Map<String, dynamic>,
                   });
-                  return CommunityScreenCategoryPagePostCard(post: post);
+                  if(!post.reportedList.contains(UserController.to.user!.id)){
+                    return CommunityScreenCategoryPagePostCard(post: post);
+                  }
+                  return Container();
                 }).toList(),
               ),
             );

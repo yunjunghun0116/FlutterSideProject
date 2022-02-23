@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/detail/components/detail_screen_over_bottom_bar.dart';
 import 'package:common/screens/upload/upload_screen.dart';
+import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../profile/profile_screen.dart';
@@ -76,7 +77,24 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: const Icon(Icons.edit),
                   ),
                 )
-              : Container(),
+              : InkWell(
+                  onTap: () async{
+                    await GatheringController.to.reportGathering(
+                      gatheringId: widget.gathering.id,
+                      userId: UserController.to.user!.id,
+                    );
+                    await getDialog('모임이 신고되었습니다');
+                    Get.back();
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.report,
+                      color: kRedColor,
+                    ),
+                  ),
+                ),
         ],
       ),
       body: StreamBuilder(

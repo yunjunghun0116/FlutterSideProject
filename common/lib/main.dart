@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'SWF team2',
+      title: 'Common',
       theme: ThemeData(
         primaryColor: kGreyColor,
         focusColor: kGreyColor,

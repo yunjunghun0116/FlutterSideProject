@@ -356,6 +356,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               'openGatheringList': [],
               'likeGathering': [],
               'likeUser': [],
+              'blockUser': [],
               'timeStamp': DateTime.now().toString(),
             };
             String id = await UserController.to.makeUser(body);

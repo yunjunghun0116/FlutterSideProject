@@ -83,8 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Column(
                       children: snapshot.data!.docs.map((e) {
-                        Gathering gathering = Gathering.fromJson(
-                            {'id': e.id, ...e.data() as Map<String, dynamic>});
+                        Gathering gathering = Gathering.fromJson({
+                          'id': e.id,
+                          ...e.data() as Map<String, dynamic>,
+                        });
                         if (DateTime.parse(gathering.openTime)
                                 .difference(nowDate)
                                 .inDays <
@@ -94,7 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             body: {'over': true},
                           );
                         }
-                        return GatheringCard(gathering: gathering);
+                        if (!gathering.reportedList
+                                .contains(UserController.to.user!.id) &&
+                            !UserController.to.user!.blockUser
+                                .contains(gathering.host.userId)) {
+                          return GatheringCard(gathering: gathering);
+                        }
+                        return Container();
                       }).toList(),
                     ),
                   ],
