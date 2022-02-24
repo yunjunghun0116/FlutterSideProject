@@ -65,7 +65,7 @@ class UserScreenAnnouncePage extends StatelessWidget {
                   );
                 }).toList());
               }
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }),
       ),
     );

@@ -10,7 +10,6 @@ import 'controllers/connect_controller.dart';
 import 'controllers/gathering_controller.dart';
 import 'controllers/local_controller.dart';
 import 'controllers/user_controller.dart';
-import 'screens/start/start_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

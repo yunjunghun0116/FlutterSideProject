@@ -13,13 +13,18 @@ class UserController extends GetxController {
 
   User? user;
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getUserStream(String userId) {
+    return _firestore
+        .collection('user')
+        .doc(userId).snapshots();
+  }
+
   //유저데이터 가져오기 - 상세보기에 사용
   Future<User> getUser(String id) async {
     DocumentSnapshot _dbUser =
-        await (_firestore.collection('user').doc(id).get());
-
+        await _firestore.collection('user').doc(id).get();
     User userData = User.fromJson({
-      'id': _dbUser.id,
+      'id': id,
       ..._dbUser.data()! as Map<String, dynamic>,
     });
     return userData;
@@ -92,6 +97,16 @@ class UserController extends GetxController {
       'likeUser': _likeUserList,
     });
     await currentUserUpdate(user!.id);
+  }
+
+  Future<void> blockClearUser(userId)async{
+    DocumentSnapshot<Map<String, dynamic>> _userData =
+    await _firestore.collection('user').doc(user!.id).get();
+    List _blockUserList = _userData['blockUser'];
+    _blockUserList.remove(userId);
+    await _firestore.collection('user').doc(user!.id).update({
+      'blockUser':_blockUserList,
+    });
   }
 
   //팔로우 기능 수행하기 위한 함수

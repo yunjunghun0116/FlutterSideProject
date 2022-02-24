@@ -95,12 +95,19 @@ class _CommunityScreenPostDetailPageState
                         )
                       : InkWell(
                           onTap: () async {
-                            await PostController.to.reportPost(
-                              postId: post.id,
-                              userId: UserController.to.user!.id,
+                            await checkDialog(
+                              title: '게시글을 신고하시겠습니까?',
+                              sureText: '신고하기',
+                              onPressed: () async {
+                                Get.back();
+                                await PostController.to.reportPost(
+                                  postId: post.id,
+                                  userId: UserController.to.user!.id,
+                                );
+                                await getDialog('게시글이 신고되었습니다');
+                                Get.back();
+                              },
                             );
-                            await getDialog('모임이 신고되었습니다');
-                            Get.back();
                           },
                           child: Container(
                             alignment: Alignment.center,

@@ -78,13 +78,20 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 )
               : InkWell(
-                  onTap: () async{
-                    await GatheringController.to.reportGathering(
-                      gatheringId: widget.gathering.id,
-                      userId: UserController.to.user!.id,
+                  onTap: () async {
+                    await checkDialog(
+                      title: '모임을 신고하시겠습니까?',
+                      sureText: '신고하기',
+                      onPressed: () async {
+                        Get.back();
+                        await GatheringController.to.reportGathering(
+                          gatheringId: widget.gathering.id,
+                          userId: UserController.to.user!.id,
+                        );
+                        await getDialog('모임이 신고되었습니다');
+                        Get.back();
+                      },
                     );
-                    await getDialog('모임이 신고되었습니다');
-                    Get.back();
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),

@@ -1,6 +1,7 @@
-import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/screens/terms/terms_screen.dart';
 import 'package:common/screens/user/components/user_screen_announce_page.dart';
+import 'package:common/screens/user/components/user_screen_block_user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -73,7 +74,7 @@ class UserScreen extends StatelessWidget {
                   ),
                   UserScreenContentCard(
                     text: '차단한 유저 목록',
-                    onPressed: () {},
+                    onPressed: ()=>Get.to(()=>const UserScreenBlockUserPage()),
                   ),
                   UserScreenContentCard(
                     text: '1:1 문의',
@@ -82,7 +83,7 @@ class UserScreen extends StatelessWidget {
 
                   UserScreenContentCard(
                     text: '이용약관',
-                    onPressed: () {},
+                    onPressed: () =>Get.to(()=>const TermsScreen()),
                   ),
                   // UserScreenContentCard(
                   //     text: '기기데이터 초기화',

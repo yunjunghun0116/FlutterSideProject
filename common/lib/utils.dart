@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'constants.dart';
+
 List<String> getDateTime(String openTime, String endTime) {
   if (endTime == '') {
     List<String> _date = openTime.split(' ');
@@ -20,14 +22,15 @@ List<String> getDateTime(String openTime, String endTime) {
       DateTime.parse(endTime).difference(DateTime.parse(openTime)).inHours;
   _returnDate
       .add('${_openDate[1].substring(0, 5)}~${_endDate[1].substring(0, 5)}');
-  if(_hours<1){
-    _returnDate.add('${DateTime.parse(endTime).difference(DateTime.parse(openTime)).inMinutes}분');
-  }else if(_hours<24){
+  if (_hours < 1) {
+    _returnDate.add(
+        '${DateTime.parse(endTime).difference(DateTime.parse(openTime)).inMinutes}분');
+  } else if (_hours < 24) {
     _returnDate.add('$_hours시간');
-  }else if(_hours<720){
-    _returnDate.add('${(_hours/24).floor()}일 ${(_hours%24).floor()}시간');
-  }else{
-    _returnDate.add('${(_hours/720).floor()}개월');
+  } else if (_hours < 720) {
+    _returnDate.add('${(_hours / 24).floor()}일 ${(_hours % 24).floor()}시간');
+  } else {
+    _returnDate.add('${(_hours / 720).floor()}개월');
   }
   return _returnDate;
 }
@@ -71,6 +74,81 @@ Future<void> getDialog(String title) async {
         height: 80,
         child: Center(
           child: Text(title),
+        ),
+      ),
+    ),
+  );
+}
+
+Future<void> checkDialog({
+  required String title,
+  required String sureText,
+  required Function onPressed,
+}) async {
+  await Get.dialog(
+    Dialog(
+      child: Container(
+        height: 140,
+        color: kWhiteColor,
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: kLightGreyColor,
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        color: kWhiteColor,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          '닫기',
+                          style: TextStyle(color: kGreyColor),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 1,
+                    color: kLightGreyColor,
+                    height: 40,
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => onPressed(),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        color: kWhiteColor,
+                        alignment: Alignment.center,
+                        child: Text(sureText),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     ),

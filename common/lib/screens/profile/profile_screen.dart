@@ -55,9 +55,16 @@ class ProfileScreen extends StatelessWidget {
           user.id != UserController.to.user!.id
               ? InkWell(
                   onTap: () async {
-                    await UserController.to.blockUser(user.id);
-                    await getDialog('${user.name} 유저를 차단했습니다');
-                    Get.offAll(()=>const MainScreen());
+                    await checkDialog(
+                      title: '유저를 차단하시겠습니까?',
+                      sureText: '차단하기',
+                      onPressed: () async {
+                        Get.back();
+                        await UserController.to.blockUser(user.id);
+                        await getDialog('${user.name} 유저를 차단했습니다');
+                        Get.offAll(() => const MainScreen());
+                      },
+                    );
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),

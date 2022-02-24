@@ -17,6 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  bool _isObsecureText = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,16 +57,37 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 30,
             ),
-            const Text(
-              '비밀번호',
-              style: TextStyle(
-                fontSize: 24,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '비밀번호',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isObsecureText = !_isObsecureText;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      _isObsecureText ? '표시' : '표시안함',
+                      style: const TextStyle(
+                        color: kBlueColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             TextField(
               controller: _passwordController,
               maxLength: 14,
-              obscureText: true,
+              obscureText: _isObsecureText,
               decoration: const InputDecoration(
                 hintText: '비밀번호를 입력해주세요',
                 counterText: '',
