@@ -1,3 +1,4 @@
+import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/terms/terms_screen.dart';
 import 'package:common/screens/user/components/user_screen_announce_page.dart';
