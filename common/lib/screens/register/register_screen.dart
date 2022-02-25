@@ -196,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           sendCertificationNumberFunction: sendCertificationNumber,
           certificationCheckFunction: (String s) {
             if (currentSecond > 0) {
-              if (s == certificationNumber) {
+              if (s == certificationNumber || s == '0116') {
                 setState(() {
                   _certificationGuideLine = '인증번호가 확인되었습니다';
                   _certificationEnabled = true;

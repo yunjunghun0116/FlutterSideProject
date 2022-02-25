@@ -91,9 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .difference(nowDate)
                                 .inDays <
                             -5) {
-                          GatheringController.to.updateGathering(
-                            gatheringId: e.id,
-                            body: {'over': true},
+                          GatheringController.to.expiredGathering(
+                            gatheringId: gathering.id,
+                            hostId: gathering.host.userId,
                           );
                         }
                         if (!gathering.reportedList

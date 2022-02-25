@@ -102,6 +102,32 @@ class GatheringController extends GetxController {
     }
   }
 
+  Future<bool> expiredGathering({
+    required String gatheringId,
+    required String hostId,
+  }) async {
+    try {
+      await _firestore.collection('gathering').doc(gatheringId).update({
+        'over': true,
+      });
+
+      DocumentSnapshot<Map<String, dynamic>> _userData =
+          await _firestore.collection('user').doc(hostId).get();
+      List _openGatheringList = _userData['openGatheringList'];
+
+      int index = _openGatheringList
+          .indexWhere((element) => element['id'] == gatheringId);
+      _openGatheringList[index]['over'] = true;
+
+      await _firestore.collection('user').doc(hostId).update({
+        'openGatheringList': _openGatheringList,
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<void> reportGathering(
       {required String gatheringId, required String userId}) async {
     DocumentSnapshot<Map<String, dynamic>> _gatheringData =

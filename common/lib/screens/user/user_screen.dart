@@ -86,15 +86,10 @@ class UserScreen extends StatelessWidget {
                     text: '이용약관',
                     onPressed: () =>Get.to(()=>const TermsScreen()),
                   ),
-                  // UserScreenContentCard(
-                  //     text: '기기데이터 초기화',
-                  //     onPressed: () {
-                  //       LocalController.to.clearSharedPreferences();
-                  //     }),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      '버전 1.0.0 + 2',
+                      '버전 1.0.1',
                       style: TextStyle(
                         fontSize: 16,
                       ),
