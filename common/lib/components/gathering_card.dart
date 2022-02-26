@@ -121,7 +121,7 @@ class GatheringCard extends StatelessWidget {
                   GatheringCardInfo(
                     content:
                         '${_dates[1]} / ${_dates.length == 2 ? '종료시간미정' : _dates[2]}',
-                    icon: Icons.timer,
+                    icon: Icons.timer_outlined,
                   ),
                   GatheringCardInfo(
                     content: gathering.locationDetail,

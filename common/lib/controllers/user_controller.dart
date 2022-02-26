@@ -169,6 +169,7 @@ class UserController extends GetxController {
       update();
       return _userData.docs[0].id;
     }
+    return null;
   }
 
   Future<bool> checkPhoneNumberIsDuplicated(String phoneNumber) async {

@@ -1,4 +1,3 @@
-import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/terms/terms_screen.dart';
 import 'package:common/screens/user/components/user_screen_announce_page.dart';
@@ -89,7 +88,7 @@ class UserScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      '버전 1.0.1',
+                      '버전 1.0.0 + 6',
                       style: TextStyle(
                         fontSize: 16,
                       ),
