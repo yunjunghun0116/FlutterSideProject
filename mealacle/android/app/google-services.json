@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "246032385864",
+    "project_id": "mealacle-7cb03",
+    "storage_bucket": "mealacle-7cb03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246032385864:android:6bb4ddd275d20c55aed57d",
+        "android_client_info": {
+          "package_name": "com.example.mealacle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246032385864-3jiea0eqi5c3ggc5ji8l63gfgsr5klns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mealacle",
+            "certificate_hash": "ac50f6f1e2d26ea3813854c854390ef8b516a0aa"
+          }
+        },
+        {
+          "client_id": "246032385864-nbsqeq7hlllf63hstoldrg4dq2u6pddp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMGsN0w840vnaQpiV1WvkbWJqarbHnOmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246032385864-nbsqeq7hlllf63hstoldrg4dq2u6pddp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "246032385864-s41nobh1qi6hgr2gs00uolah0pvr550l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junghun.mealacle"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246032385864:android:baf3ef85c05ad51eaed57d",
+        "android_client_info": {
+          "package_name": "com.naca.mealacle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246032385864-nbsqeq7hlllf63hstoldrg4dq2u6pddp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMGsN0w840vnaQpiV1WvkbWJqarbHnOmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246032385864-nbsqeq7hlllf63hstoldrg4dq2u6pddp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "246032385864-s41nobh1qi6hgr2gs00uolah0pvr550l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junghun.mealacle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -58,7 +58,7 @@ class SearchFoodCard extends StatelessWidget {
             ]),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          height: MediaQuery.of(context).size.height * 0.08,
+          height: MediaQuery.of(context).size.height * 0.1,
           width: double.infinity,
           decoration: const BoxDecoration(
             color: Colors.white,

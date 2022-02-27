@@ -18,7 +18,7 @@ class UnivSelectArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
       crossAxisCount: 4,
-      childAspectRatio: 7 / 5,
+      childAspectRatio: 8 / 6,
       crossAxisSpacing: 5,
       shrinkWrap: true,
       children: List.generate(kUniversity.length, (index) {
