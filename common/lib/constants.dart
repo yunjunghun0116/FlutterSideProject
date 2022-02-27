@@ -73,11 +73,6 @@ const List<Map<String, dynamic>> kCommunityCategoryList = [
     'icon': Icons.coffee_outlined,
   },
   {
-    'title': '익명게시판',
-    'color': kGreenColor,
-    'icon': Icons.masks_outlined,
-  },
-  {
     'title': '질문게시판',
     'color': kPinkColor,
     'icon': Icons.chat_outlined,
