@@ -32,7 +32,8 @@ class PostController extends GetxController {
       'content': content,
       'timeStamp': nowTime.toString(),
       'authorId': UserController.to.user!.id,
-      'authorName': category == '익명게시판' ? '익명' : UserController.to.user!.name,
+      'authorName': UserController.to.user!.name,
+      'authorImageUrl':UserController.to.user!.imageUrl,
       'commentList': [],
       'reportedList': [],
     };
@@ -57,7 +58,8 @@ class PostController extends GetxController {
       'comment': comment,
       'timeStamp': DateTime.now().toString(),
       'authorId': UserController.to.user!.id,
-      'authorName': category == '익명게시판' ? '익명' : UserController.to.user!.name,
+      'authorName': UserController.to.user!.name,
+      'authorImageUrl':UserController.to.user!.imageUrl,
       'recommentList': [],
     });
     await _firestore
@@ -81,7 +83,8 @@ class PostController extends GetxController {
       'comment': comment,
       'timeStamp': DateTime.now().toString(),
       'authorId': UserController.to.user!.id,
-      'authorName': category == '익명게시판' ? '익명' : UserController.to.user!.name,
+      'authorName': UserController.to.user!.name,
+      'authorImageUrl':UserController.to.user!.imageUrl,
     });
     await _firestore
         .collection('post')

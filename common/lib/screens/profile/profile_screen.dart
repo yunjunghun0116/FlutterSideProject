@@ -14,9 +14,11 @@ import '../../components/gathering_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final User user;
+  final bool isCommunity;
   const ProfileScreen({
     Key? key,
     required this.user,
+    this.isCommunity=false,
   }) : super(key: key);
 
   @override
@@ -62,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                         Get.back();
                         await UserController.to.blockUser(user.id);
                         await getDialog('${user.name} 유저를 차단했습니다');
-                        Get.offAll(() => const MainScreen());
+                        Get.offAll(()=>MainScreen(startIndex: isCommunity?2:0,));
                       },
                     );
                   },

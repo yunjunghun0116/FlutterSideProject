@@ -22,8 +22,7 @@ const String kNaverSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
 const String kKakaoNativeAppKey = 'bec270e317eab64305f8cd133629425c';
 const String kKakaoJavascriptKey = '2131640029245d00c061ebaa49598053';
 
-String noPersonImage =
-    'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png';
+String noPerson = 'https://firebasestorage.googleapis.com/v0/b/common-53a17.appspot.com/o/images%2Fno_user.png?alt=media&token=3b0c3d21-c00f-4926-9287-aee79abded29';
 
 const TextStyle kDisabledTextStyle = TextStyle(
   fontSize: 14,

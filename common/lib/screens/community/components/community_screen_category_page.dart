@@ -48,7 +48,9 @@ class CommunityScreenCategoryPage extends StatelessWidget {
                     'id': e.id,
                     ...e.data() as Map<String, dynamic>,
                   });
-                  if(!post.reportedList.contains(UserController.to.user!.id)){
+                  if (!post.reportedList.contains(UserController.to.user!.id) &&
+                      !UserController.to.user!.blockUser
+                          .contains(post.authorId)) {
                     return CommunityScreenCategoryPagePostCard(post: post);
                   }
                   return Container();

@@ -6,13 +6,24 @@ import '../follow/follow_screen.dart';
 import '../user/user_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  final int startIndex;
+  const MainScreen({Key? key, this.startIndex=0}) : super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
   int _currentScreenIndex = 0;
+
+  @override
+  initState(){
+    super.initState();
+    if(widget.startIndex!=0){
+      setState(() {
+        _currentScreenIndex = widget.startIndex;
+      });
+    }
+  }
 
   Widget _getMainScreen() {
     switch (_currentScreenIndex) {

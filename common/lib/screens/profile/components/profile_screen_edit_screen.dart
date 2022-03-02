@@ -47,11 +47,10 @@ class ProfileScreenEditScreen extends StatelessWidget {
         titleSpacing: 0,
         centerTitle: false,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Get.offAll(() => const MainScreen());
-          },
-        ),
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back();
+            }),
         title: const Text(
           '프로필 편집',
           style: TextStyle(

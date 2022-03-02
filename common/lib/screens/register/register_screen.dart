@@ -349,7 +349,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               'city': cityTown['city'],
               'town': cityTown['town'],
               'job': '',
-              'imageUrl': noPersonImage,
+              'imageUrl': noPerson,
               'kakaoLinkUrl': '',
               'userTagList': [],
               'applyGatheringList': [],

@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/post_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/post.dart';
+import 'package:common/models/user.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
 import 'package:common/screens/community/components/community_screen_post_upload_page.dart';
+import 'package:common/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constants.dart';
@@ -128,16 +131,62 @@ class _CommunityScreenPostDetailPageState
                     Expanded(
                       child: ListView(
                         children: [
-                          Text(
-                            post.authorName,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () async {
+                              User user = await UserController.to
+                                  .getUser(post.authorId);
+                              Get.to(() =>
+                                  ProfileScreen(user: user, isCommunity: true));
+                            },
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl: post.authorImageUrl != ''
+                                          ? post.authorImageUrl
+                                          : noPerson,
+                                      placeholder: (context, url) => Container(
+                                        width: 50,
+                                        height: 50,
+                                        color: kLightGreyColor,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset(
+                                          'assets/images/no_user.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      post.authorName,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      getUploadTime(
+                                          DateTime.parse(post.timeStamp)),
+                                      style: kCommunityTextStyle,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                          Text(
-                            getUploadTime(DateTime.parse(post.timeStamp)),
-                            style: kCommunityTextStyle,
                           ),
                           const SizedBox(height: 10),
                           Text(
