@@ -216,9 +216,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     : widget.isHost
                         ? DetailScreenHostBottomBar(
                             onPressed: () async {
-                              await GatheringController.to.updateGathering(
+                              GatheringController.to.expiredGathering(
                                 gatheringId: gathering.id,
-                                body: {'over': true},
+                                hostId: gathering.host.userId,
                               );
                             },
                             over: gathering.over,

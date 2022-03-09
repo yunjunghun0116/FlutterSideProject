@@ -64,6 +64,7 @@ class GatheringController extends GetxController {
       await UserController.to.currentUserUpdate(UserController.to.user!.id);
       return true;
     } catch (e) {
+      print(e);
       return false;
     }
   }
@@ -124,6 +125,7 @@ class GatheringController extends GetxController {
       });
       return true;
     } catch (e) {
+      print(e);
       return false;
     }
   }
