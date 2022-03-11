@@ -3,14 +3,13 @@ import '../../../constants.dart';
 
 class ProfileScreenFollowButton extends StatelessWidget {
   final Function onPressed;
-  const ProfileScreenFollowButton({Key? key, required this.onPressed}) : super(key: key);
+  const ProfileScreenFollowButton({Key? key, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        onPressed();
-      },
+      onTap: () => onPressed(),
       child: Container(
         alignment: Alignment.center,
         height: 40,

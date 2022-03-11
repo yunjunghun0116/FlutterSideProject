@@ -336,7 +336,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             bool duplicated = await UserController.to
                 .checkNameIsDuplicated(_nameController.text);
             if (duplicated) {
-              getDialog('이미 사용중인 닉네임입니다!!\n다른 닉네임을 사용해주세요!!');
+              getDialog(title: '이미 사용중인 닉네임입니다!!\n다른 닉네임을 사용해주세요!!');
               return;
             }
             Map<String, dynamic>? cityTown =

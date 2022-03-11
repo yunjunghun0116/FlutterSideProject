@@ -40,7 +40,7 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
                   content: _contentController.text,
                 );
                 if (update) {
-                  await getDialog('글이 수정되었습니다');
+                  await getDialog(title: '글이 수정되었습니다');
                   Get.back();
                 }
                 return;
@@ -51,7 +51,7 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
                 content: _contentController.text,
               );
               if (upload) {
-                await getDialog('글을 올리셨습니다');
+                await getDialog(title: '글을 올리셨습니다');
                 Get.back();
               }
             },

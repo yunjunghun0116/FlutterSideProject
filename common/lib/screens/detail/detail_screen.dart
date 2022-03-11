@@ -88,7 +88,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           gatheringId: widget.gathering.id,
                           userId: UserController.to.user!.id,
                         );
-                        await getDialog('모임이 신고되었습니다');
+                        await getDialog(title: '모임이 신고되었습니다');
                         Get.back();
                       },
                     );

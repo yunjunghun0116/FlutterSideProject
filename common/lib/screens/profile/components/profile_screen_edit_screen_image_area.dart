@@ -22,28 +22,33 @@ class ProfileScreenEditScreenImageArea extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 20),
               width: 150,
               height: 150,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: imageUrl,
-                placeholder: (context, url) => Container(
-                  width: 150,
-                  height: 150,
-                  color: kLightGreyColor,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl: imageUrl,
+                  placeholder: (context, url) => Container(
+                    width: 150,
+                    height: 150,
+                    color: kLightGreyColor,
+                  ),
+                  errorWidget: (context, url, error) => Icon(error),
                 ),
-                errorWidget: (context, url, error) => Icon(error),
               ),
             ),
             Positioned(
               bottom: 20,
               child: GestureDetector(
-                onTap: () async {
-                  await updateImage();
-                },
+                onTap: () async => await updateImage(),
                 child: Container(
                   width: 150,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: kBlackColorWithOpacity,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
                   ),
                   height: 30,
                   child: const Text(

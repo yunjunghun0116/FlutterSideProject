@@ -67,13 +67,18 @@ String getUploadTime(DateTime dateTime) {
   return '${dateTime.month < 10 ? '0${dateTime.month}' : dateTime.month}/${dateTime.day < 10 ? '0${dateTime.day}' : dateTime.day} ${dateTime.hour < 10 ? '0${dateTime.hour}' : dateTime.hour}:${dateTime.minute < 10 ? '0${dateTime.minute}' : dateTime.minute}';
 }
 
-Future<void> getDialog(String title) async {
+Future<void> getDialog({required String title, double? fontSize}) async {
   await Get.dialog(
     Dialog(
       child: SizedBox(
         height: 80,
         child: Center(
-          child: Text(title),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: fontSize ?? 16,
+            ),
+          ),
         ),
       ),
     ),

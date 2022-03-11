@@ -107,7 +107,7 @@ class _CommunityScreenPostDetailPageState
                                   postId: post.id,
                                   userId: UserController.to.user!.id,
                                 );
-                                await getDialog('게시글이 신고되었습니다');
+                                await getDialog(title: '게시글이 신고되었습니다');
                                 Get.back();
                               },
                             );

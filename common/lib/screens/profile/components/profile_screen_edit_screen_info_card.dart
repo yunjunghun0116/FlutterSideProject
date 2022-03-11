@@ -31,9 +31,7 @@ class ProfileScreenEditScreenInfoCard extends StatelessWidget {
         Expanded(
           flex: 7,
           child: GestureDetector(
-            onTap: () {
-              onPressed();
-            },
+            onTap: () => onPressed(),
             child: Container(
               padding: const EdgeInsets.only(bottom: 5),
               margin: const EdgeInsets.all(10),

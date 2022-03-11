@@ -69,36 +69,7 @@ class ProfileScreenEditScreen extends StatelessWidget {
                   imageUrl: UserController.to.user!.imageUrl,
                   updateImage: () async {
                     await updateImage().then((value) {
-                      if (value) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              title: const Text('이미지 등록 완료'),
-                              actions: [
-                                GestureDetector(
-                                  onTap: () => Get.back(),
-                                  child: Container(
-                                    padding: const EdgeInsets.only(bottom: 20),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        '닫기',
-                                        style: TextStyle(
-                                          color: kBlueColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
+                      if (value) getDialog(title: '이미지 변경 완료',fontSize: 16);
                     });
                   },
                 ),

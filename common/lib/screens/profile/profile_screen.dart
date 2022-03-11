@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
     Key? key,
     required this.user,
-    this.isCommunity=false,
+    this.isCommunity = false,
   }) : super(key: key);
 
   @override
@@ -63,8 +63,9 @@ class ProfileScreen extends StatelessWidget {
                       onPressed: () async {
                         Get.back();
                         await UserController.to.blockUser(user.id);
-                        await getDialog('${user.name} 유저를 차단했습니다');
-                        Get.offAll(()=>MainScreen(startIndex: isCommunity?2:0,));
+                        await getDialog(title: '${user.name} 유저를 차단했습니다');
+                        Get.offAll(
+                            () => MainScreen(startIndex: isCommunity ? 2 : 0));
                       },
                     );
                   },

@@ -74,21 +74,21 @@ class UserScreen extends StatelessWidget {
                   ),
                   UserScreenContentCard(
                     text: '차단한 유저 목록',
-                    onPressed: ()=>Get.to(()=>const UserScreenBlockUserPage()),
+                    onPressed: () =>
+                        Get.to(() => const UserScreenBlockUserPage()),
                   ),
                   UserScreenContentCard(
                     text: '1:1 문의',
                     onPressed: () => launch('http://pf.kakao.com/_dHVrb'),
                   ),
-
                   UserScreenContentCard(
                     text: '이용약관',
-                    onPressed: () =>Get.to(()=>const TermsScreen()),
+                    onPressed: () => Get.to(() => const TermsScreen()),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      '버전 1.0.1 + 4',
+                      '버전 1.0.2 + 12',
                       style: TextStyle(
                         fontSize: 16,
                       ),

@@ -27,7 +27,7 @@ class _EditNameScreenState extends State<EditNameScreen> {
             Get.back();
             return;
           }
-          await getDialog('닉네임 중복 확인을 해주세요!!');
+          await getDialog(title: '닉네임 중복 확인을 해주세요!!');
         },
       ),
       body: Padding(
@@ -58,7 +58,7 @@ class _EditNameScreenState extends State<EditNameScreen> {
                     if (!isChecked) {
                       if (await UserController.to
                           .checkNameIsDuplicated(_controller.text)) {
-                        getDialog('이미 사용중인 닉네임입니다!!\n다른 닉네임을 사용해주세요!!');
+                        getDialog(title: '이미 사용중인 닉네임입니다!!\n다른 닉네임을 사용해주세요!!');
                         return;
                       }
                       setState(() {

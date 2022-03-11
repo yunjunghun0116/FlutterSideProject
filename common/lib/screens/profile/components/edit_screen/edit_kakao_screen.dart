@@ -18,20 +18,13 @@ class EditKakaoScreen extends StatelessWidget {
                   'https://open.kakao.com/o/') {
             await UserController.to.setUserKakaoLinkUrl(_controller.text);
           } else {
-            await Get.defaultDialog(
-              middleText: '올바른 형식의 카카오톡 링크를 입력해주세요',
-              cancel: GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('확인'),
-                    )
-                  ],
+            await Get.dialog(
+              const Dialog(
+                child: SizedBox(
+                  height: 80,
+                  child: Center(
+                    child: Text('올바른 형식의 카카오톡 링크를 입력해주세요!!'),
+                  ),
                 ),
               ),
             );
