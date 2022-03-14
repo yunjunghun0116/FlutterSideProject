@@ -13,6 +13,7 @@ const Color kYellowColor = Color(0xFFFFB800);
 const Color kPinkColor = Color(0xFFFF7878);
 const Color kGreenColor = Color(0xFF81C147);
 const Color kShimmerColor = Color(0x80979797);
+const Color kPurpleColor = Color(0xFFBA55D3);
 const Color kSplashBackgroundColor = Color(0xFFFAFAFA);
 
 const String kNaverServiceId = 'ncp:sms:kr:272033493278:common'; //sms
@@ -22,7 +23,8 @@ const String kNaverSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
 const String kKakaoNativeAppKey = 'bec270e317eab64305f8cd133629425c';
 const String kKakaoJavascriptKey = '2131640029245d00c061ebaa49598053';
 
-String noPerson = 'https://firebasestorage.googleapis.com/v0/b/common-53a17.appspot.com/o/images%2Fno_user.png?alt=media&token=3b0c3d21-c00f-4926-9287-aee79abded29';
+String noPerson =
+    'https://firebasestorage.googleapis.com/v0/b/common-53a17.appspot.com/o/images%2Fno_user.png?alt=media&token=3b0c3d21-c00f-4926-9287-aee79abded29';
 
 const TextStyle kDisabledTextStyle = TextStyle(
   fontSize: 14,
@@ -77,6 +79,16 @@ const List<Map<String, dynamic>> kCommunityCategoryList = [
     'icon': Icons.chat_outlined,
   },
   {
+    'title': '운동게시판',
+    'color': kPurpleColor,
+    'icon': Icons.fitness_center_outlined,
+  },
+  {
+    'title': '봉사정보게시판',
+    'color': kGreenColor,
+    'icon': Icons.volunteer_activism,
+  },
+  {
     'title': '홍보게시판',
     'color': kYellowColor,
     'icon': Icons.dashboard_outlined,
@@ -115,10 +127,10 @@ final List<Map<String, dynamic>> kCategoryList = [
   {'title': '공부', 'icon': Icons.edit},
   {'title': '맛집', 'icon': Icons.restaurant_menu},
   {'title': '봉사', 'icon': Icons.volunteer_activism},
+  {'title': '게임', 'icon': Icons.computer},
   {'title': '헬스', 'icon': Icons.fitness_center},
   {'title': '카페', 'icon': Icons.local_cafe},
-  {'title': '음주', 'icon': Icons.local_bar},
-  {'title': '클래스', 'icon': Icons.local_library},
+  {'title': '등산', 'icon': Icons.hiking},
   {'title': '기타', 'icon': Icons.grid_on},
 ];
 
@@ -228,7 +240,7 @@ final List<Map<String, dynamic>> kCityList = [
     'town': [
       '중구',
       '동구',
-      '남구',
+      '미추홀구',
       '연수구',
       '남동구',
       '부평구',

@@ -2,7 +2,7 @@
     package="com.damoim.common">
     <uses-permission android:name="android.permission.INTERNET "/>
     <application
-        android:label="common"
+        android:label="커먼"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
