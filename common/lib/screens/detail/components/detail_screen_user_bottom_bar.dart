@@ -21,6 +21,7 @@ class DetailScreenUserBottomBar extends StatelessWidget {
         right: 10,
         top: 10,
       ),
+      decoration: kBottomBarDecoration,
       child: GestureDetector(
         onTap: () {
           if (userStateIndex == 0) {

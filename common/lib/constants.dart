@@ -29,6 +29,17 @@ const String kKakaoRestApiKey = 'a33bed6fb12716b0522c1a1685377dfa';
 String noPerson =
     'https://firebasestorage.googleapis.com/v0/b/common-53a17.appspot.com/o/images%2Fno_user.png?alt=media&token=3b0c3d21-c00f-4926-9287-aee79abded29';
 
+const BoxDecoration kBottomBarDecoration = BoxDecoration(
+  color: kWhiteColor,
+  boxShadow: [
+    BoxShadow(
+      color: kLightGreyColor,
+      offset: Offset(0, -2),
+      blurRadius: 1,
+    ),
+  ],
+);
+
 const TextStyle kDisabledTextStyle = TextStyle(
   fontSize: 14,
   color: kRedColor,

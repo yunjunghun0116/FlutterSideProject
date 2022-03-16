@@ -14,6 +14,7 @@ class DetailScreenOverBottomBar extends StatelessWidget {
         left: 10,
         right: 10,
       ),
+      decoration: kBottomBarDecoration,
       child: Container(
         alignment: Alignment.center,
         width: double.infinity,

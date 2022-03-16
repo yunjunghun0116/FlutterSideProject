@@ -123,14 +123,14 @@ class _CommunityScreenPostDetailPageState
                         )
                 ],
               ),
-              body: Container(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
-                color: kWhiteColor,
-                child: Column(
-                  children: [
-                    Expanded(
+              body: Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: ListView(
                         children: [
+                          const SizedBox(height: 24),
                           GestureDetector(
                             onTap: () async {
                               User user = await UserController.to
@@ -210,75 +210,77 @@ class _CommunityScreenPostDetailPageState
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(
-                        top: 5,
-                        bottom: MediaQuery.of(context).padding.bottom + 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: 5,
+                      left: 16,right: 16,
+                      bottom: MediaQuery.of(context).padding.bottom + 10,
+                    ),
+                    width: double.infinity,
+                    decoration: kBottomBarDecoration,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: kLightGreyColor,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      width: double.infinity,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: kLightGreyColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: TextField(
-                                  controller: _commentController,
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: isRecomment
-                                          ? '대댓글을 입력하세요'
-                                          : '댓글을 입력하세요'),
-                                ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: TextField(
+                                controller: _commentController,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: isRecomment
+                                        ? '대댓글을 입력하세요'
+                                        : '댓글을 입력하세요'),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () async {
-                                if (isRecomment) {
-                                  bool upload =
-                                      await PostController.to.uploadRecomment(
-                                    postId: widget.post.id,
-                                    category: widget.post.category,
-                                    commentIndex: selectedIndex,
-                                    comment: _commentController.text,
-                                  );
-                                  if (upload) {
-                                    _commentController.clear();
-                                    FocusScope.of(context).unfocus();
-                                  }
-                                  return;
-                                }
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              if (isRecomment) {
                                 bool upload =
-                                    await PostController.to.uploadComment(
+                                    await PostController.to.uploadRecomment(
                                   postId: widget.post.id,
                                   category: widget.post.category,
+                                  commentIndex: selectedIndex,
                                   comment: _commentController.text,
                                 );
                                 if (upload) {
                                   _commentController.clear();
                                   FocusScope.of(context).unfocus();
                                 }
-                              },
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: const Icon(
-                                  Icons.send_outlined,
-                                  color: kBlueColor,
-                                ),
+                                return;
+                              }
+                              bool upload =
+                                  await PostController.to.uploadComment(
+                                postId: widget.post.id,
+                                category: widget.post.category,
+                                comment: _commentController.text,
+                              );
+                              if (upload) {
+                                _commentController.clear();
+                                FocusScope.of(context).unfocus();
+                              }
+                            },
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: const Icon(
+                                Icons.send_outlined,
+                                color: kBlueColor,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           }

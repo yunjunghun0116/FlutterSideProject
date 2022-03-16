@@ -19,6 +19,7 @@ class UploadScreenBottomBar extends StatelessWidget {
         left: 10,
         right: 10,
       ),
+      decoration: kBottomBarDecoration,
       child: GestureDetector(
         onTap: () {
           uploadPressed();
@@ -31,7 +32,7 @@ class UploadScreenBottomBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            isUpdate?'수정하기':'등록하기',
+            isUpdate ? '수정하기' : '등록하기',
             style: const TextStyle(
               color: kWhiteColor,
               fontWeight: FontWeight.bold,

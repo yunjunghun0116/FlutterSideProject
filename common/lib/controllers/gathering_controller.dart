@@ -163,19 +163,6 @@ class GatheringController extends GetxController {
         .collection('gathering')
         .doc(gatheringId)
         .update({'applyList': _applyList});
-
-    DocumentSnapshot<Map<String, dynamic>> _dbUser = await _firestore
-        .collection('user')
-        .doc(UserController.to.user!.id)
-        .get();
-
-    List _applyGatheringList = _dbUser['applyGatheringList'];
-
-    _applyGatheringList.add({'id': gatheringId, ...?_gatheringData.data()});
-
-    await _firestore.collection('user').doc(UserController.to.user!.id).update({
-      'applyGatheringList': _applyGatheringList,
-    });
     return;
   }
 

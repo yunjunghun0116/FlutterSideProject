@@ -24,7 +24,7 @@ class DetailScreenGatheringProgressBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                '게스트 수',
+                '참여 인원',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 20,

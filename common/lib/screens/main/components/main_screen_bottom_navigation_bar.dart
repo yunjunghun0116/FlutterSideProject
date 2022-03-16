@@ -13,9 +13,12 @@ class MainScreenBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      elevation: 20,
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: kGreyColor,
       selectedItemColor: kBlackColor,
+      showUnselectedLabels: false,
+      showSelectedLabels: false,
       currentIndex: currentIndex,
       onTap: (int index) {
         onTap(index);
