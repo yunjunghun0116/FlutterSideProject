@@ -6,14 +6,16 @@ final Color kBlackColorWithOpacity = const Color(0xFF000000).withOpacity(0.3);
 const Color kDeepBlueColor = Color(0xFF1D4EFF);
 const Color kBlueColor = Color(0xFF51B6FF);
 const Color kGreyColor = Color(0xFF979797);
-const Color kDarkGreyColor = Color(0xFF747474);
-const Color kLightGreyColor = Color(0xFFE9E9E9);
+const Color kDarkGreyColor = Color(0xFF696969);
+const Color kLightGreyColor = Color(0xFFF2F2F8);
 const Color kRedColor = Color(0xFFFF0000);
 const Color kYellowColor = Color(0xFFFFB800);
 const Color kPinkColor = Color(0xFFFF7878);
 const Color kGreenColor = Color(0xFF81C147);
 const Color kShimmerColor = Color(0x80979797);
 const Color kPurpleColor = Color(0xFFBA55D3);
+const Color kMainColor = Color(0xFFF4C418);
+const Color kSubColor = Color(0xFF13CBCB);
 const Color kSplashBackgroundColor = Color(0xFFFAFAFA);
 
 const String kNaverServiceId = 'ncp:sms:kr:272033493278:common'; //sms
@@ -22,6 +24,7 @@ const String kNaverSecretKey = 'xcCu4cBzvoRbChlXXroyOBDoAtzdTxpLaqW7XVAi';
 
 const String kKakaoNativeAppKey = 'bec270e317eab64305f8cd133629425c';
 const String kKakaoJavascriptKey = '2131640029245d00c061ebaa49598053';
+const String kKakaoRestApiKey = 'a33bed6fb12716b0522c1a1685377dfa';
 
 String noPerson =
     'https://firebasestorage.googleapis.com/v0/b/common-53a17.appspot.com/o/images%2Fno_user.png?alt=media&token=3b0c3d21-c00f-4926-9287-aee79abded29';

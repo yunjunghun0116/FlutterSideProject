@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constants.dart';
-import '../../../controllers/connect_controller.dart';
+import '../../../utils.dart';
 
 class UploadScreenLocationSearchScreen extends StatefulWidget {
   const UploadScreenLocationSearchScreen({Key? key}) : super(key: key);
@@ -13,13 +13,12 @@ class UploadScreenLocationSearchScreen extends StatefulWidget {
 
 class _UploadScreenLocationSearchScreenState
     extends State<UploadScreenLocationSearchScreen> {
-  final ConnectController _connectController = ConnectController.to;
   final TextEditingController _addressController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   List<Widget> _resultCard = [];
 
   Future<void> getPlaceList(String text) async {
-    List _result = await _connectController.getDataWithKakaoApi(text);
+    List _result = await getDataWithKakaoApi(text);
     List<Widget> _listTileList = [];
     for (int i = 0; i < _result.length; i++) {
       _listTileList.add(

@@ -1,3 +1,4 @@
+import 'package:bookchigo/controllers/connect_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -27,10 +28,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               formatButtonVisible: false,
               titleCentered: true,
             ),
-            calendarStyle: const CalendarStyle(
-                weekendTextStyle: TextStyle(
-              color: Colors.red,
-            )),
             calendarBuilders: CalendarBuilders(
               defaultBuilder: (context, day, focusedDay) {
                 if(day.day.isEven){
@@ -49,7 +46,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          ConnectController.to.searchBook(query: '겨울',currentPage: 2);
+        },
         child: Icon(Icons.add),
       ),
     );

@@ -88,7 +88,7 @@ class UserScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      '버전 1.0.4 + 14',
+                      '버전 1.1.0',
                       style: TextStyle(
                         fontSize: 16,
                       ),

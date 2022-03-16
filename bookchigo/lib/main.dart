@@ -1,6 +1,8 @@
+import 'package:bookchigo/controllers/connect_controller.dart';
 import 'package:bookchigo/screens/main/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
@@ -14,7 +16,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Get.put(ConnectController());
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'BookChiGo',
       theme: ThemeData(

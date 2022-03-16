@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
-import 'package:common/screens/main/main_screen.dart';
 import 'package:common/screens/start/start_screen.dart';
 import 'package:common/utils.dart';
 import 'package:image_picker/image_picker.dart';

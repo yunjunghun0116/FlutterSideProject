@@ -4,7 +4,6 @@ import 'package:common/screens/location/location_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/home_screen_category_area.dart';
-import 'components/home_screen_advertise_area.dart';
 import '../../constants.dart';
 import '../../controllers/gathering_controller.dart';
 import '../../models/gathering.dart';
@@ -24,46 +23,73 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        title: GestureDetector(
-          onTap: () async {
-            await Get.to(() => const LocationScreen(update: true));
-            //setState해주는 이유 -> 의도적으로 화면을 한번 refresh해주어야하기때문에 : user의 데이터가 바뀌었으니까
-            setState(() {});
-          },
-          child: GetBuilder<UserController>(
-            builder: (context) {
-              return Row(
-                children: [
-                  Text(
-                    '${UserController.to.user!.city} ${UserController.to.user!.town}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  const RotatedBox(
-                    quarterTurns: 1,
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
       body: ListView(
         children: [
-          const HomeScreenAdvertiseArea(),
+          SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(height: 50),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        '어떤 모임에\n참여해볼까요?',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.all(8.0),
+                      //   child: Icon(
+                      //     Icons.settings_outlined,
+                      //     color: kDarkGreyColor,
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: ()async{
+                    await Get.to(() => const LocationScreen(update: true));
+                    //setState해주는 이유 -> 의도적으로 화면을 한번 refresh해주어야하기때문에 : user의 데이터가 바뀌었으니까
+                    setState(() {});
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: kLightGreyColor,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.near_me),
+                        const SizedBox(width: 6),
+                        GetBuilder<UserController>(
+                          builder: (context) {
+                            return Text(
+                              '${UserController.to.user!.city} ${UserController.to.user!.town}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            );
+                          },
+                        ),
+                        const Spacer(),
+                        const Icon(Icons.arrow_forward_ios,color: kGreyColor,),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           const HomeScreenCategoryArea(),
-          const Divider(thickness: 2),
           StreamBuilder(
             stream: GatheringController.to.getGatheringListStream(),
             builder:
@@ -73,11 +99,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        '최근 올라온 모임을 소개해드릴게요!!',
+                        '모든 모임',
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                          height: 4/3,
+                          color: kSubColor,
                         ),
                       ),
                     ),
@@ -109,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
               return Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 40),
                 alignment: Alignment.center,
                 child: const Text(
                   '등록된 모임이 없네요ㅠㅠ\n새로 모임을 등록하고\n다양한 사람들과 만나보세요!!',

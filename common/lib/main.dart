@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'constants.dart';
-import 'controllers/connect_controller.dart';
 import 'controllers/gathering_controller.dart';
 import 'controllers/local_controller.dart';
 import 'controllers/user_controller.dart';
@@ -23,14 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LocalController _localController = Get.put(LocalController());
-    final UserController _userController = Get.put(UserController());
-    final GatheringController _gatheringController =
-        Get.put(GatheringController());
-    final ConnectController _connectController = Get.put(ConnectController());
-    final PostController _postController = Get.put(PostController());
-    final AnnounceController _announceController = Get.put(AnnounceController());
-
+    Get.put(LocalController());
+    Get.put(UserController());
+    Get.put(GatheringController());
+    Get.put(PostController());
+    Get.put(AnnounceController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Common',

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:common/controllers/connect_controller.dart';
 import 'package:common/controllers/local_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/screens/location/location_screen.dart';
@@ -143,8 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _certificationController.clear();
     String _newCertificationNumber = getNewCertificationNumber();
     LocalController.to.setCertificationTime(nowDateTime);
-    ConnectController.to
-        .sendSMS(_phoneController.text, _newCertificationNumber);
+    sendSMS(_phoneController.text, _newCertificationNumber);
     setState(() {
       currentSecond = 180;
       certificationNumber = _newCertificationNumber;
