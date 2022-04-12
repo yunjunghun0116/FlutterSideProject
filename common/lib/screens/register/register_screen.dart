@@ -58,30 +58,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
       case 0:
         if (_phoneChecked) {
           if (_certificationEnabled) {
-            return kBlueColor;
+            return kMainColor;
           }
           return kGreyColor;
         } else {
           if (_phoneEnabled) {
-            return kBlueColor;
+            return kMainColor;
           }
           return kGreyColor;
         }
       case 1:
         if (_passwordChecked) {
           if (_passwordCheckEnabled) {
-            return kBlueColor;
+            return kMainColor;
           }
           return kGreyColor;
         } else {
           if (_passwordEnabled) {
-            return kBlueColor;
+            return kMainColor;
           }
           return kGreyColor;
         }
       default:
         if (_nameEnabled) {
-          return kBlueColor;
+          return kMainColor;
         }
         return kGreyColor;
     }

@@ -45,13 +45,13 @@ class RegisterScreenPasswordPagePasswordArea extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
-                          color: kBlueColor,
+                          color: kMainColor,
                         ),
                       ),
                       child: const Text(
                         '다시 설정하기',
                         style: TextStyle(
-                          color: kBlueColor,
+                          color: kMainColor,
                         ),
                       ),
                     ),
@@ -86,7 +86,7 @@ class RegisterScreenPasswordPagePasswordArea extends StatelessWidget {
                 const SizedBox(width: 10),
                 Icon(
                   Icons.check,
-                  color: passwordEnabled ? kBlueColor : kRedColor,
+                  color: passwordEnabled ? kMainColor : kRedColor,
                   size: 20,
                 ),
               ],

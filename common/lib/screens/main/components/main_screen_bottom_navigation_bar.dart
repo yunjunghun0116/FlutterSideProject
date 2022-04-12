@@ -17,8 +17,6 @@ class MainScreenBottomNavigationBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: kGreyColor,
       selectedItemColor: kBlackColor,
-      showUnselectedLabels: false,
-      showSelectedLabels: false,
       currentIndex: currentIndex,
       onTap: (int index) {
         onTap(index);
@@ -28,7 +26,7 @@ class MainScreenBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline), label: '팔로우'),
         BottomNavigationBarItem(icon: Icon(Icons.local_cafe_outlined), label: '커뮤니티'),
-        BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'my'),
+        BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: '마이페이지'),
       ],
     );
   }

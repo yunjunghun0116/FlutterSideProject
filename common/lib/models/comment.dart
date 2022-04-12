@@ -7,6 +7,7 @@ class Comment {
   final String authorName;
   final String authorImageUrl;
   final List recommentList;
+  final List reportedList;
 
   Comment({
     required this.comment,
@@ -15,6 +16,7 @@ class Comment {
     required this.authorName,
     required this.authorImageUrl,
     required this.recommentList,
+    required this.reportedList,
   });
 
   factory Comment.fromJson(json) => Comment(
@@ -22,10 +24,11 @@ class Comment {
         timeStamp: json['timeStamp'],
         authorId: json['authorId'],
         authorName: json['authorName'],
-        authorImageUrl: json['authorImageUrl']??'',
+        authorImageUrl: json['authorImageUrl'] ?? '',
         recommentList: json['recommentList'].map((recomment) {
           return Recomment.fromJson(recomment);
         }).toList(),
+        reportedList: json['reportedList'] ?? [],
       );
 
   Map<String, dynamic> toMap() {
@@ -34,10 +37,11 @@ class Comment {
       'timeStamp': timeStamp,
       'authorId': authorId,
       'authorName': authorName,
-      'authorImageUrl':authorImageUrl,
-      'recommentList': recommentList.map((recomment){
+      'authorImageUrl': authorImageUrl,
+      'recommentList': recommentList.map((recomment) {
         return recomment.toMap();
       }).toList(),
+      'reportedList': reportedList,
     };
   }
 }

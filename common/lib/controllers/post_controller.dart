@@ -33,7 +33,7 @@ class PostController extends GetxController {
       'timeStamp': nowTime.toString(),
       'authorId': UserController.to.user!.id,
       'authorName': UserController.to.user!.name,
-      'authorImageUrl':UserController.to.user!.imageUrl,
+      'authorImageUrl': UserController.to.user!.imageUrl,
       'commentList': [],
       'reportedList': [],
     };
@@ -59,8 +59,9 @@ class PostController extends GetxController {
       'timeStamp': DateTime.now().toString(),
       'authorId': UserController.to.user!.id,
       'authorName': UserController.to.user!.name,
-      'authorImageUrl':UserController.to.user!.imageUrl,
+      'authorImageUrl': UserController.to.user!.imageUrl,
       'recommentList': [],
+      'reportedList': [],
     });
     await _firestore
         .collection('post')
@@ -84,7 +85,8 @@ class PostController extends GetxController {
       'timeStamp': DateTime.now().toString(),
       'authorId': UserController.to.user!.id,
       'authorName': UserController.to.user!.name,
-      'authorImageUrl':UserController.to.user!.imageUrl,
+      'authorImageUrl': UserController.to.user!.imageUrl,
+      'reportedList': [],
     });
     await _firestore
         .collection('post')
@@ -111,15 +113,40 @@ class PostController extends GetxController {
 
   Future<void> reportPost(
       {required String postId, required String userId}) async {
-    DocumentSnapshot<Map<String, dynamic>> _gatheringData =
-    await _firestore.collection('post').doc(postId).get();
-    List _reportedList = _gatheringData['reportedList'];
+    DocumentSnapshot<Map<String, dynamic>> _postData =
+        await _firestore.collection('post').doc(postId).get();
+    List _reportedList = _postData['reportedList'];
     if (!_reportedList.contains(userId)) {
       _reportedList.add(userId);
     }
-    await _firestore
-        .collection('post')
-        .doc(postId)
-        .update({'reportedList': _reportedList});
+    await _firestore.collection('post').doc(postId).update({
+      'reportedList': _reportedList,
+    });
+  }
+
+  Future<void> reportComment(
+      {required String postId, required int commentIndex}) async {
+    DocumentSnapshot<Map<String, dynamic>> _postData =
+        await _firestore.collection('post').doc(postId).get();
+    List _commentList = _postData['commentList'];
+    _commentList[commentIndex]['reportedList'].add(UserController.to.user!.id);
+    await _firestore.collection('post').doc(postId).update({
+      'commentList': _commentList,
+    });
+  }
+
+  Future<void> reportRecomment({
+    required String postId,
+    required int commentIndex,
+    required int recommentIndex,
+  }) async {
+    DocumentSnapshot<Map<String, dynamic>> _postData =
+        await _firestore.collection('post').doc(postId).get();
+    List _commentList = _postData['commentList'];
+    _commentList[commentIndex]['recommentList'][recommentIndex]['reportedList']
+        .add(UserController.to.user!.id);
+    await _firestore.collection('post').doc(postId).update({
+      'commentList': _commentList,
+    });
   }
 }

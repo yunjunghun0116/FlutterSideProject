@@ -54,7 +54,7 @@ class RegisterScreenPasswordPagePasswordCheckArea extends StatelessWidget {
                 const SizedBox(width: 10),
                 Icon(
                   Icons.check,
-                  color: passwordCheckEnabled ? kBlueColor : kRedColor,
+                  color: passwordCheckEnabled ? kMainColor : kRedColor,
                   size: 20,
                 ),
               ],

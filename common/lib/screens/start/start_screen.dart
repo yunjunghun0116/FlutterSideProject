@@ -24,22 +24,15 @@ class StartScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 30),
           Container(
             alignment: Alignment.center,
-            width: double.infinity,
-            child: const Text(
-              'Common',
-              style: TextStyle(
-                fontSize: 60,
-                fontWeight: FontWeight.bold,
-                color: kBlueColor,
-                fontStyle: FontStyle.italic,
-              ),
-              textAlign: TextAlign.center,
+            margin: const EdgeInsets.symmetric(vertical: 50),
+            child: Image.asset(
+              'assets/logo/common_typing_logo.png',
+              width: 300,
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 100),
           InkWell(
             onTap: () {
               Get.to(() => const LoginScreen());
@@ -51,35 +44,32 @@ class StartScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: kBlueColor,
+                  color: kMainColor,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: const Text(
                   '로그인하기',
                   style: TextStyle(
                     color: kWhiteColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
               ),
             ),
           ),
+          const SizedBox(height: 20),
           InkWell(
             onTap: () {
               Get.to(() => const RegisterScreen());
             },
             child: Container(
               alignment: Alignment.center,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: kGreyColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
               child: const Text(
                 '회원가입하기',
                 style: TextStyle(
-                  color: kWhiteColor,
+                  fontSize: 18,
+                  color: kMainColor,
                 ),
               ),
             ),

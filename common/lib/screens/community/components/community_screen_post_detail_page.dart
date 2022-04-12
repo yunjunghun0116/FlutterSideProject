@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:common/controllers/post_controller.dart';
 import 'package:common/controllers/user_controller.dart';
+import 'package:common/models/comment.dart';
 import 'package:common/models/post.dart';
 import 'package:common/models/user.dart';
 import 'package:common/screens/community/components/community_screen_post_detail_page_comment_card.dart';
@@ -32,8 +33,11 @@ class _CommunityScreenPostDetailPageState
   Widget _getCommentArea(List commentList) {
     List<CommunityScreenPostDetailPageCommentCard> _commentList = [];
     for (int i = 0; i < commentList.length; i++) {
+      if (commentList[i].reportedList.contains(UserController.to.user!.id))
+        continue;
       _commentList.add(
         CommunityScreenPostDetailPageCommentCard(
+          post: widget.post,
           comment: commentList[i],
           isRecomment: isRecomment,
           commentIndex: i,
@@ -55,6 +59,11 @@ class _CommunityScreenPostDetailPageState
             setState(() {
               isRecomment = true;
               selectedIndex = i;
+            });
+          },
+          reportPressed: () {
+            setState(() {
+              isRecomment = false;
             });
           },
         ),
@@ -214,7 +223,8 @@ class _CommunityScreenPostDetailPageState
                   Container(
                     padding: EdgeInsets.only(
                       top: 5,
-                      left: 16,right: 16,
+                      left: 16,
+                      right: 16,
                       bottom: MediaQuery.of(context).padding.bottom + 10,
                     ),
                     width: double.infinity,
@@ -253,6 +263,9 @@ class _CommunityScreenPostDetailPageState
                                 if (upload) {
                                   _commentController.clear();
                                   FocusScope.of(context).unfocus();
+                                  setState(() {
+                                    isRecomment = false;
+                                  });
                                 }
                                 return;
                               }

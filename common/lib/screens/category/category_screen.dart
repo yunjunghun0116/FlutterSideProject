@@ -73,7 +73,7 @@ class CategoryScreen extends StatelessWidget {
         onPressed: () {
           Get.to(() => UploadScreen(category: category));
         },
-        backgroundColor: kYellowColor,
+        backgroundColor: kMainColor,
         foregroundColor: kWhiteColor,
         child: Container(
           alignment: Alignment.center,

@@ -23,7 +23,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 1500),()=>_checkUserSignedIn());
+    Future.delayed(
+        const Duration(milliseconds: 1500), () => _checkUserSignedIn());
     return Scaffold(
       backgroundColor: kSplashBackgroundColor,
       body: Padding(
@@ -44,7 +45,7 @@ class SplashScreen extends StatelessWidget {
                     TextSpan(
                       text: 'Common\n',
                       style: TextStyle(
-                        color: kBlueColor,
+                        color: kMainColor,
                         fontSize: 40,
                         fontStyle: FontStyle.italic,
                       ),
@@ -52,11 +53,9 @@ class SplashScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const CircleAvatar(
-                radius: 50,
-                foregroundImage: AssetImage(
-                  'assets/logo/common_logo.png',
-                ),
+              Image.asset(
+                'assets/logo/common_logo.png',
+                width: 200,
               ),
             ],
           ),

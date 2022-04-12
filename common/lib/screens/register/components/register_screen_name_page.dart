@@ -51,7 +51,7 @@ class RegisterScreenNamePage extends StatelessWidget {
                   const SizedBox(width: 10),
                   Icon(
                     Icons.check,
-                    color: nameEnabled ? kBlueColor : kRedColor,
+                    color: nameEnabled ? kMainColor : kRedColor,
                     size: 20,
                   ),
                 ],

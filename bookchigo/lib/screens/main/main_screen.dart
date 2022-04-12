@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget _getMainScreen() {
     switch (_currentIndex) {
       case 0:
-        return const HomeScreen();
+        return  HomeScreen();
       case 1:
         return const CalendarScreen();
       case 2:

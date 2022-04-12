@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontWeight: FontWeight.w700,
                           fontSize: 15,
                           height: 4/3,
-                          color: kSubColor,
+                          color: kMainColor,
                         ),
                       ),
                     ),

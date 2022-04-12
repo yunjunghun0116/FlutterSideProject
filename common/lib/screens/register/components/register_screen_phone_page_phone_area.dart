@@ -49,13 +49,13 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
-                          color: kBlueColor,
+                          color: kMainColor,
                         ),
                       ),
                       child: Text(
                         certificationEnabled ? '휴대폰번호 변경' : '인증번호 다시 받기',
                         style: const TextStyle(
-                          color: kBlueColor,
+                          color: kMainColor,
                         ),
                       ),
                     ),
@@ -91,7 +91,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
                 const SizedBox(width: 10),
                 Icon(
                   Icons.check,
-                  color: phoneEnabled ? kBlueColor : kRedColor,
+                  color: phoneEnabled ? kMainColor : kRedColor,
                   size: 20,
                 ),
               ],

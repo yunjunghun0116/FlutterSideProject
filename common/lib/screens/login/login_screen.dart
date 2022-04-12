@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       _isObsecureText ? '표시' : '표시안함',
                       style: const TextStyle(
-                        color: kBlueColor,
+                        color: kMainColor,
                       ),
                     ),
                   ),
@@ -141,13 +141,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: kBlueColor,
+                  color: kMainColor,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: const Text(
                   '로그인하기',
                   style: TextStyle(
                     color: kWhiteColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

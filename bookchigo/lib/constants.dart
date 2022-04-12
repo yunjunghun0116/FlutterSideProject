@@ -1,2 +1,1 @@
-const  String kNaverClientId = 'QsSgjhSJ6MQ6uGoGv7LG';
-const  String kNaverClientSecret= '6uDdCG2fjX';
+const String kKakaoRestApiKey = '70fdc0cc3a7f11e71f4add9e5dd8becc';

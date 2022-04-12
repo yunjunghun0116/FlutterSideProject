@@ -1,6 +1,7 @@
-import 'package:bookchigo/controllers/connect_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../utils.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({Key? key}) : super(key: key);
@@ -47,7 +48,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ConnectController.to.searchBook(query: '겨울',currentPage: 2);
         },
         child: Icon(Icons.add),
       ),

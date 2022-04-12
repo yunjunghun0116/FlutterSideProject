@@ -1,4 +1,4 @@
-import 'package:bookchigo/controllers/connect_controller.dart';
+import 'package:bookchigo/controllers/book_controller.dart';
 import 'package:bookchigo/screens/main/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ConnectController());
+    Get.put(BookController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'BookChiGo',

@@ -57,7 +57,7 @@ class RegisterScreenPhonePageCertificationArea extends StatelessWidget {
                 const SizedBox(width: 10),
                 Icon(
                   Icons.check,
-                  color: certificationEnabled ? kBlueColor : kRedColor,
+                  color: certificationEnabled ? kMainColor : kRedColor,
                   size: 20,
                 ),
               ],

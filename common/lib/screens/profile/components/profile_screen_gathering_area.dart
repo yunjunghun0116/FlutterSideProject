@@ -37,12 +37,15 @@ class ProfileScreenGatheringArea extends StatelessWidget {
                   children: const [
                     Text(
                       '전체보기',
-                      style: TextStyle(fontSize: 16, color: kDeepBlueColor),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: kBlueColor,
+                      ),
                     ),
                     Icon(
                       Icons.arrow_forward_ios,
-                      size: 20,
-                      color: kDeepBlueColor,
+                      size: 14,
+                      color: kBlueColor,
                     ),
                   ],
                 ),

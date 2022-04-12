@@ -65,7 +65,7 @@ class CommunityScreenCategoryPage extends StatelessWidget {
         onPressed: () {
           Get.to(() => CommunityScreenPostUploadPage(category: category));
         },
-        backgroundColor: kYellowColor,
+        backgroundColor: kMainColor,
         foregroundColor: kWhiteColor,
         child: Container(
           alignment: Alignment.center,

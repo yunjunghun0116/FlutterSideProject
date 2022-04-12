@@ -108,7 +108,7 @@ class GatheringCard extends StatelessWidget {
                           color: gathering.approvalList.length >=
                                   gathering.capacity
                               ? kRedColor
-                              : kBlueColor,
+                              : kMainColor,
                         ),
                       ),
                     ],

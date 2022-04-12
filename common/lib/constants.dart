@@ -14,8 +14,7 @@ const Color kPinkColor = Color(0xFFFF7878);
 const Color kGreenColor = Color(0xFF81C147);
 const Color kShimmerColor = Color(0x80979797);
 const Color kPurpleColor = Color(0xFFBA55D3);
-const Color kMainColor = Color(0xFFF4C418);
-const Color kSubColor = Color(0xFF13CBCB);
+const Color kMainColor = Color(0xFF0EFFBF);
 const Color kSplashBackgroundColor = Color(0xFFFAFAFA);
 
 const String kNaverServiceId = 'ncp:sms:kr:272033493278:common'; //sms
@@ -47,7 +46,7 @@ const TextStyle kDisabledTextStyle = TextStyle(
 
 const TextStyle kEnabledTextStyle = TextStyle(
   fontSize: 14,
-  color: kBlueColor,
+  color: kMainColor,
 );
 
 const TextStyle kCommunityTextStyle = TextStyle(
@@ -64,7 +63,7 @@ const UnderlineInputBorder kRedUnderlineBorder = UnderlineInputBorder(
 
 const UnderlineInputBorder kBlueUnderlineBorder = UnderlineInputBorder(
   borderSide: BorderSide(
-    color: kBlueColor,
+    color: kMainColor,
     width: 1.5,
   ),
 );
@@ -101,11 +100,6 @@ const List<Map<String, dynamic>> kCommunityCategoryList = [
     'title': '봉사정보게시판',
     'color': kGreenColor,
     'icon': Icons.volunteer_activism,
-  },
-  {
-    'title': '홍보게시판',
-    'color': kYellowColor,
-    'icon': Icons.dashboard_outlined,
   },
 ];
 
