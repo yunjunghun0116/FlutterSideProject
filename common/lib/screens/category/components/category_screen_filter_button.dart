@@ -24,7 +24,7 @@ class CategoryScreenFilterButton extends StatelessWidget {
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         decoration: BoxDecoration(
-          color: currentIndex == buttonIndex ? kBlueColor:null,
+          color: currentIndex == buttonIndex ? kMainColor:null,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(

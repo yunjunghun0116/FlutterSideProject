@@ -64,75 +64,85 @@ class ProfileScreenEditScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: Column(
               children: [
-                ProfileScreenEditScreenImageArea(
-                  imageUrl: UserController.to.user!.imageUrl,
-                  updateImage: () async {
-                    await updateImage().then((value) {
-                      if (value) getDialog(title: '이미지 변경 완료',fontSize: 16);
-                    });
-                  },
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '닉네임',
-                  text: UserController.to.user!.name,
-                  onPressed: () => Get.to(() => const EditNameScreen()),
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '직업',
-                  text: UserController.to.user!.job,
-                  onPressed: () => Get.to(() => EditJobScreen()),
-                ),
-                ProfileScreenEditScreenInfoTagCard(
-                  title: '소개 해시태그',
-                  tagList: UserController.to.user!.userTagList,
-                  onPressed: () => Get.to(() => const EditTagScreen()),
-                ),
-                ProfileScreenEditScreenInfoCard(
-                  title: '카카오톡 링크',
-                  text: UserController.to.user!.kakaoLinkUrl,
-                  onPressed: () => Get.to(() => EditKakaoScreen()),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Expanded(
-                      flex: 7,
-                      child: Text(
-                        '카카오톡 링크 입력시 유저가 \n카카오톡을 통해 연락할수 있어요!!',
-                        style: TextStyle(
-                          color: kGreyColor,
-                        ),
+                Expanded(
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      ProfileScreenEditScreenImageArea(
+                        imageUrl: UserController.to.user!.imageUrl,
+                        updateImage: () async {
+                          await updateImage().then((value) {
+                            if (value) {
+                              getDialog(title: '이미지 변경 완료', fontSize: 16);
+                            }
+                          });
+                        },
                       ),
-                    ),
-                  ],
+                      ProfileScreenEditScreenInfoCard(
+                        title: '닉네임',
+                        text: UserController.to.user!.name,
+                        onPressed: () => Get.to(() => const EditNameScreen()),
+                      ),
+                      ProfileScreenEditScreenInfoCard(
+                        title: '직업',
+                        text: UserController.to.user!.job,
+                        onPressed: () => Get.to(() => EditJobScreen()),
+                      ),
+                      ProfileScreenEditScreenInfoTagCard(
+                        title: '소개 해시태그',
+                        tagList: UserController.to.user!.userTagList,
+                        onPressed: () => Get.to(() => const EditTagScreen()),
+                      ),
+                      ProfileScreenEditScreenInfoCard(
+                        title: '카카오톡 링크',
+                        text: UserController.to.user!.kakaoLinkUrl,
+                        onPressed: () => Get.to(() => EditKakaoScreen()),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Container(),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Expanded(
+                            flex: 7,
+                            child: Text(
+                              '카카오톡 링크 입력시 유저가 \n카카오톡을 통해 연락할수 있어요!!',
+                              style: TextStyle(
+                                color: kGreyColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () async {
-                    await checkDialog(
-                      title: '로그아웃 하시겠습니까?',
-                      sureText: '로그아웃',
-                      onPressed: () async {
-                        await LocalController.to.clearSharedPreferences();
-                        Get.offAll(() => const StartScreen());
-                      },
-                    );
-                  },
-                  child: const Text(
-                    '로그아웃',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: kGreyColor,
+                SafeArea(
+                  child: GestureDetector(
+                    onTap: () async {
+                      await checkDialog(
+                        title: '로그아웃 하시겠습니까?',
+                        sureText: '로그아웃',
+                        onPressed: () async {
+                          await LocalController.to.clearSharedPreferences();
+                          Get.offAll(() => const StartScreen());
+                        },
+                      );
+                    },
+                    child: const Text(
+                      '로그아웃',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: kGreyColor,
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 50),
+                
               ],
             ),
           );

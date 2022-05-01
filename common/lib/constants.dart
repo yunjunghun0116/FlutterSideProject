@@ -14,8 +14,10 @@ const Color kPinkColor = Color(0xFFFF7878);
 const Color kGreenColor = Color(0xFF81C147);
 const Color kShimmerColor = Color(0x80979797);
 const Color kPurpleColor = Color(0xFFBA55D3);
-const Color kMainColor = Color(0xFF0EFFBF);
+const Color kMainColor = Color(0xFF07BBBB);
 const Color kSplashBackgroundColor = Color(0xFFFAFAFA);
+
+const Color kWhiteColorE7 = Color(0xFFE7E8EA);
 
 const String kNaverServiceId = 'ncp:sms:kr:272033493278:common'; //sms
 const String kNaverAccessKey = 'zjOM8XgBcfQ2NdUBwEVM';
@@ -61,7 +63,7 @@ const UnderlineInputBorder kRedUnderlineBorder = UnderlineInputBorder(
   ),
 );
 
-const UnderlineInputBorder kBlueUnderlineBorder = UnderlineInputBorder(
+const UnderlineInputBorder kEnableUnderlineBorder = UnderlineInputBorder(
   borderSide: BorderSide(
     color: kMainColor,
     width: 1.5,
@@ -83,22 +85,22 @@ OutlineInputBorder kFocusOutlinedBorder = OutlineInputBorder(
 const List<Map<String, dynamic>> kCommunityCategoryList = [
   {
     'title': '자유게시판',
-    'color': kBlueColor,
-    'icon': Icons.coffee_outlined,
+    'color': kMainColor,
+    'icon': Icons.widgets,
   },
   {
     'title': '질문게시판',
-    'color': kPinkColor,
-    'icon': Icons.chat_outlined,
+    'color': kGreenColor,
+    'icon': Icons.question_mark,
   },
   {
     'title': '운동게시판',
-    'color': kPurpleColor,
-    'icon': Icons.fitness_center_outlined,
+    'color': kBlueColor,
+    'icon': Icons.sports_tennis,
   },
   {
     'title': '봉사정보게시판',
-    'color': kGreenColor,
+    'color': kYellowColor,
     'icon': Icons.volunteer_activism,
   },
 ];
@@ -131,15 +133,18 @@ final List<String> kAdvertisementImageList = [
 ];
 final List<Map<String, dynamic>> kCategoryList = [
   {'title': '여행', 'icon': Icons.flight},
-  {'title': '운동', 'icon': Icons.directions_bike},
-  {'title': '공부', 'icon': Icons.edit},
-  {'title': '맛집', 'icon': Icons.restaurant_menu},
-  {'title': '봉사', 'icon': Icons.volunteer_activism},
-  {'title': '게임', 'icon': Icons.computer},
-  {'title': '헬스', 'icon': Icons.fitness_center},
-  {'title': '카페', 'icon': Icons.local_cafe},
-  {'title': '등산', 'icon': Icons.hiking},
-  {'title': '기타', 'icon': Icons.grid_on},
+  {'title': '운동', 'icon': Icons.sports_tennis},
+  {'title': '사교ㆍ인맥', 'icon': Icons.local_cafe},
+  {'title': '스터디', 'icon': Icons.edit},
+  {'title': '맛집ㆍ카페', 'icon': Icons.restaurant_menu},
+  {'title': '요리ㆍ제조', 'icon': Icons.cookie},
+  {'title': '게임', 'icon': Icons.sports_esports},
+  {'title': '사진', 'icon': Icons.camera_alt},
+  {'title': '책ㆍ글쓰기', 'icon': Icons.menu_book},
+  {'title': '봉사활동', 'icon': Icons.volunteer_activism},
+  {'title': '캠핑', 'icon': Icons.outdoor_grill},
+  {'title': '영화ㆍ드라마', 'icon': Icons.movie_creation},
+  {'title': '기타', 'icon': Icons.widgets},
 ];
 
 final List<Map<String, dynamic>> kCityList = [

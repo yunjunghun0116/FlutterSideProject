@@ -28,11 +28,14 @@ class GatheringCard extends StatelessWidget {
             ));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 6),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: const BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: kLightGreyColor),
+            bottom: BorderSide(
+              color: kLightGreyColor,
+              width: 2,
+            ),
           ),
         ),
         child: Row(

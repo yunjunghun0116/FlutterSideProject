@@ -59,7 +59,7 @@ class UploadScreenGuestArea extends StatelessWidget {
               onChanged(value);
             },
             inactiveColor: kGreyColor,
-            activeColor: kYellowColor,
+            activeColor: kMainColor,
           ),
         ),
       ],

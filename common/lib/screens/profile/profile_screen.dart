@@ -24,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: kWhiteColor,
         foregroundColor: kGreyColor,
@@ -40,9 +41,7 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           user.kakaoLinkUrl != ''
               ? GestureDetector(
-                  onTap: () {
-                    launch(user.kakaoLinkUrl);
-                  },
+                  onTap: () => launchUrl(Uri.parse(user.kakaoLinkUrl)),
                   child: SizedBox(
                     width: 20,
                     height: 20,
@@ -109,57 +108,28 @@ class ProfileScreen extends StatelessWidget {
           ),
           const Divider(),
           ProfileScreenGatheringArea(
-            title: '호스트로 주최한 모임',
-            gatheringList: user.openGatheringList,
+            status: '주최',
+            userId: user.id,
             onPressed: () => Get.to(
               () => GatheringScreen(
-                title: '호스트로 주최한 모임',
-                gatheringList: user.openGatheringList,
+                title: '주최한 하루모임',
+                status: '주최',
+                userId: user.id,
               ),
             ),
           ),
-          user.openGatheringList.isEmpty
-              ? Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 100,
-                      child: const Text(
-                        '주최한 모임이 없습니다',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: kGreyColor,
-                        ),
-                      ),
-                    ),
-                    const Divider(),
-                  ],
-                )
-              : Container(),
+
           ProfileScreenGatheringArea(
-            title: '게스트로 참여한 모임',
-            gatheringList: user.applyGatheringList,
+            status: '참여',
+            userId: user.id,
             onPressed: () => Get.to(
               () => GatheringScreen(
                 title: '게스트로 참여한 모임',
-                gatheringList: user.applyGatheringList,
+                status: '참여',
+                userId: user.id,
               ),
             ),
           ),
-          user.applyGatheringList.isEmpty
-              ? Container(
-                  alignment: Alignment.center,
-                  height: 100,
-                  child: const Text(
-                    '참여한 모임이 없습니다',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: kGreyColor,
-                    ),
-                  ),
-                )
-              : Container(),
         ],
       ),
     );

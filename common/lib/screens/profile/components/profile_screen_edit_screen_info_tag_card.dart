@@ -15,42 +15,43 @@ class ProfileScreenEditScreenInfoTagCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
+    return GestureDetector(
+      onTap: ()=> onPressed(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-        ),
-        Expanded(
-          flex: 7,
-          child: GestureDetector(
-            onTap: () {
-              onPressed();
-            },
+          Expanded(
+            flex: 7,
             child: Container(
-                padding: const EdgeInsets.only(bottom: 5),
-                margin: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: kGreyColor,
-                    ),
+              margin: const EdgeInsets.only(left: 10,right: 10,bottom: 5),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: const BoxDecoration(
+                color: kSplashBackgroundColor,
+                border: Border(
+                  bottom: BorderSide(
+                    color: kGreyColor,
                   ),
                 ),
-                child: GatheringCardTag(
-                  tagList: tagList,
-                )),
-          ),
-        )
-      ],
+              ),
+              child: GatheringCardTag(
+                tagList: tagList,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

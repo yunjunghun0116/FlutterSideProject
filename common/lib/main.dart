@@ -22,19 +22,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(LocalController());
-    Get.put(UserController());
-    Get.put(GatheringController());
-    Get.put(PostController());
-    Get.put(AnnounceController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Common',
       theme: ThemeData(
-        primaryColor: kGreyColor,
-        focusColor: kGreyColor,
+        primaryColor: kMainColor,
+        focusColor: kMainColor,
       ),
       home: const SplashScreen(),
+      initialBinding: BindingsBuilder(() {
+        Get.put(LocalController());
+        Get.put(UserController());
+        Get.put(GatheringController());
+        Get.put(PostController());
+        Get.put(AnnounceController());
+      }),
     );
   }
 }

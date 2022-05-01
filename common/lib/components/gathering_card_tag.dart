@@ -9,13 +9,13 @@ class GatheringCardTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String tagString = '';
-    for (String s in tagList) {
-      tagString = tagString + '#$s ';
-    }
-    return Text(
-      tagString,
-      softWrap: true,
+    return Wrap(
+    children: tagList.map((e){
+      return Padding(
+        padding: const EdgeInsets.only(right: 5.0),
+        child: Text('#$e'),
+      );
+    }).toList(),
     );
   }
 }

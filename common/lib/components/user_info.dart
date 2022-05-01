@@ -21,7 +21,7 @@ class UserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           margin: const EdgeInsets.all(10),
@@ -47,6 +47,7 @@ class UserInfo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 10),
                 RichText(
                   text: TextSpan(
                     style: const TextStyle(color: kBlackColor, fontSize: 16),

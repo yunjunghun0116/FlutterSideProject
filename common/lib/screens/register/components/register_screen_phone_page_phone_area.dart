@@ -76,7 +76,7 @@ class RegisterScreenPhonePagePhoneArea extends StatelessWidget {
             hintText: 'ex)01012345678',
             counterText: '',
             focusedBorder:
-                phoneEnabled ? kBlueUnderlineBorder : kRedUnderlineBorder,
+                phoneEnabled ? kEnableUnderlineBorder : kRedUnderlineBorder,
             suffix: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

@@ -39,7 +39,7 @@ class ApplicantsScreenApplicantCard extends StatelessWidget {
               alignment: Alignment.center,
               height: 40,
               decoration: BoxDecoration(
-                color: kBlueColor,
+                color: kMainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Text(

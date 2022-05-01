@@ -72,7 +72,7 @@ class _EditNameScreenState extends State<EditNameScreen> {
                         vertical: 10, horizontal: 10),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: isChecked ? kGreyColor : kBlueColor,
+                        color: isChecked ? kGreyColor : kMainColor,
                         borderRadius: BorderRadius.circular(5)),
                     child: Text(
                       isChecked ? '확인 완료' : '중복 확인',

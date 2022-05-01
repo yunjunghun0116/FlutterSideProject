@@ -24,6 +24,7 @@ class EditScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 1,
       leading: GestureDetector(
         onTap: () {
+          FocusScope.of(context).unfocus();
           Get.back(result: false);
         },
         child: const Icon(Icons.arrow_back_ios),
@@ -46,7 +47,7 @@ class EditScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
               '변경',
               style: TextStyle(
                 fontSize: 16,
-                color: kBlueColor,
+                color: kMainColor,
                 fontWeight: FontWeight.bold
               ),
             ),

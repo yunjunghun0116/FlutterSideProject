@@ -36,7 +36,7 @@ class RegisterScreenNamePage extends StatelessWidget {
               hintText: '2~8글자 닉네임을 입력해주세요',
               counterText: '',
               focusedBorder:
-                  nameEnabled ? kBlueUnderlineBorder : kRedUnderlineBorder,
+                  nameEnabled ? kEnableUnderlineBorder : kRedUnderlineBorder,
               suffix: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

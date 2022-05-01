@@ -16,7 +16,7 @@ class DetailScreenUserBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).padding.bottom+10,
+        bottom: MediaQuery.of(context).padding.bottom + 10,
         left: 10,
         right: 10,
         top: 10,
@@ -35,16 +35,21 @@ class DetailScreenUserBottomBar extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             color: userStateIndex == 0
-                ? kBlueColor
+                ? kMainColor
                 : userStateIndex == 2
-                    ? kRedColor
+                    ? kSplashBackgroundColor
                     : kGreyColor,
             borderRadius: BorderRadius.circular(10),
+            border: userStateIndex == 2
+                ? Border.all(
+                    color: kRedColor,
+                  )
+                : null,
           ),
           child: Text(
             kDetailStateList[userStateIndex]['buttonText'],
-            style: const TextStyle(
-              color: kWhiteColor,
+            style: TextStyle(
+              color: userStateIndex == 2 ? kRedColor : kWhiteColor,
             ),
           ),
         ),

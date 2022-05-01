@@ -16,7 +16,7 @@ class UploadScreenHostMessageArea extends StatelessWidget {
     return Column(
       children: [
         const UploadScreenIconText(
-          title: '호스트의 한마디',
+          title: '하루모임 설명',
           icon: Icons.chat,
         ),
         const SizedBox(height: 10),
@@ -32,7 +32,7 @@ class UploadScreenHostMessageArea extends StatelessWidget {
             focusedBorder: kFocusOutlinedBorder,
             filled: true,
             hintStyle: const TextStyle(color: kGreyColor),
-            hintText: "호스트의 한마디를 입력해주세요!!",
+            hintText: "하루모임에 대해 설명해주세요!!",
             counterText: '',
             fillColor: kWhiteColor,
           ),

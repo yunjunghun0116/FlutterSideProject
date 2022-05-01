@@ -110,6 +110,10 @@ class _DetailScreenState extends State<DetailScreen> {
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasData) {
             int currentStateIndex = 0;
+            //0 : 일반
+            //1 : 신청중
+            //2 : 신청승인
+            //3 : 취소요청
             Gathering gathering = Gathering.fromJson({
               'id': snapshot.data!.id,
               ...snapshot.data!.data() as Map<String, dynamic>,

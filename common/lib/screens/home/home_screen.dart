@@ -36,19 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        '어떤 모임에\n참여해볼까요?',
+                        '어떤 하루모임에\n참여해볼까요?',
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      // Padding(
-                      //   padding: EdgeInsets.all(8.0),
-                      //   child: Icon(
-                      //     Icons.settings_outlined,
-                      //     color: kDarkGreyColor,
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
@@ -89,6 +82,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+          // const SizedBox(height: 10),
+          // const Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 20),
+          //   child: Text(
+          //     '인기 카테고리',
+          //     style: TextStyle(
+          //       fontWeight: FontWeight.w700,
+          //       fontSize: 15,
+          //       height: 4/3,
+          //       color: kMainColor,
+          //     ),
+          //   ),
+          // ),
           const HomeScreenCategoryArea(),
           StreamBuilder(
             stream: GatheringController.to.getGatheringListStream(),
@@ -99,9 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        '모든 모임',
+                        '최근 하루모임',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 15,

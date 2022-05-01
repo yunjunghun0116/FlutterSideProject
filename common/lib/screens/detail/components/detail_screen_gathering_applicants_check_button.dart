@@ -21,14 +21,14 @@ class DetailScreenGatheringApplicantsCheckButton extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           border: Border.all(
-            color: kBlueColor,
+            color: kMainColor,
           ),
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Text(
           '참가자 명단 확인',
           style: TextStyle(
-            color: kBlueColor,
+            color: kMainColor,
           ),
         ),
       ),

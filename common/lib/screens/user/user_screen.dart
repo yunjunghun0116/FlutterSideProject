@@ -9,7 +9,6 @@ import 'components/user_screen_content_card.dart';
 import 'components/user_screen_content_title.dart';
 import '../../components/gathering_screen.dart';
 import '../profile/profile_screen.dart';
-import '../../constants.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({
@@ -21,7 +20,6 @@ class UserScreen extends StatelessWidget {
     return Scaffold(
       body: GetBuilder<UserController>(
         builder: (_) {
-          UserController.to.currentUserUpdate(UserController.to.user!.id);
           return SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -33,25 +31,28 @@ class UserScreen extends StatelessWidget {
                     UserScreenContentCard(
                         text: '프로필 보기',
                         onPressed: () => Get.to(
-                              () => ProfileScreen(user: UserController.to.user!),
+                              () =>
+                                  ProfileScreen(user: UserController.to.user!),
                             )),
                     const UserScreenContentTitle(title: '모임 정보'),
                     UserScreenContentCard(
-                      text: '호스트로 주최한 모임',
+                      text: '내가 만든 하루모임',
                       onPressed: () => Get.to(
                         () => GatheringScreen(
-                            title: '호스트로 주최한 모임',
-                            gatheringList:
-                                UserController.to.user!.openGatheringList),
+                          title: '내가 만든 하루모임',
+                          status: '주최',
+                          userId: UserController.to.user!.id,
+                        ),
                       ),
                     ),
                     UserScreenContentCard(
-                      text: '게스트로 참여한 모임',
+                      text: '내가 참여한 하루모임',
                       onPressed: () => Get.to(
                         () => GatheringScreen(
-                            title: '게스트로 참여한 모임',
-                            gatheringList:
-                                UserController.to.user!.applyGatheringList),
+                          title: '내가 참여한 하루모임',
+                          status: '참여',
+                          userId: UserController.to.user!.id,
+                        ),
                       ),
                     ),
                     const UserScreenContentTitle(title: '어플 정보'),
@@ -62,8 +63,8 @@ class UserScreen extends StatelessWidget {
                     ),
                     UserScreenContentCard(
                       text: '자랑하기[이벤트]',
-                      onPressed: () =>
-                          launch('https://open.kakao.com/o/s2VO2O0d'),
+                      onPressed: () => launchUrl(
+                          Uri.parse('https://open.kakao.com/o/s2VO2O0d')),
                     ),
                     UserScreenContentCard(
                       text: '차단한 유저 목록',
@@ -72,7 +73,8 @@ class UserScreen extends StatelessWidget {
                     ),
                     UserScreenContentCard(
                       text: '1:1 문의',
-                      onPressed: () => launch('http://pf.kakao.com/_dHVrb'),
+                      onPressed: () =>
+                          launchUrl(Uri.parse('http://pf.kakao.com/_dHVrb')),
                     ),
                     UserScreenContentCard(
                       text: '이용약관',
@@ -81,7 +83,7 @@ class UserScreen extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        '버전 1.1.1',
+                        '버전 1.1.5',
                         style: TextStyle(
                           fontSize: 16,
                         ),

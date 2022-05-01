@@ -66,7 +66,6 @@ class CategoryScreen extends StatelessWidget {
             );
           }
           return Container();
-
         },
       ),
       floatingActionButton: FloatingActionButton(

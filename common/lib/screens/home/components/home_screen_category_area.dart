@@ -12,7 +12,7 @@ class HomeScreenCategoryArea extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
       crossAxisCount: 5,
-      children: kCategoryList.map((Map<String, dynamic> category) {
+      children: kCategoryList.sublist(0,10).map((Map<String, dynamic> category) {
         return InkWell(
           onTap: () {
             Get.to(() => CategoryScreen(category: category['title']));
@@ -25,11 +25,13 @@ class HomeScreenCategoryArea extends StatelessWidget {
                 Icon(
                   category['icon'],
                   color: kDarkGreyColor,
+                  size: 30,
                 ),
                 Text(
                   category['title'],
                   style: const TextStyle(
                     color: kDarkGreyColor,
+                    fontSize: 12,
                   ),
                 ),
               ],

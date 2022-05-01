@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 hintText: '휴대폰 번호를 입력해주세요',
                 counterText: '',
+                focusedBorder: kEnableUnderlineBorder,
               ),
             ),
             const SizedBox(
@@ -91,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 hintText: '비밀번호를 입력해주세요',
                 counterText: '',
+                focusedBorder: kEnableUnderlineBorder,
               ),
             ),
             const SizedBox(height: 30),
@@ -124,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: const Text(
                                   '확인',
                                   style: TextStyle(
-                                    color: kBlueColor,
+                                    color: kMainColor,
                                   ),
                                 ),
                               ),

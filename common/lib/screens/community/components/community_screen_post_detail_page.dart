@@ -265,6 +265,7 @@ class _CommunityScreenPostDetailPageState
                                   FocusScope.of(context).unfocus();
                                   setState(() {
                                     isRecomment = false;
+                                    selectedIndex = -1;
                                   });
                                 }
                                 return;
@@ -285,7 +286,7 @@ class _CommunityScreenPostDetailPageState
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: const Icon(
                                 Icons.send_outlined,
-                                color: kBlueColor,
+                                color: kMainColor,
                               ),
                             ),
                           ),

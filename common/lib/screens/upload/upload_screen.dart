@@ -1,6 +1,7 @@
 import 'package:common/controllers/gathering_controller.dart';
 import 'package:common/controllers/user_controller.dart';
 import 'package:common/models/gathering.dart';
+import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/upload_screen_bottom_bar.dart';
@@ -195,18 +196,27 @@ class _UploadScreenState extends State<UploadScreen> {
                               }
                             },
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 20),
                           UploadScreenHostMessageArea(
                             focusNode: _hostMessageFocusNode,
                             controller: _hostMessageController,
                           ),
+                          const SizedBox(height: 20),
                           UploadScreenGatheringTagArea(
                             focusNode: _gatheringTagFocusNode,
                             controller: _gatheringTagController,
                             tagEnterPressed: (String tag) {
-                              setState(() {
-                                _gatheringTagList.add(tag);
-                              });
+                              if (!_gatheringTagList.contains(tag)) {
+                                setState(() {
+                                  _gatheringTagList.add(tag);
+                                });
+                              } else {
+                                getDialog(title: '중복된 키워드입력은 불가능합니다!!');
+                              }
+                            },
+                            tagRemovePressed: (String s) {
+                              _gatheringTagList.remove(s);
+                              setState(() {});
                             },
                             tagList: _gatheringTagList,
                           ),
@@ -218,42 +228,18 @@ class _UploadScreenState extends State<UploadScreen> {
               ),
               SafeArea(
                 child: UploadScreenBottomBar(
-                  isUpdate: widget.gathering!=null,
+                  isUpdate: widget.gathering != null,
                   uploadPressed: () async {
                     if (_titleController.text.isEmpty ||
                         _location == '장소를 설정해주세요!!' ||
                         _locationDetailController.text.isEmpty ||
                         _hostMessageController.text.isEmpty) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            title: const Text('모두 입력해주세요!!'),
-                            actions: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.back();
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      '닫기',
-                                      style: TextStyle(
-                                        color: kBlueColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      await getDialog(title: '하루모임의 모든정보를 입력해주세요!!');
+                      return;
+                    }
+                    if (_gatheringTagList.length <= 2) {
+                      await getDialog(
+                          title: '사람들이 검색할 수 있도록\n3개이상의 키워드를 입력해주세요!!');
                       return;
                     }
                     Map<String, dynamic> body = {
@@ -264,6 +250,7 @@ class _UploadScreenState extends State<UploadScreen> {
                         'job': UserController.to.user!.job,
                         'userTagList': UserController.to.user!.userTagList,
                       },
+                      'hostId':UserController.to.user!.id,
                       'over': false,
                       'title': _titleController.text,
                       'category': widget.category,
@@ -277,16 +264,17 @@ class _UploadScreenState extends State<UploadScreen> {
                       'locationDetail': _locationDetailController.text,
                       'hostMessage': _hostMessageController.text,
                       'tagList': _gatheringTagList,
+                      'approvalUserIdList':[],
                       'applyList': [],
                       'approvalList': [],
                       'cancelList': [],
-                      'reportedList':[],
+                      'reportedList': [],
                       'timeStamp': DateTime.now().toString(),
                     };
                     if (widget.gathering != null) {
                       await GatheringController.to.updateGathering(
                           gatheringId: widget.gathering!.id, body: body);
-                      Get.offAll(()=>const MainScreen());
+                      Get.offAll(() => const MainScreen());
                       return;
                     }
                     await GatheringController.to
@@ -315,7 +303,7 @@ class _UploadScreenState extends State<UploadScreen> {
                                       child: const Text(
                                         '닫기',
                                         style: TextStyle(
-                                          color: kBlueColor,
+                                          color: kMainColor,
                                         ),
                                       ),
                                     ),

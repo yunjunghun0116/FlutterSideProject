@@ -71,7 +71,7 @@ class RegisterScreenPasswordPagePasswordArea extends StatelessWidget {
             hintText: '6~14자리 비밀번호를 입력해주세요',
             counterText: '',
             focusedBorder:
-                passwordEnabled ? kBlueUnderlineBorder : kRedUnderlineBorder,
+                passwordEnabled ? kEnableUnderlineBorder : kRedUnderlineBorder,
             suffix: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

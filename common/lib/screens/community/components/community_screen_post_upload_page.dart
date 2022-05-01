@@ -60,7 +60,7 @@ class CommunityScreenPostUploadPage extends StatelessWidget {
               margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.symmetric(horizontal: 15),
               decoration: BoxDecoration(
-                color: kBlueColor,
+                color: kMainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(

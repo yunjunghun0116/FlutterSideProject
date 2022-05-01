@@ -12,7 +12,7 @@ class TermsScreenUseTermsPage extends StatelessWidget {
         backgroundColor: kWhiteColor,
         foregroundColor: kBlackColor,
         elevation: 1,
-        title: const Text('Common 이용약관'),
+        title: const Text('커먼 이용약관'),
       ),
       body: const SingleChildScrollView(
         child: Padding(

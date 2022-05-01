@@ -16,6 +16,8 @@ class Gathering {
   final String location;
   final String locationDetail;
   final String hostMessage;
+  final String hostId;
+  final List approvalUserIdList;
   final List tagList;
   final List applyList;
   final List approvalList;
@@ -36,6 +38,8 @@ class Gathering {
     required this.location,
     required this.locationDetail,
     required this.hostMessage,
+    required this.hostId,
+    required this.approvalUserIdList,
     required this.tagList,
     required this.applyList,
     required this.approvalList,
@@ -57,6 +61,8 @@ class Gathering {
         location: json['location'],
         locationDetail: json['locationDetail'],
         hostMessage: json['hostMessage'],
+        hostId: json['hostId']??'',
+        approvalUserIdList: json['approvalUserIdList']??[],
         tagList: json['tagList']??[],
         applyList: json['applyList'].map((applicant) {
           return Applicant.fromJson(applicant);
@@ -85,6 +91,8 @@ class Gathering {
       'location': location,
       'locationDetail': locationDetail,
       'hostMessage': hostMessage,
+      'hostId':hostId,
+      'approvalUserIdList':approvalUserIdList,
       'tagList': tagList,
       'applyList': applyList.map((applicant) {
         return applicant.toMap();

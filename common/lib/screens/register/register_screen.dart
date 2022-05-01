@@ -237,7 +237,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: const Text(
                                 '확인',
                                 style: TextStyle(
-                                  color: kBlueColor,
+                                  color: kMainColor,
                                 ),
                               ),
                             ),

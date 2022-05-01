@@ -41,7 +41,7 @@ class RegisterScreenPhonePageCertificationArea extends StatelessWidget {
             hintText: '0000',
             counterText: '',
             focusedBorder: certificationEnabled
-                ? kBlueUnderlineBorder
+                ? kEnableUnderlineBorder
                 : kRedUnderlineBorder,
             suffix: Row(
               mainAxisSize: MainAxisSize.min,

@@ -10,10 +10,7 @@ class User {
   final String job;
   final String imageUrl;
   final String kakaoLinkUrl;
-  final List userTagList; //String
-  final List applyGatheringList; //Gathering
-  final List openGatheringList; //Gathering
-  final List likeGathering; //Gathering
+  final List userTagList; //Stringthering
   final List likeUser; //User
   final List blockUser;
 
@@ -28,9 +25,6 @@ class User {
     required this.imageUrl,
     required this.kakaoLinkUrl,
     required this.userTagList,
-    required this.applyGatheringList,
-    required this.openGatheringList,
-    required this.likeGathering,
     required this.likeUser,
     required this.blockUser,
   });
@@ -47,15 +41,6 @@ class User {
         kakaoLinkUrl: json['kakaoLinkUrl'],
         userTagList: json['userTagList']??[],
         blockUser: json['blockUser']??[],
-        applyGatheringList: json['applyGatheringList'].map((gathering) {
-          return Gathering.fromJson(gathering);
-        }).toList(),
-        openGatheringList: json['openGatheringList'].map((gathering) {
-          return Gathering.fromJson(gathering);
-        }).toList(),
-        likeGathering: json['likeGathering'].map((gathering) {
-          return Gathering.fromJson(gathering);
-        }).toList(),
         likeUser: json['likeUser'].map((user) {
           return User.fromJson(user);
         }).toList(),
@@ -73,15 +58,6 @@ class User {
       'userTagList': userTagList,
       'kakaoLinkUrl': kakaoLinkUrl,
       'blockUser': blockUser,
-      'applyGatheringList': applyGatheringList.map((gathering) {
-        return gathering.toMap();
-      }).toList(),
-      'openGatheringList': openGatheringList.map((gathering) {
-        return gathering.toMap();
-      }).toList(),
-      'likeGathering': likeGathering.map((gathering) {
-        return gathering.toMap();
-      }).toList(),
       'likeUser': likeUser.map((user) {
         return user.toMap();
       }).toList(),

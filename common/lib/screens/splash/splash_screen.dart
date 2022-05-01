@@ -42,6 +42,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(text: '함께하는 취미생활\n'),
+                    TextSpan(text: '다같이 하루모임\n'),
                     TextSpan(
                       text: 'Common\n',
                       style: TextStyle(

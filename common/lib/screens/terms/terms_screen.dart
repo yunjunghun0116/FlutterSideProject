@@ -21,7 +21,7 @@ class TermsScreen extends StatelessWidget {
       body: Column(
         children: [
           TermsScreenTextButton(
-            title: 'Common 이용약관',
+            title: '커먼 이용약관',
             onPressed: ()=>Get.to(()=>const TermsScreenUseTermsPage()),
           ),
           TermsScreenTextButton(
