@@ -237,9 +237,9 @@ class _UploadScreenState extends State<UploadScreen> {
                       await getDialog(title: '하루모임의 모든정보를 입력해주세요!!');
                       return;
                     }
-                    if (_gatheringTagList.length <= 2) {
+                    if (_gatheringTagList.length <= 1) {
                       await getDialog(
-                          title: '사람들이 검색할 수 있도록\n3개이상의 키워드를 입력해주세요!!');
+                          title: '사람들이 검색할 수 있도록\n2개이상의 키워드를 입력해주세요!!');
                       return;
                     }
                     Map<String, dynamic> body = {

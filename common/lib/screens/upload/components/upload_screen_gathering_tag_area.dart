@@ -32,11 +32,11 @@ class UploadScreenGatheringTagArea extends StatelessWidget {
         tagList.isNotEmpty
             ? Column(
                 children: [
-                  //GatheringCardTag(tagList: tagList),
                   Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children: tagList.map((e) {
                       return Container(
-                        margin: const EdgeInsets.only(right: 5),
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),

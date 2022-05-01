@@ -49,17 +49,27 @@ class LocalController extends GetxController {
   }
 
   Future<void> addSearchTerm(String term) async {
+    List<String> _recentlySearchTermList = await getSearchTerm();
+    if(_recentlySearchTermList.contains(term)){
+      _recentlySearchTermList.remove(term);
+    }
+    _recentlySearchTermList = [term,..._recentlySearchTermList];
     await _sharedPreferences!.setStringList(
       _searchTermKey,
-      [...await getSearchTerm(), term],
+      _recentlySearchTermList,
     );
   }
 
   Future<void> removeSearchTerm(String term) async {
-    (await getSearchTerm()).remove(term);
+    List<String> _recentlySearchTermList = await getSearchTerm();
+    _recentlySearchTermList.remove(term);
+    await _sharedPreferences!.setStringList(
+      _searchTermKey,
+      _recentlySearchTermList,
+    );
   }
 
-  Future<List> getSearchTerm() async {
+  Future<List<String>> getSearchTerm() async {
     if (_sharedPreferences == null) {
       await _setSharedPreferences();
     }

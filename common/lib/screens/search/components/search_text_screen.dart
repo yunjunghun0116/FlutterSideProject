@@ -6,14 +6,20 @@ import 'package:get/get.dart';
 
 import '../../../constants.dart';
 
-class SearchTextScreen extends StatelessWidget {
-  SearchTextScreen({Key? key}) : super(key: key);
+class SearchTextScreen extends StatefulWidget {
+  const SearchTextScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SearchTextScreen> createState() => _SearchTextScreenState();
+}
+
+class _SearchTextScreenState extends State<SearchTextScreen> {
   final TextEditingController _searchTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kSplashBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -53,7 +59,7 @@ class SearchTextScreen extends StatelessWidget {
                         ),
                         onSubmitted: (String s) {
                           LocalController.to.addSearchTerm(s);
-                          Get.to(() =>SearchResultScreen(searchTerm: s));
+                          Get.off(() => SearchResultScreen(searchTerm: s));
                         },
                       ),
                     ),
@@ -68,17 +74,53 @@ class SearchTextScreen extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
+              const SizedBox(height: 20),
               FutureBuilder(
                   future: LocalController.to.getSearchTerm(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       List _recentlySearchTerm = snapshot.data;
                       return Wrap(
-                        children: _recentlySearchTerm.map((e) {
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: _recentlySearchTerm.map((searchTerm) {
                           return Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: kWhiteColorE7,
+                            ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              children: [Text(e)],
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    LocalController.to
+                                        .addSearchTerm(searchTerm);
+                                    Get.off(() => SearchResultScreen(
+                                        searchTerm: searchTerm));
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(
+                                      searchTerm,
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    LocalController.to
+                                        .removeSearchTerm(searchTerm);
+                                    setState(() {});
+                                  },
+                                  child: const Icon(
+                                    Icons.cancel_outlined,
+                                    size: 20,
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         }).toList(),

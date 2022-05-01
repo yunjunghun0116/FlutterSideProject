@@ -16,6 +16,7 @@ class SearchResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kSplashBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -64,30 +65,47 @@ class SearchResultScreen extends StatelessWidget {
               height: 30,
               child: Divider(),
             ),
-            StreamBuilder(
-              stream: GatheringController.to
-                  .getSearchKeywordGatheringListStream(searchTerm),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: snapshot.data!.docs.map((e) {
-                      Gathering gathering = Gathering.fromJson({
-                        'id': e.id,
-                        ...e.data() as Map<String, dynamic>,
-                      });
-                      if (!gathering.reportedList
-                              .contains(UserController.to.user!.id) &&
-                          !UserController.to.user!.blockUser
-                              .contains(gathering.host.userId)) {
-                        return GatheringCard(gathering: gathering);
-                      }
-                      return Container();
-                    }).toList(),
-                  );
-                }
-                return Container();
-              },
+            Expanded(
+              child: StreamBuilder(
+                stream: GatheringController.to
+                    .getSearchKeywordGatheringListStream(searchTerm),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.docs.isEmpty) {
+                      return  Center(
+                        child: Container(
+                          padding: const EdgeInsets.only(bottom: 30),
+                          child: Text(
+                            '원하는 모임이 없을땐\n하루모임을 만들고\n사람들과 모임을 가져보세요!!!',
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: kGreyColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    }
+                    return Column(
+                      children: snapshot.data!.docs.map((e) {
+                        Gathering gathering = Gathering.fromJson({
+                          'id': e.id,
+                          ...e.data() as Map<String, dynamic>,
+                        });
+                        if (!gathering.reportedList
+                                .contains(UserController.to.user!.id) &&
+                            !UserController.to.user!.blockUser
+                                .contains(gathering.host.userId)) {
+                          return GatheringCard(gathering: gathering);
+                        }
+                        return Container();
+                      }).toList(),
+                    );
+                  }
+                  return Container();
+                },
+              ),
             ),
           ],
         ),

@@ -18,7 +18,7 @@ class SearchScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () => Get.to(() => SearchTextScreen()),
+                onTap: () => Get.to(() => const SearchTextScreen()),
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -55,8 +55,8 @@ class SearchScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Wrap(
-                runSpacing: 10,
-                spacing: 10,
+                runSpacing: 8,
+                spacing: 8  ,
                 children: kCategoryList.map((e) {
                   return Material(
                     child: Ink(
